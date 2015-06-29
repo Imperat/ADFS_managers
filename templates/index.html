@@ -17,11 +17,16 @@
             background-color: #C6CAE1;
         }
 
+        #carousel-136312{
+            width: 80%;
+            max-height: 600px;
+        }
+
         .carousel-inner > .item > img,
         .carousel-inner > .item > a > img {
             overflow: hidden;
-            width: 60%;
-            height: 600pt;
+            width: 100%;
+            max-height: 600px;
             margin: auto;
         }
     </style>
@@ -167,22 +172,6 @@
                 </div>
 
             </nav>
-            <div class="panel panel-primary">
-                <div class="panel-heading" id="headpan">
-                    <h3 class="panel-title">
-                        Матч-центр
-                    </h3>
-                </div>
-                <div class="panel-body" id="centere">
-                    <h4> Сегодняшние матчи</h4>
-                    Пыльник - Протон 5:5, второй тайм
-                    <h4> Завтра </h4>
-                    Пыльник - Прогресс -:-
-                </div>
-                <div class="panel-footer">
-                    Panel footer
-                </div>
-            </div>
             <div class="carousel slide" id="carousel-136312">
                 <ol class="carousel-indicators">
                     <li data-slide-to="0" data-target="#carousel-136312">
@@ -193,22 +182,24 @@
                     </li>
                 </ol>
                 <div class="carousel-inner">
+                {% for Elems in Elements|slice:"1" %}
                     <div class="item active">
-                        <img alt="Carousel Bootstrap Second" src="images/images.jpg">
+                        <img alt="Carousel Bootstrap Second" src="{{ Elems.image.url }}">
 
-                        <div class="carousel-caption">
+                        <div class="carousel-caption"
                             <h4>
-                                АДФС запускает онлайн-сервис!
+                                {{ Elems.description }}
                             </h4>
 
                             <p>
-                                Сообщайте о своих матчах в два клика, следите за статистикой в режиме реального времени!
+                            {{ Elems.content }}
                             </p>
                         </div>
                     </div>
+                {%  endfor %}
                     {% for Elems in Elements %}
                         <div class="item">
-                            <img alt="Carousel Bootstrap Third" src="{{ Elems.image.url }}">
+                            <img class="img-rounded" alt="Carousel Bootstrap Third" src="{{ Elems.image.url }}">
 
                             <div class="carousel-caption">
                                 <h4>
