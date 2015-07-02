@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> {{ article.title }}</h1>
+
+
+    <small> Опубликовано: {{ article.pubdate }}</small>
+    <br>
+    <small> {{ article.description }}</small>
+    <br>
+    <br>
+    <p> {{ article.content }}</p>
+
+
+    <br>
+
+
+
+    <div class="btn-group">
+
+        <button class="btn">
+            <script language="JavaScript"> document.write({{ number }} -2) </script>
+        </button>
+        <button class="btn">
+            <script language="JavaScript"> document.write({{ number }} -1) </script>
+        </button>
+        <button class="btn"><strong> {{ number }} </strong></button>
+        <button class="btn">
+            <script language="JavaScript"> document.write({{ number }} +1) </script>
+        </button>
+        <button class="btn">
+            <script language="JavaScript"> document.write({{ number }} +2) </script>
+        </button>
+    </div>
+
+{% endblock %}
