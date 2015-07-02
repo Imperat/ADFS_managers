@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'ADFS',
     'carusele',
+    'teamlogic',
 )
 
 MIDDLEWARE_CLASSES = (

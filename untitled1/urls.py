@@ -5,6 +5,7 @@ from django.conf import settings
 
 
 from carusele import urls as urls1
+from teamlogic import urls as urls2
 
 urlpatterns = patterns('',
     # Examples:
@@ -13,6 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^carusele/', include(urls1)),
+    url(r'logic/', include(urls2)),
 )
 
 from django.conf.urls.static import static
