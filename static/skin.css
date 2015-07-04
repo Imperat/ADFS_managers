@@ -80,3 +80,19 @@
     vertical-align: top;
     margin: 2px 5px 0 0;
 }
+
+        #avatar {
+            float: left;
+            height: 200px;
+            width: auto;
+        }
+
+        #info {
+            position: relative;
+            left: 5px;
+            height: 200px;
+        }
+
+        #headers {
+            background-color: aqua;
+        }
