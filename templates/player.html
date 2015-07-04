@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        img {
+            float:left;
+            height: auto;
+            width: 200px;
+        }
+        #info {
+            position: relative;
+            left: 5px;
+        }
+    </style>
+
+
+    <h1> {{ player.firstName }} {{ player.lastName }} </h1>
+
+    <img src="{{ player.image.url }}" class="img-polaroid" float="left">
+
+
+    <div id="info">
+    <strong>  Родился: </strong> {{ player.birth }}
+    <br>
+    <strong>  Профиль в вк: </strong> <a href="vk.com/"{{ player.vkLink }}> {{ player.vkLink }} </a>
+    <br>
+    <strong>  Игровая позиция:</strong>
+    {% if player.basePosition == 'G' %}
+        <span class="badge badge-warning">GK</span>  вратарь
+    {% endif %}
+
+    {% if player.basePosition == 'H' %}
+        <span class="badge badge-warning">DF</span> защитник
+    {% endif %}
+    {% if player.basePosition == 'F' %}
+        <span class="badge badge-warning">FRW</span> нападающий
+    {% endif %}
+    <br>
+
+    <br>
+    <table class="table table-striped">
+        <caption> <strong> История выступлений: </strong></caption>
+        <thead>
+        <tr>
+            <th>Команда</th>
+            <th>Дата подписания:</th>
+            <th>Дата отзаявки:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for foo in player.recofteam_set.all %}
+            <tr>
+                <td> {{ foo.team }} </td>
+                <td> {{ foo.beginDate }}</td>
+                <td> {{ foo.get_end_date }}</td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

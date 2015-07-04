@@ -6,18 +6,19 @@
 
     </style>
 
-    <h1> ФК "Пыльник" </h1>
+    <h1> {{ team.name }} </h1>
 
-    <img src="https://pp.vk.me/c9836/g25938022/a_fd9cd341.jpg" class="img-polaroid" float="left" id="avatar">
+    <img src="{{ team.image.url }}" class="img-polaroid" float="left" id="avatar">
 
 
     <div id="info">
-        <strong> Год основания: </strong> 2008
+        <strong> Год основания: </strong> {{ team.foundation }}
         <br>
-        <strong> Страница команды в вк: </strong> <a href="vk.com/"> lalka </a>
+        <strong> Страница команды в вк: </strong> <a href="vk.com/{{ team.vkLink }}"> {{ team.vkLink }} </a>
         <br>
         <strong> Капитан:</strong> Михаил Лелякин
         <br>
+        <strong> Домашнее поле: </strong> Стадион "Авангард"
         <br>
         <strong> Матчи: </strong>
         <div class="scores">

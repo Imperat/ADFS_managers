@@ -7,5 +7,5 @@ from . import views
 
 urlpatterns = [
     url(r'^player/(?P<id>[0-9]+)/$', views.player, name='player'),
-    url(r'^team/$', views.team, name='team'),
+    url(r'^team/(?P<id>[0-9]+)/$', views.team, name='team'),
 ]
