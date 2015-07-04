@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        img {
+            float: left;
+            height: 200px;
+            width: auto;
+        }
+
+        #info {
+            position: relative;
+            left: 5px;
+            height: 200px;
+        }
+
+        #headers {
+            background-color: aqua;
+        }
+    </style>
+
+    <h1> ФК "Пыльник" </h1>
+
+    <img src="https://pp.vk.me/c9836/g25938022/a_fd9cd341.jpg" class="img-polaroid" float="left">
+
+
+    <div id="info">
+        <strong> Год основания: </strong> 2008
+        <br>
+        <strong> Страница команды в вк: </strong> <a href="vk.com/"> lalka </a>
+        <br>
+        <strong> Капитан:</strong> Михаил Лелякин
+        <br>
+        <br>
+        <strong> Матчи: </strong>
+        <div class="scores">
+            <div class="score-block">
+                <a href="http://www.sports.ru/stat/football/693/match/1028671.html">
+                    <div class="score score-green">
+                    <span> 2 </span>
+                    <span> 1 </span>
+                    </div>
+                </a>
+
+                <div class="score-descr">
+                    <div class="commands">
+                        <i class="flag-s flag-1340" title="Чили" alt="Чили"></i>&nbsp;<a
+                            href="http://www.sports.ru/team-chile/">Пыльник</a>
+                        &nbsp;–&nbsp;
+                        <i class="flag-s flag-1357" title="Перу" alt="Перу"></i>&nbsp;<a
+                            href="http://www.sports.ru/tags/2793698/">Марсель</a>
+                    </div>
+                    30 июня 02:30 <a href="http://www.sports.ru/copa-america/">Кубок АДФС</a> <span
+                        class="sp">|</span>
+                    Завершен
+                </div>
+            </div>
+            <div class="score-block">
+                <a href="http://www.sports.ru/copa-america/team-chile-team-argentina/04-07-2015/">
+                    <div class="score score-gray">
+                        <span>–</span>
+                        <span>–</span>
+                    </div>
+                </a>
+
+                <div class="score-descr">
+                    <div class="commands">
+                        <i class="flag-s flag-1340" title="Чили" alt="Чили"></i>&nbsp;<a
+                            href="http://www.sports.ru/team-chile/">Пыльник</a>
+                        &nbsp;–&nbsp;
+                        <i class="flag-s flag-1332" title="Аргентина" alt="Аргентина"></i>&nbsp;<a
+                            href="http://www.sports.ru/team-argentina/">Оникс</a>
+                    </div>
+                    04 июля 23:00 <a href="http://www.sports.ru/copa-america/">Первая лига АДФС</a> <span
+                        class="sp">|</span>
+                    Не начался
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#home" data-toggle="tab">Актуальный состав</a></li>
+        <li><a href="#profile" data-toggle="tab">Архив трансферов</a></li>
+        <li><a href="#messages" data-toggle="tab">Выступления в турнирах</a></li>
+        <li><a href="#settings" data-toggle="tab">Настройки</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">...</div>
+        <div class="tab-pane" id="profile">
+            <table class="table table-striped">
+                <caption><strong> Состав команды: </strong></caption>
+                <thead>
+                <tr>
+                    <th>Игрок</th>
+                    <th>№</th>
+                    <th>Амплуа</th>
+                    <th>Дата подписания:</th>
+                    <th>Дата отзаявки:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td> Михаил Лелякин</td>
+                    <td> 13</td>
+                    <td> защитник</td>
+                    <td> всегда был</td>
+                    <td> Да-да</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane" id="messages">...</div>
+    <div class="tab-pane" id="settings">...</div>
+
+    <script>
+        $(function () {
+            $('#myTab a:last').tab('show')
+        })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            e.target // activated tab
+            e.relatedTarget // previous tab
+        })
+
+
+    </script>
+
+
+
+{% endblock %}

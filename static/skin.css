@@ -1,0 +1,82 @@
+
+.score-block {
+    height: 30px;
+    margin: 10px 0 0;
+}
+
+.scores .score-block:first-child {
+    /*margin:0;*/
+    margin-top: 17px;
+}
+
+.score-block .score {
+    float: left;
+    border-radius: 3px;
+    width: 110px;
+    height: 30px;
+}
+
+.score-block .score > SPAN {
+    display: block;
+    width: 54px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 21px;
+    font-weight: bold;
+    position: relative;
+    float: left;
+    text-align: center;
+    color: #fff;
+}
+
+.score-block .score > SPAN:first-child {
+    border-right: 2px solid #323232;
+}
+
+.score-block .score > SPAN > I {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 10px;
+    color: #9c9c9c;
+    display: block;
+    width: 54px;
+    left: 0;
+    top: -12px;
+    height: 10px;
+    line-height: 10px;
+}
+
+.score-red {
+    background: #9b0023;
+}
+
+.score-green {
+    background: #006e1e;
+}
+
+.score-orange {
+    background: #d26e00;
+}
+
+.score-gray {
+    background: #505050;
+}
+
+.score-block .score-descr {
+    position: relative;
+    line-height: 15px;
+    left: 10px;
+}
+
+.tag-main-block .score-block .score-descr {
+    color: #9c9c9c;
+}
+
+.tag-main-block .score-block .score-descr .commands {
+    color: #fff;
+}
+
+.score-block .score-descr .commands .flag-s {
+    vertical-align: top;
+    margin: 2px 5px 0 0;
+}
