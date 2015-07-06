@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <ul class="breadcrumb">
+        <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+        <li><a href="{{ league.get_absolute_url }}"> {{ league }} </a> <span class="divider"></span></li>
+        <li><a href="#"> Бомбардиры  </a> <span class="divider"></span></li>
+    </ul>
+
+
+    <h2> Таблица бомбардиров  </h2>
+        <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <div class="tab-pane" id="profile">
+            <br>
+             <table class="table" id="tournament">
+                 <thead>
+                 <tr>
+                     <th id="teamname">Игрок</th>
+                     <th id="teamname">Команда</th>
+                     <th id="pointblock">Голы</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+    {% for bombardier in all_bombardiers %}
+        <tr>
+            <th><a href="{{ bombardier.0.get_absolute_url }}"> {{ bombardier.0 }} </a></th>
+            <th><a href="{{ bombardier.2.get_absolute_url }}"> {{ bombardier.2 }} </a> </th>
+            <th> {{ bombardier.1 }}</th>
+        <tr>
+    {% endfor %}
+             </tbody>
+             </table>
+            </div>
+        </div>
+        </div>
+
+
+
+{% endblock %}

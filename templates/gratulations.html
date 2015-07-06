@@ -1,0 +1,12 @@
+<div id="cont">
+<h4> Вы зашли как: </h4>
+    {{ user.username }}
+<br>
+<button type="submit" class="btn" id="exit">Выйти</button>
+</div>
+<script>
+    $( "#exit" ).one( "click", function() {
+        $( "#cont").load('/login/');
+});
+
+</script>

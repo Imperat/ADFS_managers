@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        img {
+            float:left;
+            height: auto;
+            width: 200px;
+        }
+        #info {
+            position: relative;
+            left: 5px;
+        }
+    </style>
+
+        <ul class="breadcrumb">
+        <li><a href="#"> Сезон 2015 </a> <span class="divider"></span></li>
+        <li><a href="#"> Первая лига </a> <span class="divider"></span></li>
+    </ul>
+
+    <h1> <i class="icon-search"></i> {{ league.name }}  </h1>
+
+
+    <img src="{{ league.image.url }}" class="img-polaroid" float="left">
+
+
+    <div id="info">
+        <strong> Cезон: </strong> {{ league.get_season }}
+        <br>
+        <strong> Сроки: </strong> {{ league.begin_date }}  - {{ league.end_date }}
+        <br>
+        <strong> Число участников: </strong> 10
+        <br>
+        <br>
+        <strong> <a href="calend/"> Календарь </a> </strong>
+        <br>
+        <strong> <a href="bomb/"> Бомбардиры </a> </strong>
+    </div>
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#home" data-toggle="tab">Турнирное положение</a></li>
+        <li><a href="#messages" data-toggle="tab">Календарь</a></li>
+        <li><a href="#settings" data-toggle="tab">Статистика</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <div class="tab-pane" id="profile">
+            <br>
+             <table class="table" id="tournament">
+                 <thead>
+                 <tr>
+                     <th id="teamname">Команда</th>
+                     <th id="pointblock">И</th>
+                     <th id="pointblock">В</th>
+                     <th id="pointblock">Н</th>
+                     <th id="pointblock">П</th>
+                     <th id="pointblock">МЗ</th>
+                     <th id="pointblock">МП</th>
+                     <th id="pointblock">Р</th>
+                     <th id="pointblock">О</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                {% for foo in league.teams_iter %}
+                    <tr id="lineofteam">
+                    <td><a href="{{ foo.team.get_absolute_url}}">{{ foo.team }}</a></td>
+                    <td id="pointblock">{{ foo.get_matches }}</td>
+                    <td id="pointblock">{{ foo.match_v }}</td>
+                    <td id="pointblock">{{ foo.match_n }}</td>
+                    <td id="pointblock">{{ foo.match_p }}</td>
+                    <td id="pointblock">{{ foo.goal_s }}</td>
+                    <td id="pointblock">{{ foo.goal_p }}</td>
+                    <td id="pointblock">{{ foo.get_goal_difference }}</td>
+                    <td id="pointblock">{{ foo.get_points }}</td>
+                    </tr>
+                {% endfor %}
+                 </tbody>
+             </table>
+            </div>
+
+        </div>
+
+        <div class="tab-pane" id="messages"> Сообщалики</div>
+        <div class="tab-pane" id="settings">
+
+        <label class="radio-inline">
+ <input type="radio" name="inlineRadioOptions" id="radio1" value="option1"> Список заигранных игроков
+</label>
+<label class="radio-inline">
+ <input type="radio" name="inlineRadioOptions" id="radio2" value="option2"> Состав команды в сезоне:
+</label>
+
+            <table class="table table-striped">
+                <caption><strong> Состав команды: </strong></caption>
+                <thead>
+                <tr>
+                    <th>Игрок</th>
+                    <th>№</th>
+                    <th>Амплуа</th>
+                    <th>Дата подписания:</th>
+                    <th>Дата отзаявки:</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for foo in team.recofteam_set.all %}
+                    <tr>
+                        <td><a href="{{ foo.player.get_absolute_url }}">{{ foo.player }}</a></td>
+                        <td> {{ foo.number }}</td>
+                        <td>
+                            {% if foo.player.basePosition == 'G' %}
+                                <span class="badge badge-warning">GK</span>  вратарь
+                            {% endif %}
+
+                            {% if foo.player.basePosition == 'H' %}
+                                <span class="badge badge-warning">DF</span> защитник
+                            {% endif %}
+                            {% if foo.player.basePosition == 'F' %}
+                                <span class="badge badge-warning">FRW</span> нападающий
+                            {% endif %}
+                        </td>
+                        <td> {{ foo.beginDate }}</td>
+                        <td> {{ foo.get_end_date }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table></div>
+
+    </div>
+
+    <script>
+        $(function () {
+            $('#myTab a:last').tab('show')
+        })
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            e.target // activated tab
+            e.relatedTarget // previous tab
+        })
+    </script>
+
+{% endblock %}
+
+{% block autoris %}
+    {% if user.is_authenticated %}
+        {% include 'gratulations.html' %}
+    {%  else %}
+        {% include 'autorisation.html' %}
+    {% endif %}
+{% endblock %}

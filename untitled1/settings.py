@@ -36,6 +36,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +49,7 @@ INSTALLED_APPS = (
     'ADFS',
     'carusele',
     'teamlogic',
+    'bootstrapform',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +65,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'untitled1.urls'
 
 WSGI_APPLICATION = 'untitled1.wsgi.application'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'untitled1.dashboard.CustomIndexDashboard'
 
 
 # Database

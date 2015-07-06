@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        img {
+            float:left;
+            height: auto;
+            width: 200px;
+        }
+        #info {
+            position: relative;
+            left: 5px;
+        }
+    </style>
+
+
+    <h1> <i class="icon-search"></i> {{ stadium.name }}  </h1>
+
+
+    <img src="{{ stadium.image.url }}" class="img-polaroid" float="left">
+
+
+    <div id="info">
+    <strong>  Город: </strong> {{ stadium.city }}
+    <br>
+    <strong>  Аккредитован администрацией: </strong> <a href="vk.com/"> да </a>
+    <br>
+    <strong>  Покрытие:</strong> травяное
+    <br>
+    <strong> Оценка: </strong> 4
+    <br>
+    <strong> Домашние команды: </strong> Пыльник, Оникс, Типсар
+    </div>
+    <h3> Описание </h3>
+    {{ stadium.description }}
+
+{% endblock %}

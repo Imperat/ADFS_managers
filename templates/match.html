@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        img {
+            float:left;
+            height: auto;
+            width: 200px;
+        }
+        #info {
+            position: relative;
+            left: 5px;
+        }
+    </style>
+
+<div class="two-commands">
+    <div class="command floatL">
+        <div class="img-box">
+            <img src="{{ match.home.image.url }}" class = 'avatar1'>
+        </div>
+        <div class="about-command">
+            <h2 class="titleH2"><a href="{{ match.home.get_absolute_url }}" >{{ match.home }}</a>
+            </h2>
+
+            <div class="town">{{ match.home.city }}</div>
+            <br>
+            <div class="form-now">
+                Текущая форма<br>
+                <span class="matches-img"></span>
+            </div>
+            <div class="js-first-team">
+            </div>
+            У хозяев забивали: <br>
+                    {% for i in match.home_goals.all %}
+                <a href='{{ i.autor.get_absolute_url }}'>{{ i.autor }}</a> {{ i.min }} <br>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="command floatR">
+        <div class="img-box">
+            <img src="{{ match.away.image.url }}" class = 'avatar2'>
+        </div>
+        <div class="about-command">
+            <h2 class="titleH2"><a href="{{ match.away.get_absolute_url }}">{{ match.away }}</a></h2>
+
+            <div class="town">{{ match.away.city }}</div>
+            <div class="form-now">
+                <br>
+                Текущая форма<br>
+                <span class="matches-img"></span>
+            </div>
+            <div class="js-second-team">
+            </div>
+        </div>
+        У гостей забивали: <br>
+                    {% for i in match.away_goals.all %}
+                <a href='{{ i.autor.get_absolute_url }}'>{{ i.autor }}</a> {{ i.min }} <br>
+        {% endfor %}
+    </div>
+    <div class="game-info">
+        <div class="score js-match-score">
+        {% if match.is_starts == 1%}
+                {{ match.home_goal }}: {{ match.away_goal }}
+            {% else %}
+                —:—
+        {% endif %}
+        </div>
+        <br>
+        <div class="mB20 js-match-status">
+            {% if match.is_starts == 0 %} Начнётся через {{ match.ago }} мин. {% endif %}
+            {% if match.is_starts == -1 %} Не начался {% endif %}
+            {% if match.is_starts == 1 %} Матч окончен {% endif %}
+        </div>
+        <p><a href="{{  match.league.get_absolute_url }}"> {{ match.league }}</a></p>
+
+        <p>{{  match.date_time }}</p>
+
+        <p>
+            <span class="nowrap"><a href="{{ match.place.get_absolute_url }}">{{ match.place }}</a></span>
+
+        </p>
+
+        <p>Главный судья <a href="http://www.sports.ru/tags/108545093/">Виталий Севостьяник</a></p>
+
+        <p>Помощники судьи <a href="http://www.sports.ru/tags/103615162/">Виктор Фомин</a>, <a
+                href="http://www.sports.ru/tags/103633395/">Александр Вашкевич</a></p>
+
+        <p>Запасной судья <a href="http://www.sports.ru/tags/150377558/">Павел Коронец</a></p>
+    </div>
+</div>
+
+{% endblock %}

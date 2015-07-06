@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+   Спасибо за заявку! Мы свяжемся с Вами в ближайшее время!
+
+    <h3> Ваша заявка: </h3>
+    <strong> Представитель:</strong> {{ attentions.name }} <br>
+    <strong> Команда: </strong> {{ attentions.team }} <br>
+    <br>
+
+    <h3> Вы заявились на следующие турниры: </h3>
+    {% if attentions.first_league %}
+            <li> Первая лига АДФС 2016 </li>
+    {% endif %}
+
+    {% if attentions.pokal %}
+            <li> Кубок АДФС 2016 </li>
+    {% endif %}
+
+    {% if attentions.winter_pokal %}
+            <li> Зимний кубок АДФС 2015/16 </li>
+    {% endif %}
+
+{% endblock %}

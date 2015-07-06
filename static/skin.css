@@ -81,18 +81,104 @@
     margin: 2px 5px 0 0;
 }
 
-        #avatar {
-            float: left;
-            height: 200px;
-            width: auto;
-        }
+#avatar {
+    float: left;
+    height: 200px;
+    width: auto;
 
-        #info {
-            position: relative;
-            left: 5px;
-            height: 200px;
-        }
+}
 
-        #headers {
-            background-color: aqua;
-        }
+#info {
+    position: relative;
+    left: 5px;
+    height: 200px;
+}
+
+#headers {
+    background-color: aqua;
+}
+
+.badge-warning {
+    background-color: gold;
+}
+
+.two-commands {
+    width: 100%;
+    margin: 0px 0px 20px;
+    overflow: hidden;
+    line-height: 15px;
+    height: 300px;
+}
+
+.floatL, .floatR {
+    width: 40%;
+    position: absolute;
+}
+
+.game-info {
+    width: 20%;
+    left: 40%;
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+}
+
+.score {
+    font: bold 26px/29px Arial;
+    line-height: 15px;
+}
+
+.floatR {
+    left: 60%;
+    float: right !important;
+    text-align: right;
+}
+
+.avatar1 {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+
+.avatar2 {
+    display: block;
+    float: right;
+    margin-left: 5px;
+}
+
+.form-now {
+    font-size: 11px;
+}
+
+#tournament {
+    position: relative;
+    width: 80%;
+    left: 10%;
+}
+
+#lineofteam {
+    height: 13px;
+}
+
+#pointblock {
+    max-width: 16px;
+    text-align: center;
+}
+
+#lineofteam:hover {
+    background-color: lightblue;
+}
+
+#teamname {
+    width: 50%;
+}
+
+#person {
+    width: 50%;
+}
+
+#person > input {
+    width: 100%;
+    class: form-control;
+
+}

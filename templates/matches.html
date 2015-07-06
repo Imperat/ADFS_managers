@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2> Все матчи команды {{ team }}: </h2>
+
+{% for foo2 in all_team_matches %}
+    {% if foo2.register %}
+            {% if foo2.is_home_winner %} <strong>{{ foo2.home }}</strong> - {{ foo2.away }} {% endif %}
+            {% if foo2.is_away_winner %} {{ foo2.home }} - <strong>{{ foo2.away }}</strong> {% endif %}
+            {% if foo2.is_drawn %} {{ foo2.home }} - {{ foo2.away }} {% endif %}
+    {% else %}
+              {{ foo2.home }} - {{ foo2.away }}
+    {% endif %}
+
+    {% if foo2.register %}
+                <a href='{{ foo2.get_absolute_url }}'> {{ foo2.home_goal }}:{{ foo2.away_goal }} </a><br>
+    {% else %}
+                <a href='{{ foo2.get_absolute_url }}'> -:- </a>
+    {% endif %}
+    <br>
+    <small> {{ foo2.league }}, {{ foo2.tour }} Тур, {{ foo2.date_time }} </small>
+    <br>
+    <br>
+
+
+{% endfor %}
+
+{% endblock %}

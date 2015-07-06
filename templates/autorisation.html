@@ -1,0 +1,15 @@
+    <div class="rasim">
+        <h4> Авторизация: </h4>
+            <form class="form-horizontal" method="post" action="/login/">
+                {% csrf_token %}
+                {% load bootstrap %}
+                {{ form.login | bootstrap }}
+                {{ form.password | bootstrap }}
+
+
+                <label class="checkbox">
+                    <input type="checkbox"> Запомнить меня
+                </label>
+                <button type="submit" class="btn">Войти</button>
+            </form>
+    </div>

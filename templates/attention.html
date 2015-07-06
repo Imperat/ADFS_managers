@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2> Регистрация заявки на участие в первой лиге АДФС </h2>
+    <form role="form" method="post">
+        {% csrf_token %}
+            {% load bootstrap %}
+        <label> Ответьте, пожалуйста, на несколько простых вопросов и ваша заявка обязательно будет рассмотрена
+            администрацией! </label>
+
+        <div class="form-group" id="person">
+
+                <div class="form-group">
+
+                    {{ form.name | bootstrap }}
+
+                    {{ form.vkLink | bootstrap }}
+
+                    {{ form.phone | bootstrap }}
+
+                    {{ form.team | bootstrap }}
+
+
+                </div>
+                <div class="form-group">
+                    <p> Подать заявку на следующие турниры: </p>
+                <div class="checkbox">
+                    {{ form.first_league | bootstrap }}
+                </div>
+                <div class="checkbox">
+                    {{ form.pokal | bootstrap }}
+                </div>
+                <div class="checkbox">
+                    {{ form.winter_pokal |bootstrap }}
+                </div>
+                    </div>
+                <button type="submit" class="btn btn-success">Заявиться</button>
+
+        </div>
+
+    </form>
+{% endblock %}
