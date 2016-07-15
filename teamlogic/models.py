@@ -5,6 +5,7 @@ from django.utils import timezone
 from itertools import groupby
 # Create your models here.
 
+
 class Stadium(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
@@ -12,7 +13,7 @@ class Stadium(models.Model):
     description = models.TextField(default="olo")
     estimate = models.FloatField()
     physics = models.IntegerField()
-    #Need to add relation to Date and Time free!!!
+    # Need to add relation to Date and Time free!!!
     home = models.ManyToManyField('Team', blank=True, null=True)
     image = models.ImageField(upload_to='media', default='/media/404/')
 
@@ -39,6 +40,7 @@ class Player (models.Model):
     def get_absolute_url(self):
         return "/logic/player/%i/" % self.id
 
+
 class Team(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
@@ -54,6 +56,7 @@ class Team(models.Model):
 
     def get_absolute_url(self):
         return "/logic/team/%i" % self.id
+
 
 class RecOfTeam(models.Model):
     beginDate = models.DateField( null=True, blank=True)
@@ -80,6 +83,7 @@ class Goal(models.Model):
 
     def __unicode__(self):
         return self.autor.__unicode__() + u'Bob'
+
 
 class Match(models.Model):
     league = models.ForeignKey('Tournament', default=1, null=True)
@@ -267,6 +271,7 @@ class Tournament(models.Model):
             k.append((i[0], l, team))
         return k
 
+
 class MatchInLeague(Match):
     tour = models.IntegerField(default=2)
 
@@ -277,6 +282,7 @@ class MatchInLeague(Match):
             if i.this_team(team):
                 x.append(i)
         return x
+
 
 class TeamInLeague(models.Model):
     team = models.ForeignKey(Team)
@@ -300,6 +306,7 @@ class TeamInLeague(models.Model):
 
     def __unicode__(self):
         return unicode(self.team)
+
 
 class Manager(models.Model):
     tournaments = models.ManyToManyField(Tournament)

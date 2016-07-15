@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Listing (models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField(default="")
@@ -14,6 +15,7 @@ class Listing (models.Model):
 
     def get_absolute_url(self):
         return "/carusele/art/%i/" % self.id
+
 
 class Element (models.Model):
     description = models.CharField(max_length=400)

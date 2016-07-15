@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from models import Player, Team, Stadium, Match, Tournament, MatchInLeague
 import datetime
-from ADFS import formes
-from ADFS.views import is_gast
+
+
 # Create your views here.
 
 
@@ -13,9 +13,10 @@ def player(request, id):
     players = get_object_or_404(Player, pk=id)
     context = RequestContext(request, {
         'player': players,
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))
+
 
 def team(request, id):
     template = loader.get_template('team.html')
@@ -23,18 +24,20 @@ def team(request, id):
     context = RequestContext(request, {
         'team': teams,
         'nows': datetime.datetime.today(),
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))
+
 
 def stadium(request, id):
     template = loader.get_template('stadium.html')
     stadiums = get_object_or_404(Stadium, pk=id)
     context = RequestContext(request, {
         'stadium': stadiums,
-        'user' : request.user,
+        'user': request.user,
     })
-    return  HttpResponse(template.render(context))
+    return HttpResponse(template.render(context))
+
 
 def match(request, id=1):
     template = loader.get_template('match.html')
@@ -42,9 +45,10 @@ def match(request, id=1):
     context = RequestContext(request, {
         'match': matchs,
         'nows': datetime.datetime.now(),
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))
+
 
 def league(request, id=1):
     if request.method == "GET":
@@ -57,7 +61,7 @@ def league(request, id=1):
             'league': leagues,
             'nows': datetime.datetime.now(),
             'form':form,
-            'user' : request.user,
+            'user': request.user,
         })
         if request.user.is_authenticated():
             print "lalka"
@@ -77,9 +81,10 @@ def calendar(request, id=1):
     context = RequestContext(request, {
         'matches': calend,
         'all_team_matches': Match.objects.all().last().all_team_matches(Team.objects.all().last()),
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))
+
 
 def team_matches(request, id=1):
     template = loader.get_template('matches.html')
@@ -87,9 +92,10 @@ def team_matches(request, id=1):
     context = RequestContext(request, {
         'all_team_matches': MatchInLeague.objects.all().last().all_team_matches(t),
         'team': t,
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))
+
 
 def bombardiers(request, id=1):
     template = loader.get_template('bombardiers.html')
@@ -97,6 +103,6 @@ def bombardiers(request, id=1):
     context = RequestContext(request, {
         'all_bombardiers': t.get_bombardiers_table(),
         'league': t,
-        'user' : request.user,
+        'user': request.user,
     })
     return HttpResponse(template.render(context))

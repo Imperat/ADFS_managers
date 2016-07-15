@@ -15,15 +15,20 @@ class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'foundation', 'vkLink', 'captain', 'home')
     list_editable = ('vkLink', 'captain', 'home')
 
+
 class TeamInLeagueAdmin(admin.ModelAdmin):
-    list_display = ('team', 'league', 'goal_s', 'goal_p', 'match_v', 'match_n', 'match_p', 'straf', 'get_points')
+    list_display = ('team', 'league', 'goal_s', 'goal_p', 'match_v',
+                    'match_n', 'match_p', 'straf', 'get_points')
     list_editable = ('straf',)
     list_filter = ('league',)
 
+
 class MatchInLeagueAdmin(admin.ModelAdmin):
-    list_display = ('home', 'away', 'home_goal', 'away_goal', 'home_goal_first', 'away_goal_first','league', 'tour', 'hasResult', 'register')
+    list_display = ('home', 'away', 'home_goal', 'away_goal', 'home_goal_first',
+                    'away_goal_first','league', 'tour', 'hasResult', 'register')
     list_editable = ('hasResult',)
     list_filter = ('league', 'tour')
+
 
 class LeagueAdmin(admin.ModelAdmin):
     list_display = ('name', 'begin_date', 'end_date')

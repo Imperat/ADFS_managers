@@ -49,7 +49,6 @@ INSTALLED_APPS = (
     'ADFS',
     'carusele',
     'teamlogic',
-    'bootstrapform',
 )
 
 MIDDLEWARE_CLASSES = (

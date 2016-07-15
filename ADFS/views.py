@@ -1,19 +1,23 @@
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
-from formes import ContactForm, LoginForm
+
 from models import Attention
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
+
+
 def regl(request):
     template = loader.get_template('reglam.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
+
 def attention2(request):
     template = loader.get_template('attention.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
+
 
 def attention(request):
     # if this is a POST request we need to process the form data
@@ -27,13 +31,13 @@ def attention(request):
             # ...
             # redirect to a new URL:
             a = Attention.objects.all().create(name=form['name'].value(),
-                                           vkLink=form['vkLink'].value(),
-                                           phone=form['phone'].value(),
-                                           team=form['team'].value(),
-                                           grundung=form['grundung'].value(),
-                                           first_league=form['first_league'].value(),
-                                           pokal=form['pokal'].value(),
-                                           winter_pokal=form['winter_pokal'].value())
+                                               vkLink=form['vkLink'].value(),
+                                               phone=form['phone'].value(),
+                                               team=form['team'].value(),
+                                               grundung=form['grundung'].value(),
+                                               first_league=form['first_league'].value(),
+                                               pokal=form['pokal'].value(),
+                                               winter_pokal=form['winter_pokal'].value())
 
             return HttpResponseRedirect('/fusbal/attentions/%i' % a.id)
 
@@ -43,6 +47,7 @@ def attention(request):
 
     return render(request, 'attention.html', {'form': form})
 
+
 def attention_ok(request, id):
     form = ContactForm(request.POST)
     template = loader.get_template('attentions.html')
@@ -51,6 +56,7 @@ def attention_ok(request, id):
         'attentions': t,
     })
     return HttpResponse(template.render(context))
+
 
 def autorisation(request):
     if request.method == 'GET':
@@ -85,6 +91,7 @@ def autorisation(request):
             context = RequestContext(request, {})
         template = loader.get_template('gratulations.html')
         return HttpResponse(template.render(context))
+
 
 def is_gast(request):
     return not request.user.is_authenticated()

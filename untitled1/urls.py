@@ -6,7 +6,6 @@ from django.conf import settings
 
 from carusele import urls as urls1
 from teamlogic import urls as urls2
-from ADFS import urls as urls3
 from ADFS import views
 
 urlpatterns = patterns('',
@@ -18,7 +17,6 @@ urlpatterns = patterns('',
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'^carusele/', include(urls1)),
     url(r'logic/', include(urls2)),
-    url(r'^fusbal/', include(urls3)),
     url(r'^login/', views.autorisation)
 )
 
