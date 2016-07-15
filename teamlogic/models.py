@@ -47,7 +47,7 @@ class Team(models.Model):
     foundation = models.IntegerField()
     image = models.ImageField(upload_to="media")
     players = models.ManyToManyField('Player', through='RecOfTeam')
-    vkLink = models.CharField(max_length=30, default="nulls", null=True)
+    vk_link = models.CharField(max_length=30, default="nulls", null=True)
     captain = models.OneToOneField('Player', related_name='+')
     home = models.ForeignKey('Stadium')
 
@@ -76,7 +76,7 @@ class RecOfTeam(models.Model):
 
 
 class Goal(models.Model):
-    autor = models.ForeignKey(Player)
+    author = models.ForeignKey(Player)
     team = models.ForeignKey(Team, blank=True, null=True)
     type = models.CharField(max_length=2)
     min = models.IntegerField(null=True)
@@ -132,19 +132,10 @@ class Match(models.Model):
         return c/60
 
     def is_home_winner(self):
-        if self.home_goal > self.away_goal:
-            return True
-        else:
-            return False
+        return self.home_goal > self.away_goal
 
     def is_away_winner(self):
-        """
-        :return: True then away is win
-        """
-        if self.away_goal > self.home_goal:
-            return True
-        else:
-            return False
+        return self.away_goal > self.home_goal
 
     def is_drawn(self):
         return self.home_goal == self.away_goal
@@ -221,7 +212,7 @@ class Tournament(models.Model):
                 i.save()
 
     def regist(self, m):
-        d = [ dict(), dict() ]
+        d = [dict(), dict()]
         if m.is_drawn:
             d[0] = {'v': 0, 'n': 1, 'p': 0, 'sab': m.home_goal, 'prop': m.away_goal}
             d[1] = {'v': 0, 'n': 1, 'p': 0, 'sab': m.away_goal, 'prop': m.home_goal}
@@ -254,8 +245,8 @@ class Tournament(models.Model):
     def get_bombardiers_table(self):
         t = []
         for i in self.matchs.all():
-            t.extend( i.home_goals.all() )
-            t.extend( i.away_goals.all() )
+            t.extend(i.home_goals.all())
+            t.extend(i.away_goals.all())
         pass
 
         def get_autor(goal):
@@ -293,7 +284,7 @@ class TeamInLeague(models.Model):
 
     match_n = models.IntegerField()
     match_p = models.IntegerField()
-    straf = models.IntegerField()
+    penalty = models.IntegerField()
 
     def get_goal_difference(self):
         return self.goal_s - self.goal_p
