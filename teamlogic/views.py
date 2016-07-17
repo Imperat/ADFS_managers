@@ -9,7 +9,7 @@ import datetime
 
 
 def player(request, id):
-    template = loader.get_template('player.html')
+    template = loader.get_template('teamlogic/player.html')
     players = get_object_or_404(Player, pk=id)
     context = RequestContext(request, {
         'player': players,
@@ -19,7 +19,7 @@ def player(request, id):
 
 
 def team(request, id):
-    template = loader.get_template('team.html')
+    template = loader.get_template('teamlogic/team.html')
     teams = get_object_or_404(Team, pk=id)
     context = RequestContext(request, {
         'team': teams,
@@ -30,7 +30,7 @@ def team(request, id):
 
 
 def stadium(request, id):
-    template = loader.get_template('stadium.html')
+    template = loader.get_template('teamlogic/stadium.html')
     stadiums = get_object_or_404(Stadium, pk=id)
     context = RequestContext(request, {
         'stadium': stadiums,
@@ -40,7 +40,7 @@ def stadium(request, id):
 
 
 def match(request, id=1):
-    template = loader.get_template('match.html')
+    template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(Match, pk=id)
     context = RequestContext(request, {
         'match': matchs,
@@ -53,7 +53,7 @@ def match(request, id=1):
 def league(request, id=1):
     if request.method == "GET":
         form = formes.LoginForm()
-        template = loader.get_template('league.html')
+        template = loader.get_template('teamlogic/league.html')
         leagues = get_object_or_404(Tournament, pk=id)
         leagues.refresh()
         leagues.filtr_matches()
@@ -74,7 +74,7 @@ def league(request, id=1):
 
 
 def calendar(request, id=1):
-    template = loader.get_template('calendar.html')
+    template = loader.get_template('teamlogic/calendar.html')
     t = get_object_or_404(Tournament, pk=id)
     t.refresh()
     calend = t.get_calendar()
@@ -87,7 +87,7 @@ def calendar(request, id=1):
 
 
 def team_matches(request, id=1):
-    template = loader.get_template('matches.html')
+    template = loader.get_template('teamlogic/matches.html')
     t = get_object_or_404(Team, pk=id)
     context = RequestContext(request, {
         'all_team_matches': MatchInLeague.objects.all().last().all_team_matches(t),
@@ -98,7 +98,7 @@ def team_matches(request, id=1):
 
 
 def bombardiers(request, id=1):
-    template = loader.get_template('bombardiers.html')
+    template = loader.get_template('teamlogic/bombardiers.html')
     t = get_object_or_404(Tournament, pk=id)
     context = RequestContext(request, {
         'all_bombardiers': t.get_bombardiers_table(),

@@ -5,15 +5,15 @@ from models import *
 
 class PlayerAdmin(admin.ModelAdmin):
     date_hierarchy = 'birth'
-    list_display = ('__unicode__', 'vkLink', 'birth')
+    list_display = ('__unicode__', 'vk_link', 'birth')
     list_editable = ('vk_link',)
     list_filter = ('history', 'basePosition')
     search_fields = ['lastName']
 
 
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'foundation', 'vkLink', 'captain', 'home')
-    list_editable = ('vkLink', 'captain', 'home')
+    list_display = ('name', 'foundation', 'vk_link', 'captain', 'home')
+    list_editable = ('vk_link', 'captain', 'home')
 
 
 class TeamInLeagueAdmin(admin.ModelAdmin):

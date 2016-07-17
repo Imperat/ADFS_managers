@@ -28,7 +28,7 @@ class Player (models.Model):
     firstName = models.CharField(max_length=70)
     lastName = models.CharField(max_length=70)
     birth = models.DateField()
-    vkLink = models.CharField(max_length=30, null=True)
+    vk_link = models.CharField(max_length=30, null=True)
     # G - goalkeeper, H - defender, F - nap
     basePosition = models.CharField(max_length=1)
     image = models.ImageField(upload_to="media")
