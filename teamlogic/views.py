@@ -18,6 +18,16 @@ def player(request, id):
     return HttpResponse(template.render(context))
 
 
+def players(request):
+    template = loader.get_template('teamlogic/players.html')
+    players = Player.objects.all()
+    context = RequestContext(request, {
+        'players': players,
+        'user': request.user
+    })
+    return HttpResponse(template.render(context))
+
+
 def team(request, id):
     template = loader.get_template('teamlogic/team.html')
     teams = get_object_or_404(Team, pk=id)

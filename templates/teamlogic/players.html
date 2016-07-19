@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2> Игроки </h2>
+
+{% for player in players %}
+
+    <br> <strong> <a href="{{player.get_absolute_url}}"> {{ player }} </a> </strong> {{player.birth}}
+
+{% endfor %}
+
+{% endblock %}
