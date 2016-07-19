@@ -3,3 +3,4 @@ django-admin-tools==0.7.2
 django-bootstrap==0.2.4
 django-bootstrap3==7.0.1
 Pillow==3.3.0
+django-bootstrap-form==3.2.1
