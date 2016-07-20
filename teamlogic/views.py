@@ -39,6 +39,15 @@ def team(request, id):
     return HttpResponse(template.render(context))
 
 
+def teams(request):
+    template = loader.get_template('teamlogic/teams.html')
+    teams = Team.objects.all()
+    context = RequestContext(request, {
+        'teams': teams
+    })
+    return HttpResponse(template.render(context))
+
+
 def stadium(request, id):
     template = loader.get_template('teamlogic/stadium.html')
     stadiums = get_object_or_404(Stadium, pk=id)
