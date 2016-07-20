@@ -17,7 +17,8 @@ urlpatterns = patterns('',
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'^carusele/', include(urls1)),
     url(r'logic/', include(urls2)),
-    url(r'^login/', views.autorisation)
+    url(r'^login/', views.autorisation),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
 
 from django.conf.urls.static import static

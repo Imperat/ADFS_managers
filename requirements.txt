@@ -1,6 +1,8 @@
 Django==1.9.7
 django-admin-tools==0.7.2
 django-bootstrap==0.2.4
-django-bootstrap3==7.0.1
-Pillow==3.3.0
 django-bootstrap-form==3.2.1
+django-bootstrap3==7.0.1
+djangorestframework==3.4.0
+Pillow==3.3.0
+psycopg2==2.6.2

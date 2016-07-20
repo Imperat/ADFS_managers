@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'carusele',
     'teamlogic',
     'bootstrapform',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
