@@ -68,7 +68,7 @@ def stadiums(request):
     return HttpResponse(template.render(context))
 
 
-def match(request, id=1):
+def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(Match, pk=id)
     context = RequestContext(request, {
@@ -79,9 +79,8 @@ def match(request, id=1):
     return HttpResponse(template.render(context))
 
 
-def league(request, id=1):
+def league(request, id=None):
     if request.method == "GET":
-        form = formes.LoginForm()
         template = loader.get_template('teamlogic/league.html')
         leagues = get_object_or_404(Tournament, pk=id)
         leagues.refresh()
@@ -89,7 +88,6 @@ def league(request, id=1):
         context = RequestContext(request, {
             'league': leagues,
             'nows': datetime.datetime.now(),
-            'form':form,
             'user': request.user,
         })
         if request.user.is_authenticated():
@@ -102,7 +100,7 @@ def league(request, id=1):
         pass
 
 
-def calendar(request, id=1):
+def calendar(request, id=id):
     template = loader.get_template('teamlogic/calendar.html')
     t = get_object_or_404(Tournament, pk=id)
     t.refresh()

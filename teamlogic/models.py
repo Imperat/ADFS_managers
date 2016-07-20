@@ -82,7 +82,7 @@ class Goal(models.Model):
     min = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.autor.__unicode__() + u'Bob'
+        return self.author.__unicode__() + u'Bob'
 
 
 class Match(models.Model):
@@ -103,10 +103,8 @@ class Match(models.Model):
     register = models.BooleanField(default=False)
 
     def this_team(self, team):
-        if team == self.home or team == self.away:
-            return True
-        else:
-            return False
+        """Has 'team' take competition in Match?"""
+        return team in (self.home, self.away)
 
     def all_team_matches(self, team):
         a = Match.objects.all()
@@ -115,6 +113,7 @@ class Match(models.Model):
             if i.this_team(team):
                 x.append(i)
         return x
+
 
     def is_starts(self):
         c = self.date_time - timezone.now()
