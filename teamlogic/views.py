@@ -48,21 +48,21 @@ def teams(request):
     return HttpResponse(template.render(context))
 
 
-def stadium(request, id):
-    template = loader.get_template('teamlogic/stadium.html')
-    stadiums = get_object_or_404(Stadium, pk=id)
+def stadion(request, id):
+    template = loader.get_template('teamlogic/stadion.html')
+    stadion = get_object_or_404(Stadium, pk=id)
     context = RequestContext(request, {
-        'stadions': stadiums,
+        'stadion': stadion,
         'user': request.user,
     })
     return HttpResponse(template.render(context))
 
 
-def stadiums(request):
-    template = loader.get_template('teamlogic/stadiums.html')
-    stadiums = Stadium.objects.all()
+def stadions(request):
+    template = loader.get_template('teamlogic/stadions.html')
+    stadions = Stadium.objects.all()
     context = RequestContext(request,{
-        'stadiums': stadiums,
+        'stadions': stadions,
         'user': request.user
     })
     return HttpResponse(template.render(context))

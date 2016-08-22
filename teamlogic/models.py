@@ -21,7 +21,7 @@ class Stadium(models.Model):
         return unicode(self.name)
 
     def get_absolute_url(self):
-        return "/logic/stadium/%i/" % self.id
+        return "/logic/stadion/%i/" % self.id
 
 
 class Player (models.Model):

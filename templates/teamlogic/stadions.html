@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+        <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+        <li><a href="#"> Стадионы и площадки </a> <span class="divider"></span></li>
+
+    </ul>
+
+    <h2> Стадионы </h2>
+
+
+
+{% for stadion in stadions %}
+
+    <br> <strong> <a href="{{stadion.get_absolute_url}}"> {{ stadion }} </a> </strong>
+
+{% endfor %}
+
+{% endblock %}
