@@ -3,6 +3,7 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
 
 from models import Attention
+from forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
@@ -13,13 +14,21 @@ def regl(request):
     return HttpResponse(template.render(context))
 
 
-def attention2(request):
-    template = loader.get_template('attention.html')
+def attentions(request):
+    template = loader.get_template('attention_view.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
 
-def attention(request):
+def view_attention(request, id):
+    template = loader.get_template('attention_view.html')
+    context = RequestContext(request, {
+        'attention': get_object_or_404(Attention, pk=id)
+    })
+    return HttpResponse(template.render(context))
+
+
+def register_attention(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -34,28 +43,17 @@ def attention(request):
                                                vkLink=form['vkLink'].value(),
                                                phone=form['phone'].value(),
                                                team=form['team'].value(),
-                                               grundung=form['grundung'].value(),
                                                first_league=form['first_league'].value(),
                                                pokal=form['pokal'].value(),
                                                winter_pokal=form['winter_pokal'].value())
 
-            return HttpResponseRedirect('/fusbal/attentions/%i' % a.id)
+            return HttpResponseRedirect('/attention/%i' % a.id)
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ContactForm()
 
     return render(request, 'attention.html', {'form': form})
-
-
-def attention_ok(request, id):
-    form = ContactForm(request.POST)
-    template = loader.get_template('attentions.html')
-    t = get_object_or_404(Attention, pk=id)
-    context = RequestContext(request, {
-        'attentions': t,
-    })
-    return HttpResponse(template.render(context))
 
 
 def autorisation(request):

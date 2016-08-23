@@ -17,7 +17,9 @@ urlpatterns = patterns('',
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'^carusele/', include(urls1)),
     url(r'logic/', include(urls2)),
-    url(r'^login/', views.autorisation)
+    url(r'^login/', views.autorisation),
+    url(r'^register_attention/', views.register_attention),
+    url(r'^attention/(?P<id>[0-9]+)/', views.view_attention)
 )
 
 from django.conf.urls.static import static
