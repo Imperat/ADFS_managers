@@ -45,11 +45,11 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     foundation = models.IntegerField()
-    image = models.ImageField(upload_to="media")
+    image = models.ImageField(upload_to="media", null=True, blank=True)
     players = models.ManyToManyField('Player', through='RecOfTeam')
-    vk_link = models.CharField(max_length=30, default="nulls", null=True)
-    captain = models.OneToOneField('Player', related_name='+')
-    home = models.ForeignKey('Stadium')
+    vk_link = models.CharField(max_length=30, default="nulls", null=True, blank=True)
+    captain = models.ForeignKey('Player', related_name='+', null=True, blank=True)
+    home = models.ForeignKey('Stadium', null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.name)
@@ -283,7 +283,9 @@ class TeamInLeague(models.Model):
 
     match_n = models.IntegerField()
     match_p = models.IntegerField()
-    penalty = models.IntegerField()
+    penalty = models.IntegerField(default=0)
+
+    straf = models.IntegerField()
 
     def get_goal_difference(self):
         return self.goal_s - self.goal_p

@@ -83,21 +83,11 @@ def league(request, id=None):
     if request.method == "GET":
         template = loader.get_template('teamlogic/league.html')
         leagues = get_object_or_404(Tournament, pk=id)
-        leagues.refresh()
-        leagues.filtr_matches()
         context = RequestContext(request, {
             'league': leagues,
             'nows': datetime.datetime.now(),
-            'user': request.user,
         })
-        if request.user.is_authenticated():
-            print "lalka"
-            print request.user
-        else:
-            print "lolka!"
-        return HttpResponse(template.render(context))
-    else:
-        pass
+    return HttpResponse(template.render(context))
 
 
 def calendar(request, id=id):

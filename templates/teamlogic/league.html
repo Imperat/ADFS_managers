@@ -6,7 +6,7 @@
         img {
             float:left;
             height: auto;
-            width: 200px;
+            width: 150px;
         }
         #info {
             position: relative;
@@ -15,7 +15,7 @@
     </style>
 
         <ul class="breadcrumb">
-        <li><a href="#"> Сезон 2015 </a> <span class="divider"></span></li>
+        <li><a href="#"> Сезон {{ league.get_season }} </a> <span class="divider"></span></li>
         <li><a href="#"> Первая лига </a> <span class="divider"></span></li>
     </ul>
 
@@ -30,8 +30,7 @@
         <br>
         <strong> Сроки: </strong> {{ league.begin_date }}  - {{ league.end_date }}
         <br>
-        <strong> Число участников: </strong> 10
-        <br>
+        <strong> Число участников: </strong> {{ league.members|length }}
         <br>
         <strong> <a href="calend/"> Календарь </a> </strong>
         <br>
@@ -139,12 +138,4 @@
         })
     </script>
 
-{% endblock %}
-
-{% block autoris %}
-    {% if user.is_authenticated %}
-        {% include 'gratulations.html' %}
-    {%  else %}
-        {% include 'autorisation.html' %}
-    {% endif %}
 {% endblock %}

@@ -35,6 +35,7 @@ class LeagueAdmin(admin.ModelAdmin):
     fields = ('name', 'begin_date', 'end_date', 'image')
 
 
+
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(RecOfTeam)
