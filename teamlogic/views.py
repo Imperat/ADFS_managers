@@ -61,7 +61,7 @@ def stadion(request, id):
 def stadions(request):
     template = loader.get_template('teamlogic/stadions.html')
     stadions = Stadium.objects.all()
-    context = RequestContext(request,{
+    context = RequestContext(request, {
         'stadions': stadions,
         'user': request.user
     })
@@ -97,7 +97,8 @@ def calendar(request, id=id):
     calend = t.get_calendar()
     context = RequestContext(request, {
         'matches': calend,
-        'all_team_matches': Match.objects.all().last().all_team_matches(Team.objects.all().last()),
+        'all_team_matches': Match.objects.all().last().all_team_matches(
+            Team.objects.all().last()),
         'user': request.user,
     })
     return HttpResponse(template.render(context))
@@ -106,8 +107,9 @@ def calendar(request, id=id):
 def team_matches(request, id=1):
     template = loader.get_template('teamlogic/matches.html')
     t = get_object_or_404(Team, pk=id)
+    all_team_matches = MatchInLeague.objects.all().last().all_team_matches(t)
     context = RequestContext(request, {
-        'all_team_matches': MatchInLeague.objects.all().last().all_team_matches(t),
+        'all_team_matches': all_team_matches,
         'team': t,
         'user': request.user,
     })
