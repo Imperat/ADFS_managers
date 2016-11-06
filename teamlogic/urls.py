@@ -17,3 +17,9 @@ urlpatterns = [
     url(r'^league/(?P<id>[0-9]+)/calend/$', views.calendar, name='calendar'),
     url(r'^league/(?P<id>[0-9]+)/bomb/$', views.bombardiers, name='bombardiers'),
 ]
+
+api_patterns = [
+    url(r'^api/players/$', views.player_list, name='api_players'),
+]
+
+urlpatterns += api_patterns

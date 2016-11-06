@@ -4,3 +4,4 @@ django-bootstrap==0.2.4
 django-bootstrap3==7.0.1
 Pillow==3.3.0
 django-bootstrap-form==3.2.1
+djangorestframework==3.5.2

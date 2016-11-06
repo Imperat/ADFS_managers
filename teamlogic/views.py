@@ -4,9 +4,30 @@ from django.template import RequestContext
 from models import Player, Team, Stadium, Match, Tournament, MatchInLeague
 import datetime
 
+import serializers
 
-# Create your views here.
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions
+from rest_framework.response import Response
 
+# Views for REST-API
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def player_list(request):
+    if request.method == 'GET':
+        players = Player.objects.all()
+        serializer = serializers.PlayerSerializer(players, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = serializers.PlayerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Views for Web-Service
 
 def player(request, id):
     template = loader.get_template('teamlogic/player.html')
