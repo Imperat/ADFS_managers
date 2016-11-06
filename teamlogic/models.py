@@ -1,9 +1,8 @@
 from django.db import models
-from datetime import datetime
 from django.utils import timezone
 
+from datetime import datetime
 from itertools import groupby
-# Create your models here.
 
 
 class Stadium(models.Model):
@@ -144,7 +143,8 @@ class Match(models.Model):
 
     def __unicode__(self):
         if self.home_goal >= 0 and self.away_goal >=0:
-            return unicode("%s - %s (%i - %i)" % (self.home.name, self.away.name, self.home_goal, self.away_goal))
+            return unicode("%s - %s (%i - %i)" % (self.home.name, self.away.name,
+                                                  self.home_goal, self.away_goal))
         else:
             return unicode("%s - %s" % (self.home.name, self.away.name))
 
@@ -160,8 +160,8 @@ class Tournament(models.Model):
 
     def get_calendar(self):
         '''
-        :return list of tours. Any tour has list of
-        his matches:
+        It's good to make the calendar for each Tournament
+        :return: list of tours
         '''
         a = self.matchs.all()
         max_tour = 0

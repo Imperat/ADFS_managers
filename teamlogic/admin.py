@@ -1,6 +1,6 @@
 from django.contrib import admin
-from models import *
-# Register your models here.
+
+import models
 
 
 class PlayerAdmin(admin.ModelAdmin):
@@ -36,15 +36,14 @@ class LeagueAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Player, PlayerAdmin)
-admin.site.register(Team, TeamAdmin)
-admin.site.register(RecOfTeam)
-admin.site.register(Stadium)
-admin.site.register(Match)
-admin.site.register(Goal)
-
-admin.site.register(Tournament, LeagueAdmin)
-admin.site.register(TeamInLeague, TeamInLeagueAdmin)
-admin.site.register(MatchInLeague, MatchInLeagueAdmin)
+admin.site.register(models.Player, PlayerAdmin)
+admin.site.register(models.Team, TeamAdmin)
+admin.site.register(models.RecOfTeam)
+admin.site.register(models.Stadium)
+admin.site.register(models.Match)
+admin.site.register(models.Goal)
+admin.site.register(models.Tournament, LeagueAdmin)
+admin.site.register(models.TeamInLeague, TeamInLeagueAdmin)
+admin.site.register(models.MatchInLeague, MatchInLeagueAdmin)
 
 admin.sites.AdminSite.index_template = 'admin/index.html'

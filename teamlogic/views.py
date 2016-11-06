@@ -1,9 +1,10 @@
-from django.shortcuts import render, loader, get_object_or_404
+from django.shortcuts import loader, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
-from models import Player, Team, Stadium, Match, Tournament, MatchInLeague
+
 import datetime
 
+import models
 import serializers
 
 from rest_framework import status
@@ -16,7 +17,7 @@ from rest_framework.response import Response
 @permission_classes((permissions.AllowAny,))
 def player_list(request):
     if request.method == 'GET':
-        players = Player.objects.all()
+        players = models.Player.objects.all()
         serializer = serializers.PlayerSerializer(players, many=True)
         return Response(serializer.data)
 
@@ -31,7 +32,7 @@ def player_list(request):
 
 def player(request, id):
     template = loader.get_template('teamlogic/player.html')
-    players = get_object_or_404(Player, pk=id)
+    players = get_object_or_404(models.Player, pk=id)
     context = RequestContext(request, {
         'player': players,
         'user': request.user,
@@ -41,7 +42,7 @@ def player(request, id):
 
 def players(request):
     template = loader.get_template('teamlogic/players.html')
-    players = Player.objects.all()
+    players = models.Player.objects.all()
     context = RequestContext(request, {
         'players': players,
         'user': request.user
@@ -51,7 +52,7 @@ def players(request):
 
 def team(request, id):
     template = loader.get_template('teamlogic/team.html')
-    teams = get_object_or_404(Team, pk=id)
+    teams = get_object_or_404(models.Team, pk=id)
     context = RequestContext(request, {
         'team': teams,
         'nows': datetime.datetime.today(),
@@ -62,7 +63,7 @@ def team(request, id):
 
 def teams(request):
     template = loader.get_template('teamlogic/teams.html')
-    teams = Team.objects.all()
+    teams = models.Team.objects.all()
     context = RequestContext(request, {
         'teams': teams
     })
@@ -71,7 +72,7 @@ def teams(request):
 
 def stadion(request, id):
     template = loader.get_template('teamlogic/stadion.html')
-    stadion = get_object_or_404(Stadium, pk=id)
+    stadion = get_object_or_404(models.Stadium, pk=id)
     context = RequestContext(request, {
         'stadion': stadion,
         'user': request.user,
@@ -81,7 +82,7 @@ def stadion(request, id):
 
 def stadions(request):
     template = loader.get_template('teamlogic/stadions.html')
-    stadions = Stadium.objects.all()
+    stadions = models.Stadium.objects.all()
     context = RequestContext(request,{
         'stadions': stadions,
         'user': request.user
@@ -91,7 +92,7 @@ def stadions(request):
 
 def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
-    matchs = get_object_or_404(Match, pk=id)
+    matchs = get_object_or_404(models.Match, pk=id)
     context = RequestContext(request, {
         'match': matchs,
         'nows': datetime.datetime.now(),
@@ -103,7 +104,7 @@ def match(request, id=None):
 def league(request, id=None):
     if request.method == "GET":
         template = loader.get_template('teamlogic/league.html')
-        leagues = get_object_or_404(Tournament, pk=id)
+        leagues = get_object_or_404(models.Tournament, pk=id)
         context = RequestContext(request, {
             'league': leagues,
             'nows': datetime.datetime.now(),
@@ -113,12 +114,12 @@ def league(request, id=None):
 
 def calendar(request, id=id):
     template = loader.get_template('teamlogic/calendar.html')
-    t = get_object_or_404(Tournament, pk=id)
+    t = get_object_or_404(models.Tournament, pk=id)
     t.refresh()
     calend = t.get_calendar()
     context = RequestContext(request, {
         'matches': calend,
-        'all_team_matches': Match.objects.all().last().all_team_matches(Team.objects.all().last()),
+        'all_team_matches': models.Match.objects.all().last().all_team_matches(models.Team.objects.all().last()),
         'user': request.user,
     })
     return HttpResponse(template.render(context))
@@ -126,9 +127,9 @@ def calendar(request, id=id):
 
 def team_matches(request, id=1):
     template = loader.get_template('teamlogic/matches.html')
-    t = get_object_or_404(Team, pk=id)
+    t = get_object_or_404(models.Team, pk=id)
     context = RequestContext(request, {
-        'all_team_matches': MatchInLeague.objects.all().last().all_team_matches(t),
+        'all_team_matches': models.MatchInLeague.objects.all().last().all_team_matches(t),
         'team': t,
         'user': request.user,
     })
@@ -137,7 +138,7 @@ def team_matches(request, id=1):
 
 def bombardiers(request, id=1):
     template = loader.get_template('teamlogic/bombardiers.html')
-    t = get_object_or_404(Tournament, pk=id)
+    t = get_object_or_404(models.Tournament, pk=id)
     context = RequestContext(request, {
         'all_bombardiers': t.get_bombardiers_table(),
         'league': t,

@@ -1,8 +1,6 @@
-__author__ = 'stronger'
-
 from django.conf.urls import url
 
-from . import views
+import views
 
 
 urlpatterns = [
