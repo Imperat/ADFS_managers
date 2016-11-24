@@ -4,6 +4,8 @@ from django.utils import timezone
 from datetime import datetime
 from itertools import groupby
 
+from utils.helpers import NULLABLE
+
 
 class Stadium(models.Model):
     name = models.CharField(max_length=30)
@@ -13,7 +15,7 @@ class Stadium(models.Model):
     estimate = models.FloatField()
     physics = models.IntegerField()
     # Need to add relation to Date and Time free!!!
-    home = models.ManyToManyField('Team', blank=True, null=True)
+    home = models.ManyToManyField('Team', **NULLABLE)
     image = models.ImageField(upload_to='media', default='/media/404/')
 
     def __unicode__(self):
@@ -44,11 +46,11 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     foundation = models.IntegerField()
-    image = models.ImageField(upload_to="media", null=True, blank=True)
+    image = models.ImageField(upload_to="media", **NULLABLE)
     players = models.ManyToManyField('Player', through='RecOfTeam')
-    vk_link = models.CharField(max_length=30, default="nulls", null=True, blank=True)
-    captain = models.ForeignKey('Player', related_name='+', null=True, blank=True)
-    home = models.ForeignKey('Stadium', null=True, blank=True)
+    vk_link = models.CharField(max_length=30, default="nulls", **NULLABLE)
+    captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
+    home = models.ForeignKey('Stadium', **NULLABLE)
 
     def __unicode__(self):
         return unicode(self.name)
@@ -58,8 +60,8 @@ class Team(models.Model):
 
 
 class RecOfTeam(models.Model):
-    beginDate = models.DateField( null=True, blank=True)
-    endDate = models.DateField(null=True, blank=True)
+    beginDate = models.DateField(**NULLABLE)
+    endDate = models.DateField(**NULLABLE)
     team = models.ForeignKey('Team')
     player = models.ForeignKey('Player')
     number = models.IntegerField(default=-1)
@@ -76,7 +78,7 @@ class RecOfTeam(models.Model):
 
 class Goal(models.Model):
     author = models.ForeignKey(Player)
-    team = models.ForeignKey(Team, blank=True, null=True)
+    team = models.ForeignKey(Team, **NULLABLE)
     type = models.CharField(max_length=2)
     min = models.IntegerField(null=True)
 
@@ -315,4 +317,3 @@ class Manager(models.Model):
 
 
 # Constants
-
