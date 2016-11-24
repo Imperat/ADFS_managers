@@ -94,7 +94,7 @@ class Match(models.Model):
     away_goal = models.IntegerField()
     home_goal_first = models.IntegerField()
     away_goal_first = models.IntegerField()
-    technical = models.BooleanField(default=None)
+    technical = models.BooleanField(default=False)
     place = models.ForeignKey(Stadium)
     date_time = models.DateTimeField()
     home_goals = models.ManyToManyField('Goal', related_name='home')
