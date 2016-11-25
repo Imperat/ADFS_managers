@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-import models
+from teamlogic import models
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -22,4 +22,3 @@ class StadiumSerializer(serializers.ModelSerializer):
         models = models.Stadium
         fields = ('id', 'name', 'city', 'accr', 'description',
                   'estimate', 'physics', 'home', 'image')
-

@@ -2,6 +2,8 @@ from django.conf.urls import url
 
 import views
 
+from teamlogic.api import urls as api_urls
+
 
 urlpatterns = [
     url(r'^player/(?P<id>[0-9]+)/$', views.player, name='player'),
@@ -16,8 +18,4 @@ urlpatterns = [
     url(r'^league/(?P<id>[0-9]+)/bomb/$', views.bombardiers, name='bombardiers'),
 ]
 
-api_patterns = [
-    url(r'^api/players/$', views.player_list, name='api_players'),
-]
-
-urlpatterns += api_patterns
+urlpatterns += api_urls.api_patterns

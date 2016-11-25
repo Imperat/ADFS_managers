@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-import models
+from teamlogic import models
 
 
 class PlayerAdmin(admin.ModelAdmin):
