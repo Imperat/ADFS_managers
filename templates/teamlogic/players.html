@@ -3,19 +3,13 @@
 {% block content %}
 
 <ul class="breadcrumb">
-        <li><a href="#"> АДФС </a> <span class="divider"></span></li>
-        <li><a href="#"> Игроки </a> <span class="divider"></span></li>
+  <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+  <li><a href="#"> Игроки </a> <span class="divider"></span></li>
+</ul>
 
-    </ul>
-
-    <h2> Игроки </h2>
-
-
-
+<h2> Игроки </h2>
 {% for player in players %}
-
     <br> <strong> <a href="{{player.get_absolute_url}}"> {{ player }} </a> </strong> {{player.birth}}
-
 {% endfor %}
 
 {% endblock %}

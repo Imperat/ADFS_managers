@@ -1,21 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <ul class="breadcrumb">
+          <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+          <li><a href="#"> Команды </a> <span class="divider"></span></li>
 
-<ul class="breadcrumb">
-        <li><a href="#"> АДФС </a> <span class="divider"></span></li>
-        <li><a href="#"> Команды </a> <span class="divider"></span></li>
+  </ul>
 
-    </ul>
-
-    <h2> Команды </h2>
-
-
-
-{% for team in teams %}
-
-    <br> <strong> <a href="{{team.get_absolute_url}}"> {{ team }} </a> </strong>
-
-{% endfor %}
-
+  <h2> Команды </h2>
+  {% for team in teams %}
+      <br> <strong> <a href="{{team.get_absolute_url}}"> {{ team }} </a> </strong>
+  {% endfor %}
 {% endblock %}

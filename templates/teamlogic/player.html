@@ -28,44 +28,42 @@
 
 
     <div id="info">
-    <strong>  Родился: </strong> {{ player.birth }}
-    <br>
-    <strong>  Профиль в вк: </strong> <a href="vk.com/"{{ player.vk_link }}> {{ player.vkLink }} </a>
-    <br>
-    <strong>  Игровая позиция:</strong>
-    {% if player.basePosition == 'G' %}
-        <span class="badge badge-warning">GK</span>  вратарь
-    {% endif %}
+      <strong> Родился: </strong> {{ player.birth }}
+      <br>
+      <strong> Профиль в вк: </strong> <a href="vk.com/"{{ player.vk_link }}> {{ player.vk_link }} </a>
+      <br>
+      <strong> Игровая позиция:</strong>
+      {% if player.basePosition == 'G' %}
+          <span class="badge badge-warning">GK</span>  вратарь
+      {% endif %}
 
-    {% if player.basePosition == 'H' %}
-        <span class="badge badge-warning">DF</span> защитник
-    {% endif %}
-    {% if player.basePosition == 'F' %}
-        <span class="badge badge-warning">FRW</span> нападающий
-    {% endif %}
-    <br>
+      {% if player.basePosition == 'H' %}
+          <span class="badge badge-warning">DF</span> защитник
+      {% endif %}
+      {% if player.basePosition == 'F' %}
+          <span class="badge badge-warning">FRW</span> нападающий
+      {% endif %}
 
-    <br>
-    <table class="table table-striped">
-        <caption> <strong> История выступлений: </strong></caption>
-        <thead>
-        <tr>
-            <th>Команда</th>
-            <th>Дата подписания:</th>
-            <th>Дата отзаявки:</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for foo in player.recofteam_set.all %}
-            <tr>
-                <td> <a href = '{{ foo.team.get_absolute_url}}'>{{ foo.team }}</a> </td>
-                <td> {{ foo.beginDate }}</td>
-                <td> {{ foo.get_end_date }}</td>
-            </tr>
-        {% endfor %}
-        
-        </tbody>
-    </table>
+      <table class="table table-striped">
+          <caption> <strong> История выступлений: </strong></caption>
+          <thead>
+          <tr>
+              <th>Команда</th>
+              <th>Дата подписания:</th>
+              <th>Дата отзаявки:</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for foo in player.recofteam_set.all %}
+              <tr>
+                  <td> <a href = '{{ foo.team.get_absolute_url}}'>{{ foo.team }}</a> </td>
+                  <td> {{ foo.beginDate }}</td>
+                  <td> {{ foo.get_end_date }}</td>
+              </tr>
+          {% endfor %}
+
+          </tbody>
+      </table>
     </div>
 
 {% endblock %}
