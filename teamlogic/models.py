@@ -8,6 +8,9 @@ from utils.helpers import NULLABLE
 
 
 class Stadium(models.Model):
+    """
+    Simple model of stadium.
+    """
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     accr = models.BooleanField(default=True)
@@ -26,6 +29,9 @@ class Stadium(models.Model):
 
 
 class Player (models.Model):
+    """
+    Simple model of player.
+    """
     firstName = models.CharField(max_length=70)
     lastName = models.CharField(max_length=70)
     birth = models.DateField()
@@ -43,6 +49,9 @@ class Player (models.Model):
 
 
 class Team(models.Model):
+    """
+    Simple model of Team.
+    """
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     foundation = models.IntegerField()
@@ -60,6 +69,11 @@ class Team(models.Model):
 
 
 class RecOfTeam(models.Model):
+    """
+    All players can exchange teams times for times.
+    We need to store this information. Also in every
+    team Player has individual number.
+    """
     beginDate = models.DateField(**NULLABLE)
     endDate = models.DateField(**NULLABLE)
     team = models.ForeignKey('Team')
@@ -77,6 +91,11 @@ class RecOfTeam(models.Model):
 
 
 class Goal(models.Model):
+    """
+    Model of goal. Goal has accordings author,
+    team of author, type (penalty, no-penalty),
+    minuts of match.
+    """
     author = models.ForeignKey(Player)
     team = models.ForeignKey(Team, **NULLABLE)
     type = models.CharField(max_length=2)
@@ -87,6 +106,9 @@ class Goal(models.Model):
 
 
 class Match(models.Model):
+    """
+    Simple model of match.
+    """
     league = models.ForeignKey('Tournament', default=1, null=True)
     home = models.ForeignKey(Team, related_name='+')
     away = models.ForeignKey(Team, related_name='+')
@@ -104,7 +126,7 @@ class Match(models.Model):
     register = models.BooleanField(default=False)
 
     def this_team(self, team):
-        """Has 'team' take competition in Match?"""
+        """ Has team take competition in Match? """
         return team in (self.home, self.away)
 
     def all_team_matches(self, team):
@@ -152,6 +174,10 @@ class Match(models.Model):
 
 
 class Tournament(models.Model):
+    """
+    Simple model of football league. If leagues of this type
+    there is minimum one match between any two teams from league.
+    """
     name = models.CharField(max_length=30)
     begin_date = models.DateField()
     end_date = models.DateField()
@@ -161,18 +187,23 @@ class Tournament(models.Model):
     matchs = models.ManyToManyField('MatchInLeague')
 
     def get_calendar(self):
-        '''
-        It's good to make the calendar for each Tournament
-        :return: list of tours
-        '''
-        a = self.matchs.all()
-        max_tour = 0
-        list_of_matchs = []
-        for i in a:
-            max_tour = max(max_tour, i.tour)
-        for i in range(1, max_tour+1):
-            list_of_matchs.append((a.filter(tour=i), i))
-        return list_of_matchs
+        """
+        It's good idea to have calendar of matches in
+        dictinary format with keys are number of tours
+        anv values is sets of matches.
+        """
+        tour_count = max([match.tour for match in self.matchs.all()])
+        list_of_matches = []
+        for tour in range(1, tour_count+1):
+            yield list_of_matchs.append((tour, a.filter(tour=i)))
+
+    def generate_calendar(self):
+        """
+        If admin of ADFS will create new tournament he just
+        must run this method for generate list of matches
+        automatically.
+        """
+        pass # not Implemented
 
     def teams_iter(self):
         lst_teams = list(self.teaminleague_set.all())
@@ -198,8 +229,7 @@ class Tournament(models.Model):
         b = self.end_date.year
         if a == b:
             return str(a)
-        else:
-            return str(a) + '/' + str(b)
+        return '%s/%s' % (a, b)
 
     def filtr_matches(self):
         matchList = MatchInLeague.objects.all()
@@ -265,7 +295,12 @@ class Tournament(models.Model):
 
 
 class MatchInLeague(Match):
-    tour = models.IntegerField(default=2)
+    """
+    All matches in league have meta information
+    about tour of calendar of this league and
+    probably other in future :)
+    """
+    tour = models.IntegerField(default=0)
 
     def all_team_matches(self, team):
         a = MatchInLeague.objects.all()
@@ -277,6 +312,10 @@ class MatchInLeague(Match):
 
 
 class TeamInLeague(models.Model):
+    """
+    Team has many propertyes in league.
+    For example points and count of goals.
+    """
     team = models.ForeignKey(Team)
     league = models.ForeignKey(Tournament)
     goal_s = models.IntegerField()

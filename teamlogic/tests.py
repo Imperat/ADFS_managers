@@ -1,8 +1,10 @@
+import datetime
+
 from django.test import TestCase
 
 from autofixture import AutoFixture
 
-from teamlogic.models import Match
+from teamlogic.models import Match, MatchInLeague, Tournament
 
 
 class TestUtils(object):
@@ -18,6 +20,16 @@ class TestUtils(object):
                           'home_goal_first': home_goal_first,
                           'away_goal_first': home_goal_first})
         return fixture_match.create(1)[0]
+
+    @staticmethod
+    def create_tournament(beginDate=None, endDate=None):
+        beginDate = beginDate or datetime.date(2007, 4, 24)
+        endDate = endDate or datetime.date(2010, 4, 22)
+        fixture_tournament = AutoFixture(
+            Tournament, generate_fk=True,
+            field_values={'begin_date': beginDate,
+                          'end_date': endDate})
+        return fixture_tournament.create(1)[0]
 
 
 class TestMatches(TestCase):
@@ -40,3 +52,13 @@ class TestMatches(TestCase):
     def test_away_winner_result_negative(self):
         match = TestUtils.create_match(1, 0, 0, 0)
         self.assertFalse(match.is_away_winner())
+
+
+class TestTournament(TestCase):
+    def test_get_season(self):
+        for result, end_year in [('2007/2008', 2008), ('2007', 2007)]:
+            tournament = TestUtils.create_tournament(
+                beginDate=datetime.date(2007, 4, 22),
+                endDate=datetime.date(end_year, 11, 23)
+            )
+            self.assertEqual(result, tournament.get_season())
