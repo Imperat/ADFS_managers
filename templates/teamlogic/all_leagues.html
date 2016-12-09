@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2> Все чемпионаты АДФС </h2>
+
+    {% for league in leagues %}
+        <a href="{{ league.get_absolute_url }}"> {{ league.name }} - {{ league.get_season }} </a>
+        <br>
+        <br>
+    {% endfor %}
+
+{% endblock %}

@@ -79,6 +79,16 @@ def match(request, id=None):
     return HttpResponse(template.render(context))
 
 
+def all_league(request):
+    if request.method == "GET":
+        template = loader.get_template('teamlogic/all_leagues.html')
+        leagues = models.Tournament.objects.all()
+        context = RequestContext(request, {
+            'leagues': leagues,
+            'user': request.user
+        })
+    return HttpResponse(template.render(context))
+
 def league(request, id=None):
     if request.method == "GET":
         template = loader.get_template('teamlogic/league.html')

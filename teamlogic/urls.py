@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^stadion/(?P<id>[0-9]+)/$', views.stadion, name='stadion'),
     url(r'^stadion/$', views.stadions, name='stadions'),
     url(r'^match/(?P<id>[0-9]+)/$', views.match, name='match'),
+    url(r'^league/$', views.all_league, name='allleague'),
     url(r'^league/(?P<id>[0-9]+)/$', views.league, name='league'),
     url(r'^league/(?P<id>[0-9]+)/calend/$', views.calendar, name='calendar'),
     url(r'^league/(?P<id>[0-9]+)/bomb/$', views.bombardiers, name='bombardiers'),
