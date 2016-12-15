@@ -21,3 +21,18 @@ def player_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def team_list(request):
+    if request.method == 'GET':
+        teams = models.Team.objects.all()
+        serializer = serializers.TeamSerializer(teams, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
