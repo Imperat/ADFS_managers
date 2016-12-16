@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^player/', views.players, name='players'),
     url(r'^team/(?P<id>[0-9]+)/$', views.team, name='team'),
     url(r'team/(?P<id>[0-9]+)/matches/', views.team_matches, name='ind_calendar'),
+    url(r'team/$', views.teams, name='teams'),
     url(r'^stadion/(?P<id>[0-9]+)/$', views.stadion, name='stadion'),
     url(r'^stadion/$', views.stadions, name='stadions'),
     url(r'^match/(?P<id>[0-9]+)/$', views.match, name='match'),
