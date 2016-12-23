@@ -4,7 +4,7 @@ ADFS Managers
 Introduction
 ------------
 This is my own application for manage statistic and
-control Assotiation of Street Football of Saratov.
+control Association of Street Football of Saratov.
 
 Installation
 ------------
@@ -16,7 +16,7 @@ I recommend you use virtualenv:
 
 `python manage.py runserver 127.0.0.1:8000`
 
-Also for testing there are additional dependencyes:
+Also for testing there are additional dependencies:
 
 `pip install -r test-requirements`
 
@@ -24,10 +24,9 @@ Also for testing there are additional dependencyes:
 
 Contributing
 ------------
-ADFS Managers is opensourse project and I develop it only for
+ADFS Managers is opensource project and I develop it only for
 improve my coding skills and make freely help for ADF of Saratov.
 I promise that I willn't earn money using this project.
-For this reason, if you is interesting, you is free in contributing
-for this project. You can create new issie, pull request or write me e-mail in
-leliykin@gmail.com or in Telegram "+79603412336". 
-
+For this reason, if you are interesting, you are free in contributing
+for this project. You can create new issue, pull request or write me e-mail in
+leliykin@gmail.com or in Telegram "+79603412336".
