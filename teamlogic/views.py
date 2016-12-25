@@ -1,71 +1,42 @@
 from django.shortcuts import loader, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
 import datetime
 
 from teamlogic import models
 
-# Views for Web-Service
-
-def player(request, id):
-    template = loader.get_template('teamlogic/player.html')
-    players = get_object_or_404(models.Player, pk=id)
-    context = RequestContext(request, {
-        'player': players,
-        'user': request.user,
-    })
-    return HttpResponse(template.render(context))
+class PlayerDetailView(DetailView):
+    model = models.Player
+    template_name = 'teamlogic/player.html'
 
 
-def players(request):
-    template = loader.get_template('teamlogic/players.html')
-    players = models.Player.objects.all()
-    context = RequestContext(request, {
-        'players': players,
-        'user': request.user
-    })
-    return HttpResponse(template.render(context))
+class PlayersListView(ListView):
+    model = models.Player
+    template_name = 'teamlogic/players.html'
 
 
-def team(request, id):
-    template = loader.get_template('teamlogic/team.html')
-    teams = get_object_or_404(models.Team, pk=id)
-    context = RequestContext(request, {
-        'team': teams,
-        'nows': datetime.datetime.today(),
-        'user': request.user,
-    })
-    return HttpResponse(template.render(context))
+class TeamDetailView(DetailView):
+    model = models.Team
+    template_name = 'teamlogic/team.html'
 
 
-def teams(request):
-    template = loader.get_template('teamlogic/teams.html')
-    teams = models.Team.objects.all()
-    context = RequestContext(request, {
-        'teams': teams
-    })
-    return HttpResponse(template.render(context))
+class TeamListView(ListView):
+    model = models.Team
+    template_name = 'teamlogic/teams.html'
 
 
-def stadion(request, id):
-    template = loader.get_template('teamlogic/stadion.html')
-    stadion = get_object_or_404(models.Stadium, pk=id)
-    context = RequestContext(request, {
-        'stadion': stadion,
-        'user': request.user,
-    })
-    return HttpResponse(template.render(context))
+class StadionDetailView(DetailView):
+    model = models.Stadium
+    template_name = 'teamlogic/stadion.html'
+    context_object_name = 'stadion'
 
 
-def stadions(request):
-    template = loader.get_template('teamlogic/stadions.html')
-    stadions = models.Stadium.objects.all()
-    context = RequestContext(request,{
-        'stadions': stadions,
-        'user': request.user
-    })
-    return HttpResponse(template.render(context))
+class StadionListView(ListView):
+    model = models.Stadium
+    template_name = 'teamlogic/stadions.html'
 
 
 def match(request, id=None):

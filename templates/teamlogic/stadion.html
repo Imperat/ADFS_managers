@@ -30,7 +30,7 @@
     <br>
     <strong> Оценка: </strong> 4
     <br>
-    <strong> Домашние команды: </strong> 
+    <strong> Домашние команды: </strong>
     {% for team in stadion.home.all %}
         <a href="{{ team.get_absolute_url }}"> {{ team }} </a>
     {% endfor %}
