@@ -17,25 +17,22 @@
 
     <h1> <i class="icon-search"></i> {{ stadion.name }}  </h1>
 
-
     <img src="{{ stadion.image.url }}" class="img-polaroid" float="left">
 
 
     <div id="info">
-    <strong>  Город: </strong> {{ stadion.city }}
-    <br>
-    <strong>  Аккредитован администрацией: </strong> <a href="vk.com/"> да </a>
-    <br>
-    <strong>  Покрытие:</strong> травяное
-    <br>
-    <strong> Оценка: </strong> 4
-    <br>
-    <strong> Домашние команды: </strong>
-    {% for team in stadion.home.all %}
-        <a href="{{ team.get_absolute_url }}"> {{ team }} </a>
-    {% endfor %}
-
-
+      <strong>  Город: </strong> {{ stadion.city }}
+      <br>
+      <strong>  Аккредитован администрацией: </strong> <a href="vk.com/"> да </a>
+      <br>
+      <strong>  Покрытие:</strong> травяное
+      <br>
+      <strong> Оценка: </strong> 4
+      <br>
+      <strong> Домашние команды: </strong>
+      {% for team in stadion.home.all %}
+          <a href="{{ team.get_absolute_url }}"> {{ team }} </a>
+      {% endfor %}
     </div>
     <h3> Описание </h3>
     {{ stadion.description }}

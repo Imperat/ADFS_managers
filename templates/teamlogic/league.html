@@ -21,9 +21,7 @@
 
     <h1> <i class="icon-search"></i> {{ league.name }}  </h1>
 
-
     <img src="{{ league.image.url }}" class="img-polaroid" float="left">
-
 
     <div id="info">
         <strong> Cезон: </strong> {{ league.get_season }}
@@ -36,6 +34,7 @@
         <br>
         <strong> <a href="bomb/"> Бомбардиры </a> </strong>
     </div>
+
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#home" data-toggle="tab">Турнирное положение</a></li>
         <li><a href="#messages" data-toggle="tab">Календарь</a></li>
@@ -124,8 +123,8 @@
                 {% endfor %}
 
                 </tbody>
-            </table></div>
-
+            </table>
+          </div>
     </div>
 
     <script>

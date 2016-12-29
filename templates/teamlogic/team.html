@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <ul class="breadcrumb">
-        <li><a href="#"> АДФС </a> <span class="divider"></span></li>
-        <li><a href="#"> Команды </a> <span class="divider"></span></li>
-        <li><a href="{{ team.get_absolute_url }}"> {{ team.name }}  </a> <span class="divider"></span></li>
-        </ul>
+    <ul class="breadcrumb">
+      <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+      <li><a href="#"> Команды </a> <span class="divider"></span></li>
+      <li><a href="{{ team.get_absolute_url }}"> {{ team.name }}  </a> <span class="divider"></span></li>
+    </ul>
 
     <h1> {{ team.name }} </h1>
 
@@ -167,8 +167,8 @@
                 {% endfor %}
 
                 </tbody>
-            </table></div>
-
+            </table>
+          </div>
     </div>
 
     <script>
