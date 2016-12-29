@@ -43,17 +43,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-#Vendors and myself applications
+# Vendors applications
 INSTALLED_APPS += [
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
+    'bootstrapform',
+    'rest_framework',
+]
+
+# My own applications
+INSTALLED_APPS += [
     'ADFS',
     'carusele',
     'teamlogic',
-    'bootstrapform',
-    'rest_framework',
 ]
 
 REST_FRAMEWORK = {
@@ -93,7 +97,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -110,4 +114,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
