@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from .models import Element, Listing
-# Create your views here.
+
+from carusele.models import Element, News
 
 
 def index(request):
@@ -15,7 +15,7 @@ def index(request):
 
 def article(request, id):
     template = loader.get_template('article.html')
-    poll = get_object_or_404(Listing, pk=id)
+    poll = get_object_or_404(News, pk=id)
     context = RequestContext(request, {
         'article': poll,
         'number': id,

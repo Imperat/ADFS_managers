@@ -1,9 +1,11 @@
 from django.db import models
 
-# Create your models here.
 
-
-class Listing (models.Model):
+class News (models.Model):
+    """
+    News model represent detail description and
+    content of each carusele element.
+    """
     title = models.CharField(max_length=400)
     description = models.TextField(default="")
     content = models.TextField()
@@ -18,11 +20,13 @@ class Listing (models.Model):
 
 
 class Element (models.Model):
+    """
+    This model presents picture and short description
+    of news in carusele javascript element on main page.
+    """
     description = models.CharField(max_length=400)
-    content = models.TextField()
     image = models.ImageField(upload_to="media")
-    caruse = models.OneToOneField("Listing")
+    news = models.OneToOneField("News")
 
     def __unicode__(self):
         return unicode(self.description)
-

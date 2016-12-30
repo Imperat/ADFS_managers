@@ -1,9 +1,7 @@
-__author__ = 'stronger'
-
 from django.conf.urls import url
 
-from . import views
-from . import models
+from carusele import views
+from carusele import models
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

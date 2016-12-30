@@ -1,7 +1,7 @@
 from django.contrib import admin
-from models import Element, Listing
-# Register your models here.
+
+from carusele.models import Element, News
 
 
-admin.site.register(Listing)
+admin.site.register(News)
 admin.site.register(Element)
