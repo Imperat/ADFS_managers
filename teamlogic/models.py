@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 
@@ -25,7 +26,7 @@ class Stadium(models.Model):
         return unicode(self.name)
 
     def get_absolute_url(self):
-        return "/logic/stadion/%i/" % self.id
+        return reverse("stadion", args=(self.id,))
 
 
 class Player (models.Model):
@@ -45,7 +46,7 @@ class Player (models.Model):
         return unicode(self.firstName + " " + self.lastName)
 
     def get_absolute_url(self):
-        return "/logic/player/%i/" % self.id
+        return reverse("player", args=(self.id,))
 
 
 class Team(models.Model):
@@ -65,7 +66,7 @@ class Team(models.Model):
         return unicode(self.name)
 
     def get_absolute_url(self):
-        return "/logic/team/%i" % self.id
+        return reverse("team", args=(self.id,))
 
 
 class RecOfTeam(models.Model):
@@ -163,7 +164,7 @@ class Match(models.Model):
         return self.home_goal == self.away_goal
 
     def get_absolute_url(self):
-        return "/logic/match/%i" % self.id
+        return reverse("match", args=(self.id,))
 
     def __unicode__(self):
         if self.home_goal >= 0 and self.away_goal >=0:
@@ -271,7 +272,7 @@ class Tournament(models.Model):
                 i.save()
 
     def get_absolute_url(self):
-        return "/logic/league/%i" % self.id
+        return reverse("league", args=(self.id,))
 
     def get_bombardiers_table(self):
         t = []
