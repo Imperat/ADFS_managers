@@ -39,6 +39,12 @@ class StadionListView(ListView):
     template_name = 'teamlogic/stadions.html'
 
 
+class MatchListView(ListView):
+    model = models.Match
+    template_name = 'teamlogic/match_set.html'
+    context_object_name = 'matches'
+
+
 def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(models.Match, pk=id)

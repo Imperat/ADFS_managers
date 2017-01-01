@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'team/$', views.TeamListView.as_view(), name='teams'),
     url(r'^stadion/(?P<pk>[0-9]+)/$', views.StadionDetailView.as_view(), name='stadion'),
     url(r'^stadion/$', views.StadionListView.as_view(), name='stadions'),
+    url(r'^match/$', views.MatchListView.as_view(), name='matches'),
     url(r'^match/(?P<id>[0-9]+)/$', views.match, name='match'),
     url(r'^league/$', views.all_league, name='allleague'),
     url(r'^league/(?P<id>[0-9]+)/$', views.league, name='league'),

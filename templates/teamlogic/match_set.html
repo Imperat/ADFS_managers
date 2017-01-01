@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <ul class="breadcrumb">
+    <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+    <li><a href="#"> Матчи </a> <span class="divider"></span></li>
+  </ul>
+
+  {% for match in matches %}
+    <a href="{{match.home.get_absolute_url}}">{{ match.home }}</a> - <a href="{{match.away.get_absolute_url}}">{{ match.away }}</a>
+    <a href="{{match.get_absolute_url}}"> {{ match.home_goal }}:{{ match.away_goal }} </a>
+  {% endfor %}
+{% endblock %}
