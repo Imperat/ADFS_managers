@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -16,7 +17,7 @@ class News (models.Model):
         return unicode(self.title)
 
     def get_absolute_url(self):
-        return "/carusele/art/%i/" % self.id
+        return reverse("article", args=(self.id,))
 
 
 class Element (models.Model):
