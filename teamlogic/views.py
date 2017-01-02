@@ -8,6 +8,7 @@ import datetime
 
 from teamlogic import models
 
+
 class PlayerDetailView(DetailView):
     model = models.Player
     template_name = 'teamlogic/player.html'
@@ -66,6 +67,7 @@ def all_league(request):
         })
     return HttpResponse(template.render(context))
 
+
 def league(request, id=None):
     if request.method == "GET":
         template = loader.get_template('teamlogic/league.html')
@@ -84,7 +86,8 @@ def calendar(request, id=id):
     calend = t.get_calendar()
     context = RequestContext(request, {
         'matches': calend,
-        'all_team_matches': models.Match.objects.all().last().all_team_matches(models.Team.objects.all().last()),
+        'all_team_matches': models.Match.objects.all().last(
+        ).all_team_matches(models.Team.objects.all().last()),
         'user': request.user,
     })
     return HttpResponse(template.render(context))
@@ -94,7 +97,8 @@ def team_matches(request, id=1):
     template = loader.get_template('teamlogic/matches.html')
     t = get_object_or_404(models.Team, pk=id)
     context = RequestContext(request, {
-        'all_team_matches': models.MatchInLeague.objects.all().last().all_team_matches(t),
+        'all_team_matches': models.MatchInLeague.objects.all(
+        ).last().all_team_matches(t),
         'team': t,
         'user': request.user,
     })

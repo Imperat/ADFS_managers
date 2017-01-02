@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from teamlogic import models
 
+
 # Views for REST-API
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))

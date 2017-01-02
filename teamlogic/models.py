@@ -139,7 +139,6 @@ class Match(models.Model):
                 x.append(i)
         return x
 
-
     def is_starts(self):
         c = self.date_time - timezone.now()
         c = int(c.total_seconds())
@@ -204,7 +203,7 @@ class Tournament(models.Model):
         must run this method for generate list of matches
         automatically.
         """
-        pass # not Implemented
+        pass  # not Implemented
 
     def teams_iter(self):
         lst_teams = list(self.teaminleague_set.all())
@@ -246,15 +245,21 @@ class Tournament(models.Model):
     def regist(self, m):
         d = [dict(), dict()]
         if m.is_drawn:
-            d[0] = {'v': 0, 'n': 1, 'p': 0, 'sab': m.home_goal, 'prop': m.away_goal}
-            d[1] = {'v': 0, 'n': 1, 'p': 0, 'sab': m.away_goal, 'prop': m.home_goal}
+            d[0] = {'v': 0, 'n': 1, 'p': 0,
+                    'sab': m.home_goal, 'prop': m.away_goal}
+            d[1] = {'v': 0, 'n': 1, 'p': 0,
+                    'sab': m.away_goal, 'prop': m.home_goal}
         else:
             if m.is_home_winner:
-                d[0] = {'v': 1, 'n': 0, 'p': 0, 'sab': m.home_goal, 'prop': m.away_goal}
-                d[1] = {'v': 0, 'n': 0, 'p': 1, 'sab': m.away_goal, 'prop': m.home_goal}
+                d[0] = {'v': 1, 'n': 0, 'p': 0,
+                        'sab': m.home_goal, 'prop': m.away_goal}
+                d[1] = {'v': 0, 'n': 0, 'p': 1,
+                        'sab': m.away_goal, 'prop': m.home_goal}
             if m.is_away_winner:
-                d[0] = {'v': 0, 'n': 0, 'p': 1, 'sab': m.home_goal, 'prop': m.away_goal}
-                d[1] = {'v': 1, 'n': 0, 'p': 0, 'sab': m.away_goal, 'prop': m.home_goal}
+                d[0] = {'v': 0, 'n': 0, 'p': 1,
+                        'sab': m.home_goal, 'prop': m.away_goal}
+                d[1] = {'v': 1, 'n': 0, 'p': 0,
+                        'sab': m.away_goal, 'prop': m.home_goal}
         for i in self.teaminleague_set.iterator():
             if i.team.name == m.home.name:
                 i.match_v += d[0]['v']
@@ -346,6 +351,7 @@ class Manager(models.Model):
     tournaments = models.ManyToManyField(Tournament)
     #pokals = models.ManyToManyField(Pokals)
     #leagues = .....
+
     def get_last_match(self, team):
         pass
 

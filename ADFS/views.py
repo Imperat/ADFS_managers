@@ -39,13 +39,14 @@ def register_attention(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            a = Attention.objects.all().create(name=form['name'].value(),
-                                               vkLink=form['vkLink'].value(),
-                                               phone=form['phone'].value(),
-                                               team=form['team'].value(),
-                                               first_league=form['first_league'].value(),
-                                               pokal=form['pokal'].value(),
-                                               winter_pokal=form['winter_pokal'].value())
+            a = Attention.objects.all().create(
+                name=form['name'].value(),
+                vkLink=form['vkLink'].value(),
+                phone=form['phone'].value(),
+                team=form['team'].value(),
+                first_league=form['first_league'].value(),
+                pokal=form['pokal'].value(),
+                winter_pokal=form['winter_pokal'].value())
 
             return HttpResponseRedirect('/attention/%i' % a.id)
 
@@ -60,11 +61,12 @@ def autorisation(request):
     if request.method == 'GET':
         logout(request)
         template = loader.get_template('autorisation.html')
-        context = RequestContext(request, {'form' : LoginForm()})
+        context = RequestContext(request, {'form': LoginForm()})
         return HttpResponse(template.render(context))
     else:
         form = LoginForm(request.POST)
-        user = authenticate(username=form['login'].value(), password=form['password'].value())
+        user = authenticate(username=form['login'].value(),
+                            password=form['password'].value())
         print request.POST
         print form['login'].value(), form['password'].value()
         t = False
@@ -75,15 +77,14 @@ def autorisation(request):
                 login(request, user)
                 t = True
             else:
-                print("The password is valid, but the account has been disabled!")
+                print("The password is valid, but the account is disabled!")
         else:
-            # the authentication system was unable to verify the username and password
             print("The username and password were incorrect.")
 
         if user is not None:
             context = RequestContext(request, {
-                'login' : user.username,
-                'active' : t,
+                'login': user.username,
+                'active': t,
             })
         else:
             context = RequestContext(request, {})

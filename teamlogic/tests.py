@@ -9,8 +9,8 @@ from teamlogic.models import Match, MatchInLeague, Tournament
 
 class TestUtils(object):
     @staticmethod
-    def create_match(home_goal, away_goal, home_goal_first=None,
-                                          away_goal_first=None):
+    def create_match(home_goal, away_goal,
+                     home_goal_first=None, away_goal_first=None):
         home_goal_first = home_goal_first or 0
         away_goal_first = away_goal_first or 0
         fixture_match = AutoFixture(
