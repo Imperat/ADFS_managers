@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -41,4 +42,7 @@ class Attention(models.Model):
         verbose_name='Зимний кубок АДФС 2015/16', default=True)
 
     def get_absolute_url(self):
-        return "/fusbal/attentions/%i" % self.id
+        return reverse('attention', args=(self.id,))
+
+    def __unicode__(self):
+        return u"Заявка: %s %s" % (self.name, self.team)
