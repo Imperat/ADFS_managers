@@ -19,7 +19,7 @@ class Stadium(models.Model):
     estimate = models.FloatField()
     physics = models.IntegerField()
     # Need to add relation to Date and Time free!!!
-    home = models.ManyToManyField('Team', **NULLABLE)
+    home = models.ManyToManyField('Team')
     image = models.ImageField(upload_to='media', default='/media/404/')
 
     def __unicode__(self):
@@ -40,7 +40,7 @@ class Player (models.Model):
     # G - goalkeeper, H - defender, F - nap
     basePosition = models.CharField(max_length=1)
     image = models.ImageField(upload_to="media")
-    history = models.ManyToManyField('Team', through='RecOfTeam', null=True)
+    history = models.ManyToManyField('Team', through='RecOfTeam')
 
     def __unicode__(self):
         return unicode("%s %s" % (self.firstName, self.lastName))
