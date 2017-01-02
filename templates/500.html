@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css %}
+  <link href="{% static "css/server-error.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="server-error">
+    500
+  </div>
+  <h2> Ошибка сервера :( </h2>
+  <br>
+  Нам очень грустно. Вы можете пока пойти попинать мяч, а мы сходим на сенной и купим оперативки серваку!
+{% endblock %}

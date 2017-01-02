@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css %}
+  <link href="{% static "css/server-error.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="server-error">
+    404
+  </div>
+  <h2> Страница не найдена :( </h2>
+  <br>
+  Нам очень грустно. Вы можете пока пойти попинать мяч, а мы её найдём!
+{% endblock %}
