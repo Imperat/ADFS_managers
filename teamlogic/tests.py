@@ -53,6 +53,13 @@ class TestMatches(TestCase):
         match = TestUtils.create_match(1, 0, 0, 0)
         self.assertFalse(match.is_away_winner())
 
+    def test_this_team(self):
+        match = TestUtils.create_match(1, 0, 0, 0)
+        self.assertTrue(match.this_team(match.home))
+        self.assertTrue(match.this_team(match.away))
+        other_match = TestUtils.create_match(1, 0, 0, 0)
+        self.assertFalse(match.this_team(other_match.home))
+
 
 class TestTournament(TestCase):
     def test_get_season(self):
