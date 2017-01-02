@@ -43,7 +43,7 @@ class Player (models.Model):
     history = models.ManyToManyField('Team', through='RecOfTeam', null=True)
 
     def __unicode__(self):
-        return unicode(self.firstName + " " + self.lastName)
+        return unicode("%s %s" % (self.firstName, self.lastName))
 
     def get_absolute_url(self):
         return reverse("player", args=(self.id,))
@@ -82,7 +82,8 @@ class RecOfTeam(models.Model):
     number = models.IntegerField(default=-1)
 
     def __unicode__(self):
-        return self.player.__unicode__() + " (" + self.team.__unicode__() + ")"
+        return unicode("%s (%s)" % (self.player.__unicode__(),
+                                    self.team.__unicode__()))
 
     def get_end_date(self):
         if self.endDate.year > datetime.now().year:
@@ -103,7 +104,7 @@ class Goal(models.Model):
     min = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.author.__unicode__() + u'Bob'
+        return "Goal of %s" % self.author.__unicode__()
 
 
 class Match(models.Model):
@@ -167,11 +168,10 @@ class Match(models.Model):
         return reverse("match", args=(self.id,))
 
     def __unicode__(self):
-        if self.home_goal >= 0 and self.away_goal >=0:
-            return unicode("%s - %s (%i - %i)" % (self.home.name, self.away.name,
-                                                  self.home_goal, self.away_goal))
-        else:
+        if not self.hasResult:
             return unicode("%s - %s" % (self.home.name, self.away.name))
+        return unicode("%s - %s (%i - %i)" % (self.home.name, self.away.name,
+                                              self.home_goal, self.away_goal))
 
 
 class Tournament(models.Model):
@@ -223,7 +223,7 @@ class Tournament(models.Model):
         return lst_teams
 
     def __unicode__(self):
-        return unicode(self.name) + " " + unicode(str(self.get_season()))
+        return "%s %s" % (unicode(self.name), unicode(self.get_season()))
 
     def get_season(self):
         a = self.begin_date.year
