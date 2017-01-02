@@ -29,16 +29,10 @@ def view_attention(request, id):
 
 
 def register_attention(request):
-    # if this is a POST request we need to process the form data
+    form = ContactForm()
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = ContactForm(request.POST)
-        # check whether it's valid:
-        # if form.is_valid():
-        if True:
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
+        if form.is_valid():
             a = Attention.objects.all().create(
                 name=form['name'].value(),
                 vkLink=form['vkLink'].value(),
@@ -49,11 +43,6 @@ def register_attention(request):
                 winter_pokal=form['winter_pokal'].value())
 
             return HttpResponseRedirect('/attention/%i' % a.id)
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ContactForm()
-
     return render(request, 'attention.html', {'form': form})
 
 

@@ -4,9 +4,8 @@
     <h2> Регистрация заявки на участие в первой лиге АДФС </h2>
     <form role="form" method="post">
         {% csrf_token %}
-            {% load bootstrap %}
-        <label> Ответьте, пожалуйста, на несколько простых вопросов и ваша заявка обязательно будет рассмотрена
-            администрацией! </label>
+        {% load bootstrap %}
+        <label> Ответьте, пожалуйста, на несколько простых вопросов и ваша заявка обязательно будет рассмотрена администрацией! </label>
 
         <div class="form-group" id="person">
 
@@ -20,38 +19,24 @@
 
                     {{ form.team | bootstrap }}
 
-
                 </div>
                 <div class="form-group" id="tournaments">
                     <p> Подать заявку на следующие турниры: </p>
-                <div class="checkbox" id="first_league">
-                    {{ form.first_league | bootstrap }}
-                </div>
-                <div class="checkbox" id="pokal">
-                    {{ form.pokal | bootstrap }}
-                </div>
-                <div class="checkbox" id="winter_pokal">
-                    {{ form.winter_pokal |bootstrap }}
-                </div>
+
+                    <div class="checkbox" id="first_league">
+                        {{ form.first_league | bootstrap }}
                     </div>
-                <button type="button" class="btn btn-success" onclick="sbm()">Заявиться</button>
 
+                    <div class="checkbox" id="pokal">
+                        {{ form.pokal | bootstrap }}
+                    </div>
+
+                    <div class="checkbox" id="winter_pokal">
+                        {{ form.winter_pokal |bootstrap }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Заявиться</button>
         </div>
-
-    </form> 
-
-    <script type="text/javascript">
-        function sbm(){
-            var first_league = $(".first_league").checked;
-            var pokal = $(".pokal").checked;
-            var winter_pokal = $(".winter_pokal").checked;
-
-            if (first_league && pokal && winter_pokal){
-
-            } else {
-                alert("kefal");
-            }
-        }
-    </script>
-
+    </form>
 {% endblock %}
