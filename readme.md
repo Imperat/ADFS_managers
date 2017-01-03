@@ -1,6 +1,8 @@
 ADFS Managers
 =============
 [![Build Status](https://travis-ci.org/Imperat/ADFS_managers.svg?branch=master)](https://travis-ci.org/Imperat/ADFS_managers)
+[![Code Health](https://landscape.io/github/Imperat/ADFS_managers/master/landscape.svg?style=flat)](https://landscape.io/github/Imperat/ADFS_managers/master)
+
 Introduction
 ------------
 This is my own application for manage statistic and
