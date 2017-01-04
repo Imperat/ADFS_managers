@@ -115,6 +115,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+# pagination
+PAGINATE_BY = 10
+
 try:
     from settings_local import *
 except:

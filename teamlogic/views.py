@@ -7,6 +7,7 @@ from django.views.generic.list import ListView
 import datetime
 
 from teamlogic import models
+from utils.mixins import PaginatedViewMixin
 
 
 class PlayerDetailView(DetailView):
@@ -24,7 +25,7 @@ class TeamDetailView(DetailView):
     template_name = 'teamlogic/team.html'
 
 
-class TeamListView(ListView):
+class TeamListView(PaginatedViewMixin, ListView):
     model = models.Team
     template_name = 'teamlogic/teams.html'
 

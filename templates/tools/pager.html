@@ -1,0 +1,27 @@
+{% load teamlogic_tags %}
+
+{% if show_pager %}
+<div class="paginator">
+  <ul class="pagination">
+
+    {% if page.has_previous %}
+      <li><a href="?page={{previous_page}}">&laquo;</a></li>
+    {% endif %}
+
+    {% for number in previoues_pages %}
+      <li><a href="?page={{number}}">{{number}}</a></li>
+    {% endfor %}
+
+    <li><a href="?page={{current_page}}" class="current-page">{{ current_page }}</a></li>
+
+    {% for number in following_pages %}
+      <li><a href="?page={{number}}">{{number}}</a></li>
+    {% endfor %}
+
+    {% if page.has_next %}
+      <li><a href="?page={{following_page}}">&raquo;</a></li>
+    {% endif %}
+
+  </ul>
+</div>
+{% endif %}

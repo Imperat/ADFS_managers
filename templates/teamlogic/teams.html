@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load teamlogic_tags %}
 {% block content %}
   <ul class="breadcrumb">
           <li><a href="#"> АДФС </a> <span class="divider"></span></li>
@@ -8,7 +8,12 @@
   </ul>
 
   <h2> Команды </h2>
-  {% for team in object_list %}
-      <br> <strong> <a href="{{team.get_absolute_url}}"> {{ team }} </a> </strong>
-  {% endfor %}
+  <div class="list-objects">
+    {% for team in object_list %}
+        <br> <strong> <a href="{{team.get_absolute_url}}"> {{ team }} </a> </strong>
+    {% endfor %}
+  </div>
+
+  {% pager %}
+
 {% endblock %}

@@ -181,3 +181,7 @@
     class: form-control;
 
 }
+
+.current-page {
+    background: aliceblue !important;
+}
