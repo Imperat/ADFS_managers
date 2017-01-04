@@ -6,8 +6,8 @@ from django.conf import settings
 
 from rest_framework import routers, serializers, viewsets
 
-from carusele import urls as urls1
-from teamlogic import urls as urls2
+from carusele import urls as carusele_urls
+from teamlogic import urls as teamlogic_urls
 from ADFS import views
 
 
@@ -28,8 +28,8 @@ urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include(admin_tools.urls)),
-    url(r'^carusele/', include(urls1)),
-    url(r'logic/', include(urls2)),
+    url(r'^carusele/', include(carusele_urls)),
+    url(r'logic/', include(teamlogic_urls)),
     url(r'^login/', views.autorisation),
     url(r'^register_attention/', views.register_attention),
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
