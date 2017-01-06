@@ -20,7 +20,7 @@ I recommend you use virtualenv:
 
 Also for testing there are additional dependencies:
 
-`pip install -r test-requirements`
+`pip install -r test-requirements.txt`
 
 `python manage.py test`
 
