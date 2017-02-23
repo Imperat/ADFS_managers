@@ -1,15 +1,19 @@
-    <div class="rasim">
-        <h4> Авторизация: </h4>
-            <form class="form-horizontal" method="post" action="/login/">
-                {% csrf_token %}
-                {% load bootstrap %}
-                {{ form.login | bootstrap }}
-                {{ form.password | bootstrap }}
-
-
-                <label class="checkbox">
-                    <input type="checkbox"> Запомнить меня
-                </label>
-                <button type="submit" class="btn">Войти</button>
-            </form>
+<div class="auth-panel">
+  <ul class="breadcrumb">
+    <li><a href="#"> Авторизация </a> <span class="divider"></span></li>
+  </ul>
+  <form class="form-horizontal" id="login-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label> Логин: </label>
+      <input class="form-control" name="login" type="text" placeholder="Император">
     </div>
+    <div class="form-group">
+      <label> Пароль: </label>
+        <input class="form-control" name="password" type="password" placeholder="Космонавтика">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </div>
+  </form>
+</div>
