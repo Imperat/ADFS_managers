@@ -8,8 +8,18 @@
   </ul>
 
   {% for match in matches %}
-    <a href="{{match.home.get_absolute_url}}">{{ match.home }}</a> - <a href="{{match.away.get_absolute_url}}">{{ match.away }}</a>
-    <a href="{{match.get_absolute_url}}"> {{ match.home_goal }}:{{ match.away_goal }} </a>
-    <br>
+    <div class="media">
+      <div class="media-body">
+        <div class="col-xs-3">
+          <a href="{{match.home.get_absolute_url}}">{{ match.home }}</a>
+        </div>
+        <div class="col-xs-2">
+          <a href="{{match.get_absolute_url}}">{{ match.home_goal }}:{{ match.away_goal }}</a>
+        </div>
+        <div class="col-xs-3">
+          <a href="{{match.away.get_absolute_url}}">{{ match.away }}</a>
+        </div>
+      </div>
+    </div>
   {% endfor %}
 {% endblock %}
