@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
 
-from models import Attention
-from forms import ContactForm
+from .models import Attention
+from .forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
@@ -56,8 +56,7 @@ def autorisation(request):
         form = LoginForm(request.POST)
         user = authenticate(username=form['login'].value(),
                             password=form['password'].value())
-        print request.POST
-        print form['login'].value(), form['password'].value()
+        print (request.POST)
         t = False
         if user is not None:
             # the password verified for the user

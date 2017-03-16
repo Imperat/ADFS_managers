@@ -122,3 +122,6 @@ try:
     from settings_local import *
 except:
     pass
+
+import django
+django.setup()

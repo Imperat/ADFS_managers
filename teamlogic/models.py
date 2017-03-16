@@ -5,7 +5,7 @@ from django.utils import timezone
 from datetime import datetime
 from itertools import groupby
 
-from utils.helpers import NULLABLE
+from utils.helpers import NULLABLE, cmp_to_key
 
 
 class Stadium(models.Model):
@@ -19,7 +19,7 @@ class Stadium(models.Model):
     estimate = models.FloatField()
     physics = models.IntegerField()
     # Need to add relation to Date and Time free!!!
-    home = models.ManyToManyField('Team')
+    home = models.ManyToManyField('Team', **NULLABLE)
     image = models.ImageField(upload_to='media', default='/media/404/')
 
     def __unicode__(self):
@@ -218,7 +218,7 @@ class Tournament(models.Model):
             if x < y:
                 return -1
 
-        lst_teams.sort(cmp=a, reverse=True)
+        lst_teams.sort(key=cmp_to_key(a), reverse=True)
         return lst_teams
 
     def __unicode__(self):
