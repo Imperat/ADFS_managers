@@ -22,8 +22,8 @@ class Stadium(models.Model):
     home = models.ManyToManyField('Team', **NULLABLE)
     image = models.ImageField(upload_to='media', default='/media/404/')
 
-    def __unicode__(self):
-        return unicode(self.name)
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse("stadion", args=(self.id,))
@@ -39,11 +39,11 @@ class Player (models.Model):
     vk_link = models.CharField(max_length=30, null=True)
     # G - goalkeeper, H - defender, F - nap
     basePosition = models.CharField(max_length=1)
-    image = models.ImageField(upload_to="media")
+    image = models.ImageField(upload_to="media", **NULLABLE)
     history = models.ManyToManyField('Team', through='RecOfTeam')
 
-    def __unicode__(self):
-        return unicode("%s %s" % (self.firstName, self.lastName))
+    def __str__(self):
+        return "%s %s" % (self.firstName, self.lastName)
 
     def get_absolute_url(self):
         return reverse("player", args=(self.id,))
@@ -62,8 +62,8 @@ class Team(models.Model):
     captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
     home = models.ForeignKey('Stadium', **NULLABLE)
 
-    def __unicode__(self):
-        return unicode(self.name)
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse("team", args=(self.id,))
@@ -120,11 +120,12 @@ class Match(models.Model):
     away_goal_first = models.IntegerField()
     technical = models.BooleanField(default=False)
     place = models.ForeignKey(Stadium)
-    date_time = models.DateTimeField()
-    home_goals = models.ManyToManyField('Goal', related_name='home')
-    away_goals = models.ManyToManyField('Goal', related_name='away')
+    date_time = models.DateTimeField(**NULLABLE)
+    home_goals = models.ManyToManyField('Goal', related_name='home', **NULLABLE)
+    away_goals = models.ManyToManyField('Goal', related_name='away', **NULLABLE)
 
     hasResult = models.BooleanField(default=False)
+    status = models.CharField(max_length=30, **NULLABLE)
     register = models.BooleanField(default=False)
 
     def this_team(self, team):
@@ -166,11 +167,11 @@ class Match(models.Model):
     def get_absolute_url(self):
         return reverse("match", args=(self.id,))
 
-    def __unicode__(self):
+    def __str__(self):
         if not self.hasResult:
-            return unicode("%s - %s" % (self.home.name, self.away.name))
-        return unicode("%s - %s (%i - %i)" % (self.home.name, self.away.name,
-                                              self.home_goal, self.away_goal))
+            return "%s - %s" % (self.home.name, self.away.name)
+        return "%s - %s (%i - %i)" % (self.home.name, self.away.name,
+                                              self.home_goal, self.away_goal)
 
 
 class Tournament(models.Model):
@@ -221,8 +222,8 @@ class Tournament(models.Model):
         lst_teams.sort(key=cmp_to_key(a), reverse=True)
         return lst_teams
 
-    def __unicode__(self):
-        return "%s %s" % (unicode(self.name), unicode(self.get_season()))
+    def __str__(self):
+        return "%s %s" % (self.name, self.get_season())
 
     def get_season(self):
         a = self.begin_date.year

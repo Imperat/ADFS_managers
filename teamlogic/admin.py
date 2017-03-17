@@ -6,7 +6,7 @@ from teamlogic import models
 @admin.register(models.Player)
 class PlayerAdmin(admin.ModelAdmin):
     date_hierarchy = 'birth'
-    list_display = ('__unicode__', 'vk_link', 'birth')
+    list_display = ('__str__', 'vk_link', 'birth')
     list_editable = ('vk_link',)
     list_filter = ('history', 'basePosition')
     search_fields = ['lastName']
