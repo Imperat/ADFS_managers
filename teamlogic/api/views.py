@@ -215,7 +215,7 @@ def stat(request, id=None):
             entityes[match.away_id] = result
     res = list(entityes.values())
 
-    res.sort(key=cmp_to_key(cmp))
+    res.sort(key=cmp_to_key(cmp), reverse=True)
     print(res)
     return Response(res)
 
