@@ -5,6 +5,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 
 from teamlogic import models
+from .helpers import cmp_to_key
 
 
 import datetime
@@ -121,10 +122,102 @@ def calendar(request, id=None):
     return Response(calendar)
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def stat(request, id=None):
+    if id is None:
+        return
+
+    def get_points(goal1, goal2, status='home'):
+        if goal1 == goal2:
+            return 1
+        if status == 'away':
+            goal1, goal2 = goal2, goal1
+        if goal1 > goal2:
+            return 3
+        return 0
+
+    def is_drawn(goal1, goal2):
+        return goal1 == goal2
+
+    def is_home_winner(goal1, goal2):
+        return goal1 > goal2
+
+    def is_away_winner(goal1, goal2):
+        return goal2 > goal1
+
+    def cmp(record1, record2):
+        if record1['points'] > record2['points']:
+            return 1
+        if record2['points'] > record1['points']:
+            return -1
+        if record1['goals_positive'] - record1['goals_negative'] > record2['goals_positive'] - record2['goals_negative']:
+            return 1
+        if record1['goals_positive'] - record1['goals_negative'] < record2['goals_positive'] - record2['goals_negative']:
+            return -1
+        if record1['goals_positive'] > record2['goals_positive']:
+            return 1
+        if record1['goals_positive'] < record2['goals_negative']:
+            return -1
+        return 0
+
+    entityes = {}
+    matches = models.Match.objects.filter(league_id=id)
+    for match in matches:
+        if match.home_id not in entityes.keys():
+            result = {
+                'id': match.home_id,
+                'name': match.home.name,
+                'matches': 1,
+                'points': get_points(match.home_goal, match.away_goal, 'home'),
+                'goals_positive': match.home_goal,
+                'goals_negative': match.away_goal,
+                'wins': is_home_winner(match.home_goal, match.away_goal),
+                'drawns': is_drawn(match.home_goal, match.away_goal),
+                'lesion': is_away_winner(match.home_goal, match.away_goal)
+            }
+            entityes[match.home_id] = result
+        else:
+            result = entityes[match.home_id]
+            result['matches'] += 1
+            result['points'] += get_points(match.home_goal, match.away_goal, 'home')
+            result['goals_positive'] += match.home_goal
+            result['goals_negative'] += match.away_goal
+            result['wins'] += is_home_winner(match.home_goal, match.away_goal)
+            result['drawns'] += is_drawn(match.home_goal, match.away_goal)
+            result['lesion'] += is_away_winner(match.home_goal, match.away_goal)
+
+            entityes[match.home_id] = result
 
 
+        if match.away_id not in entityes.keys():
+            result = {
+                'id': match.away_id,
+                'name': match.away.name,
+                'matches': 1,
+                'points': get_points(match.home_goal, match.away_goal, 'away'),
+                'goals_positive': match.away_goal,
+                'goals_negative': match.home_goal,
+                'wins': is_away_winner(match.home_goal, match.away_goal),
+                'drawns': is_drawn(match.home_goal, match.away_goal),
+                'lesion': is_home_winner(match.home_goal, match.away_goal)
+            }
+            entityes[match.away_id] = result
+        else:
+            result = entityes[match.away_id]
+            result['matches'] += 1
+            result['points'] += get_points(match.home_goal, match.away_goal, 'away')
+            result['goals_positive'] += match.away_goal
+            result['goals_negative'] += match.home_goal
+            result['wins'] += is_away_winner(match.home_goal, match.away_goal)
+            result['drawns'] += is_drawn(match.home_goal, match.away_goal)
+            result['lesion'] += is_home_winner(match.home_goal, match.away_goal)
+            entityes[match.away_id] = result
+    res = list(entityes.values())
 
-
+    res.sort(key=cmp_to_key(cmp))
+    print(res)
+    return Response(res)
 
 
 

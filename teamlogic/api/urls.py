@@ -8,5 +8,6 @@ api_patterns = [
     url(r'^api/teams/$', views.team_list, name='api_team'),
 
     url(r'^api/v1/matchs', views.current_matchs, name='api_current_matchs'),
-    url(r'^api/v1/league/calendar/(?P<id>[0-9]+)', views.calendar, name='api_calendar')
+    url(r'^api/v1/league/calendar/(?P<id>[0-9]+)', views.calendar, name='api_calendar'),
+    url(r'^api/v1/league/stat/(?P<id>[0-9]+)', views.stat, name='api_stat')
 ]
