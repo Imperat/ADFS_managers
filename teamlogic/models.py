@@ -128,6 +128,8 @@ class Match(models.Model):
     status = models.CharField(max_length=30, **NULLABLE)
     register = models.BooleanField(default=False)
 
+    tour = models.IntegerField(**NULLABLE)
+
     def this_team(self, team):
         """ Has team take competition in Match? """
         return team in (self.home, self.away)
@@ -307,7 +309,7 @@ class MatchInLeague(Match):
     about tour of calendar of this league and
     probably other in future :)
     """
-    tour = models.IntegerField(default=0)
+    tour1 = models.IntegerField(default=0)
 
     def all_team_matches(self, team):
         a = MatchInLeague.objects.all()

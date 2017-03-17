@@ -89,8 +89,35 @@ def current_matchs(request):
         return Response(result_matches)
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def calendar(request, id=None):
+    if id is None:
+        return
 
+    matches = models.Match.objects.filter(league_id=id)
+    calendar = {}
 
+    for match in matches: 
+        entity = {
+            'team1': {
+                'id': match.home_id,
+                'name': match.home.name
+            },
+            'team2': {
+                'id': match.away_id,
+                'name': match.away.name
+            },
+            'date': match.date_time.isoformat(),
+            'goal1': match.home_goal,
+            'goal2': match.away_goal,
+            'status': match.status
+        }
+        current_tour = calendar.get(match.tour, [])
+        current_tour.append(entity)
+        calendar[match.tour] = current_tour
+
+    return Response(calendar)
 
 
 
