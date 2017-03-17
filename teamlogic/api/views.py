@@ -84,7 +84,8 @@ def current_matchs(request):
                     'name': match.place.name
                 },
                 'status': match.status,
-                'date': match.date_time.isoformat()
+                'date': match.date_time.date().isoformat(),
+                'time': match.date_time.time().isoformat()
             })
         return Response(result_matches)
 
