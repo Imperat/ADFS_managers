@@ -6,4 +6,4 @@ class TeamLogicConfig(AppConfig):
     verbose_name = 'Team Logic'
 
     def ready(self):
-        import signals
+        from . import signals
