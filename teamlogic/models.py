@@ -7,6 +7,7 @@ from itertools import groupby
 
 from utils.helpers import NULLABLE, cmp_to_key
 
+from .api.helpers import parse_time_to_string
 
 class Stadium(models.Model):
     """
@@ -27,6 +28,19 @@ class Stadium(models.Model):
 
     def get_absolute_url(self):
         return reverse("stadion", args=(self.id,))
+
+
+class TimeBoard(models.Model):
+    date = models.DateField()
+    time1 = models.IntegerField()
+    time2 = models.IntegerField()
+    match = models.ForeignKey('Match')
+    stadion = models.ForeignKey('Stadium')
+
+    def __str__(self):
+        return '%s / %s [%s - %s]' % (str(self.match), self.stadion.name,
+                                      parse_time_to_string(self.time1),
+                                      parse_time_to_string(self.time2))
 
 
 class Player (models.Model):
@@ -129,6 +143,8 @@ class Match(models.Model):
     register = models.BooleanField(default=False)
 
     tour = models.IntegerField(**NULLABLE)
+
+    locked = models.BooleanField(default=False)
 
     def this_team(self, team):
         """ Has team take competition in Match? """

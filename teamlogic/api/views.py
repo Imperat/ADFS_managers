@@ -5,7 +5,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 
 from teamlogic import models
-from .helpers import cmp_to_key
+from .helpers import cmp_to_key, parse_time
 
 
 import datetime
@@ -100,7 +100,7 @@ def calendar(request, id=None):
     matches = models.Match.objects.filter(league_id=id)
     calendar = {}
 
-    for match in matches: 
+    for match in matches:
         entity = {
             'team1': {
                 'id': match.home_id,
@@ -220,8 +220,42 @@ def stat(request, id=None):
     return Response(res)
 
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def set_date(request, id):
+    # test manage!!!!
+    data = request.data
+    time1, time2 = parse_time(data['time1']), parse_time(data['time2'])
 
+    match = models.Match.objects.filter(id=id)[0]
+    if match.locked:
+        return Response({'error': 'Match is locked'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
+    date=datetime.datetime.strptime(data['date'], '%d.%m.%Y')
 
+    candidates = models.TimeBoard.objects.filter(
+        stadion=data['stadion'],
+        date=datetime.datetime.strptime(data['date'], '%d.%m.%Y'))
 
+    for cand in candidates:
+        if cand.time1 < time1 and cand.time2 > time1:
+            return Response({'error': 'Time is locked1111!'},
+                status=status.HTTP_400_BAD_REQUEST)
+        if cand.time1 < time2 and cand.time2 > time2:
+            return Response({'error': 'Time is locked2222!'},
+                status=status.HTTP_400_BAD_REQUEST)
+        if cand.time1 == time1 and cand.time2 == time2:
+            return Response({'error': 'Time is locked'},
+                status=status.HTTP_400_BAD_REQUEST)
 
+    timeBoard = models.TimeBoard(
+        date=date,
+        stadion=models.Stadium.objects.filter(id=data['stadion'])[0],
+        match=match,
+        time1=time1,
+        time2=time2
+    )
+
+    timeBoard.save()
+    return Response({'sucess': 'sucess'})
