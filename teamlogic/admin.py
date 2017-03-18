@@ -46,5 +46,6 @@ admin.site.register(models.RecOfTeam)
 admin.site.register(models.Stadium)
 admin.site.register(models.Match)
 admin.site.register(models.Goal)
+admin.site.register(models.TimeBoard)
 
 admin.sites.AdminSite.index_template = 'admin/index.html'
