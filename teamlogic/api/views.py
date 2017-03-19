@@ -32,6 +32,13 @@ def player_list(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
+def stadions(requst):
+    stadions = models.Stadium.objects.values('id', 'name')
+    return Response(stadions)
+
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
 def team_list(request):
     if request.method == 'GET':
         teams = models.Team.objects.all()
