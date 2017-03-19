@@ -227,9 +227,33 @@ def stat(request, id=None):
     return Response(res)
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def set_date(request, id):
+    if request.method == 'GET':
+        match = models.Match.objects.filter(id=id)[0]
+        return Response(
+        {
+            'id': match.id,
+            'location': {
+                'id': match.place_id,
+                'name': match.place.name
+            },
+            'team1': {
+                'id': match.home_id,
+                'name': match.home.name
+            },
+            'team2': {
+                'id': match.away_id,
+                'name': match.away.name
+            },
+            'date': match.date_time.isoformat(),
+            'goal1': match.home_goal,
+            'goal2': match.away_goal,
+            'status': match.status,
+            'date': match.date_time.date().isoformat(),
+            'time': match.date_time.time().isoformat()
+        });
     # test manage!!!!
     data = request.data
     time1, time2 = parse_time(data['time1']), parse_time(data['time2'])
