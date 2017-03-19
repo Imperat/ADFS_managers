@@ -51,7 +51,7 @@ def current_matchs(request):
     if request.method == 'GET':
         now = datetime.datetime.now()
         matches_completed = models.Match.objects.order_by('date_time').filter(
-            date_time__gt=now, status='completed')[:5]
+            date_time__lt=now, status='completed')[:5]
 
         matches_futures = models.Match.objects.order_by('date_time').filter(
             Q(status='live') | Q(status='planned'), date_time__gt=now)[:5]
