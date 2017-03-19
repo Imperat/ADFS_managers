@@ -102,6 +102,11 @@ def calendar(request, id=None):
 
     for match in matches:
         entity = {
+            'id': match.id,
+            'location': {
+                'id': match.place_id,
+                'name': match.place.name
+            },
             'team1': {
                 'id': match.home_id,
                 'name': match.home.name
@@ -113,7 +118,9 @@ def calendar(request, id=None):
             'date': match.date_time.isoformat(),
             'goal1': match.home_goal,
             'goal2': match.away_goal,
-            'status': match.status
+            'status': match.status,
+            'date': match.date_time.date().isoformat(),
+            'time': match.date_time.time().isoformat()
         }
         current_tour = calendar.get(match.tour, [])
         current_tour.append(entity)
