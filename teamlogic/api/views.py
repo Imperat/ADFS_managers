@@ -182,24 +182,24 @@ def stat(request, id=None):
             result = {
                 'id': match.home_id,
                 'name': match.home.name,
-                'matches': 1,
-                'points': get_points(match.home_goal, match.away_goal, 'home'),
-                'goals_positive': match.home_goal,
-                'goals_negative': match.away_goal,
-                'wins': is_home_winner(match.home_goal, match.away_goal),
-                'drawns': is_drawn(match.home_goal, match.away_goal),
-                'lesion': is_away_winner(match.home_goal, match.away_goal)
+                'matches': 1 if match.status != 'planned' else 0,
+                'points': get_points(match.home_goal, match.away_goal, 'home') if match.status != 'planned' else 0,
+                'goals_positive': match.home_goal if match.status != 'planned' else 0,
+                'goals_negative': match.away_goal if match.status != 'planned' else 0,
+                'wins': is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
+                'drawns': is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
+                'lesion': is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
             }
             entityes[match.home_id] = result
         else:
             result = entityes[match.home_id]
-            result['matches'] += 1
-            result['points'] += get_points(match.home_goal, match.away_goal, 'home')
-            result['goals_positive'] += match.home_goal
-            result['goals_negative'] += match.away_goal
-            result['wins'] += is_home_winner(match.home_goal, match.away_goal)
-            result['drawns'] += is_drawn(match.home_goal, match.away_goal)
-            result['lesion'] += is_away_winner(match.home_goal, match.away_goal)
+            result['matches'] += 1  if match.status != 'planned' else 0
+            result['points'] += get_points(match.home_goal, match.away_goal, 'home') if match.status != 'planned' else 0
+            result['goals_positive'] += match.home_goal if match.status != 'planned' else 0
+            result['goals_negative'] += match.away_goal if match.status != 'planned' else 0
+            result['wins'] += is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
+            result['drawns'] += is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0
+            result['lesion'] += is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
 
             entityes[match.home_id] = result
 
@@ -208,24 +208,24 @@ def stat(request, id=None):
             result = {
                 'id': match.away_id,
                 'name': match.away.name,
-                'matches': 1,
-                'points': get_points(match.home_goal, match.away_goal, 'away'),
-                'goals_positive': match.away_goal,
-                'goals_negative': match.home_goal,
-                'wins': is_away_winner(match.home_goal, match.away_goal),
-                'drawns': is_drawn(match.home_goal, match.away_goal),
-                'lesion': is_home_winner(match.home_goal, match.away_goal)
+                'matches': 1 if match.status != 'planned' else 0,
+                'points': get_points(match.home_goal, match.away_goal, 'away') if match.status != 'planned' else 0,
+                'goals_positive': match.away_goal if match.status != 'planned' else 0,
+                'goals_negative': match.home_goal if match.status != 'planned' else 0,
+                'wins': is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
+                'drawns': is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
+                'lesion': is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
             }
             entityes[match.away_id] = result
         else:
             result = entityes[match.away_id]
-            result['matches'] += 1
-            result['points'] += get_points(match.home_goal, match.away_goal, 'away')
-            result['goals_positive'] += match.away_goal
-            result['goals_negative'] += match.home_goal
-            result['wins'] += is_away_winner(match.home_goal, match.away_goal)
-            result['drawns'] += is_drawn(match.home_goal, match.away_goal)
-            result['lesion'] += is_home_winner(match.home_goal, match.away_goal)
+            result['matches'] += 1 if match.status != 'planned' else 0
+            result['points'] += get_points(match.home_goal, match.away_goal, 'away') if match.status != 'planned' else 0
+            result['goals_positive'] += match.away_goal if match.status != 'planned' else 0
+            result['goals_negative'] += match.home_goal if match.status != 'planned' else 0
+            result['wins'] += is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
+            result['drawns'] += is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0
+            result['lesion'] += is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
             entityes[match.away_id] = result
     res = list(entityes.values())
 
