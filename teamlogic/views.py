@@ -10,6 +10,19 @@ from teamlogic import models
 from utils.mixins import PaginatedViewMixin
 
 
+def get_calendar(league):
+    if league is None:
+        return
+    matches = models.Match.objects.filter(league_id=league.id)
+    calendar = {}
+
+    for match in matches:
+        current_tour = calendar.get(match.tour, [])
+        current_tour.append(match)
+        calendar[match.tour] = current_tour
+    return calendar
+
+
 class PlayerDetailView(DetailView):
     model = models.Player
     template_name = 'teamlogic/player.html'
@@ -75,7 +88,8 @@ def league(request, id=None):
         leagues = get_object_or_404(models.Tournament, pk=id)
         context = RequestContext(request, {
             'league': leagues,
-            'nows': datetime.datetime.now(),
+            'nows': 2,
+            'calendar': get_calendar(leagues)
         })
     return HttpResponse(template.render(context))
 

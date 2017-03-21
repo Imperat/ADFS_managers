@@ -1,4 +1,28 @@
 
+
+
+.calendar-tour-title {
+    margin-top:15px;
+    border-bottom: 1px solid;
+    border-bottom-color: #ddd;
+    margin-bottom:10px;
+    font-weight: bold;
+    border-radius: 1px;
+}
+
+.calendar-match-team2 {
+    text-align: right;
+}
+
+.calendar-match-score {
+    text-align: center;
+}
+
+.calendar-match-date {
+    font-size: 80%;
+    color: #7f8992;
+}
+
 .score-block {
     height: 30px;
     margin: 10px 0 0;
@@ -91,6 +115,7 @@
 #info {
     position: relative;
     left: 5px;
+    margin-bottom: 32px;
 }
 
 #headers {
