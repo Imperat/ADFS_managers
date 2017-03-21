@@ -271,15 +271,15 @@ def set_date(request, id):
         return Response({'error': 'Match is locked'},
                         status=status.HTTP_400_BAD_REQUEST)
 
-    if match.status in ['live', 'completed']:
+    if match.status in ['completed']:
         return Response({'error': 'Match is status:%s' % match.status},
                         status=status.HTTP_400_BAD_REQUEST)
 
-    date=datetime.datetime.strptime(data['date'], '%d.%m.%Y')
+    date=datetime.datetime.strptime(data['date'], '%Y-%m-%d')
 
     candidates = models.TimeBoard.objects.filter(
         stadion=data['stadion'],
-        date=datetime.datetime.strptime(data['date'], '%d.%m.%Y'))
+        date=datetime.datetime.strptime(data['date'], '%Y-%m-%d'))
 
     for cand in candidates:
         if cand.time1 < time1 and cand.time2 > time1:
@@ -302,6 +302,7 @@ def set_date(request, id):
     match.date_time = datetime.datetime(date.year, date.month, date.day,
                                        int(data['time1'].split(':')[0]),
                                        int(data['time1'].split(':')[1]))
+    match.place = models.Stadium.objects.filter(id=data['stadion'])[0]
     match.status = 'planned'
     match.save()
     timeBoard.save()
@@ -317,7 +318,7 @@ def set_status(request, id):
         return Response({'error': 'Match is locked'},
                         status=status.HTTP_400_BAD_REQUEST)
 
-    if match.status in ['live', 'completed']:
+    if match.status in ['completed']:
         return Response({'error': 'Match is status:%s' % match.status},
                         status=status.HTTP_400_BAD_REQUEST)
 
@@ -331,5 +332,6 @@ def set_status(request, id):
         return Response({'status': 'live'})
 
     if data['status'] == 'completed' and match.status == 'live':
+        match.status = data['status']
         match.save()
         return Response({'status': 'completed'})
