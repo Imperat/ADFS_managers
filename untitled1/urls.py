@@ -28,12 +28,12 @@ urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include(admin_tools.urls)),
-    url(r'^carusele/', include(carusele_urls)),
     url(r'logic/', include(teamlogic_urls)),
     url(r'^login/', views.autorisation),
     url(r'^register_attention/', views.register_attention),
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
         name='attention'),
+    url(r'^', include(carusele_urls)),
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework'))
 )
 

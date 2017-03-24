@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul class="breadcrumb">
+      <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+  </ul>
+
+  <h2> Сегодня в АДФС </h2>
+  <div class="col-md-12 current-matches">
+
+  </div>
+  <h2> База данных АДФС </h2>
+  <div class="col-md-6">
+    <h3> Где поиграть? </h3>
+    <span><a href="{% url 'stadions' %}">Стадионы и площадки Саратова и Энгельса</a></span>
+  </div>
+  <div class="col-md-6">
+    <h3> С кем поиграть? </h3>
+    <span><a href="{% url 'players' %}"> Футболисты - свободные игроки</a></span>
+  </div>
+  <div class="col-md-6">
+    <h3> Против кого поиграть? </h3>
+    <span><a href="{% url 'teams' %}"> Команды АДФС </a></span>
+  </div>
+  <div class="col-md-6">
+    <h3> На что посмотреть? </h3>
+    <span><a href="{% url 'matches' %}"> Не пропустите финал кубка АДФС</a></span>
+  </div>
+  <div class="col-md-6">
+    <h3> Куда заявиться? </h3>
+    <span><a href="{% url 'allleague' %}">Актуальные турниры АДФС</a></span>
+  </div>
+{% endblock %}

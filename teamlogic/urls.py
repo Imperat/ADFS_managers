@@ -46,6 +46,10 @@ urlpatterns += [
         views.bombardiers, name='bombardiers'),
 ]
 
+# common urls
+urlpatterns += [
+    url(r'', views.TeamLogicMainView.as_view(), name='teamlogic_main')
+]
 
 # api urls
 urlpatterns += api_urls.api_patterns

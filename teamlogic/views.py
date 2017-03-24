@@ -1,6 +1,7 @@
 from django.shortcuts import loader, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -21,6 +22,10 @@ def get_calendar(league):
         current_tour.append(match)
         calendar[match.tour] = current_tour
     return calendar
+
+
+class TeamLogicMainView(TemplateView):
+    template_name = "teamlogic/main.html"
 
 
 class PlayerDetailView(DetailView):
