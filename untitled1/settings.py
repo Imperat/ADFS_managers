@@ -51,6 +51,7 @@ INSTALLED_APPS += [
     'admin_tools.dashboard',
     'bootstrapform',
     'rest_framework',
+    'corsheaders',
 ]
 
 # My own applications
@@ -69,6 +70,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,6 +81,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'untitled1.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'untitled1.wsgi.application'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'untitled1.dashboard.CustomIndexDashboard'
