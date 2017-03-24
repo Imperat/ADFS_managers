@@ -299,6 +299,7 @@ def set_date(request, id):
         time1=time1,
         time2=time2
     )
+
     match.date_time = datetime.datetime(date.year, date.month, date.day,
                                        int(data['time1'].split(':')[0]),
                                        int(data['time1'].split(':')[1]))
@@ -307,31 +308,3 @@ def set_date(request, id):
     match.save()
     timeBoard.save()
     return Response({'sucess': 'sucess'})
-
-
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def set_status(request, id):
-    match = models.Match.objects.filter(id=id)[0]
-
-    if match.locked:
-        return Response({'error': 'Match is locked'},
-                        status=status.HTTP_400_BAD_REQUEST)
-
-    if match.status in ['completed']:
-        return Response({'error': 'Match is status:%s' % match.status},
-                        status=status.HTTP_400_BAD_REQUEST)
-
-    data = request.data
-    if data['status'] == 'completed' and match.status != 'live':
-        return Response({'error': 'error message'}, status=status.HTTP_400_BAD_REQUEST)
-
-    if data['status'] == 'live' and match.status == 'planned':
-        match.status = 'live'
-        match.save()
-        return Response({'status': 'live'})
-
-    if data['status'] == 'completed' and match.status == 'live':
-        match.status = data['status']
-        match.save()
-        return Response({'status': 'completed'})
