@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load thumbnail %}
 {% block content %}
     <ul class="breadcrumb">
       <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
@@ -9,8 +9,9 @@
 
     <h1> {{ team.name }} </h1>
 
-    <img src="{{ team.image.url }}" class="img-polaroid" float="left" id="avatar">
-
+    {% thumbnail team.image "230x230" crop="center" as im %}
+       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-polaroid" float="left" id="avatar">
+    {% endthumbnail %}
 
     <div id="info">
         <strong> Год основания: </strong> {{ team.foundation }}

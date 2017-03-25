@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load thumbnail %}
 {% block content %}
 
     <style type="text/css">
@@ -17,7 +17,9 @@
 
     <h1> <i class="icon-search"></i> {{ stadion.name }}  </h1>
 
-    <img src="{{ stadion.image.url }}" class="img-polaroid" float="left">
+    {% thumbnail stadion.image "230x230" crop="center" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-polaroid">
+    {% endthumbnail %}
 
 
     <div id="info">

@@ -6,3 +6,4 @@ Pillow==3.3.0
 django-bootstrap-form==3.2.1
 djangorestframework==3.5.2
 django-cors-headers>=2.0.0
+sorl-thumbnail==12.3
