@@ -52,6 +52,7 @@ INSTALLED_APPS += [
     'bootstrapform',
     'rest_framework',
     'corsheaders',
+    'sorl.thumbnail',
 ]
 
 # My own applications
@@ -118,6 +119,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+THUMBNAIL_DEBUG = True
 
 # pagination
 PAGINATE_BY = 10

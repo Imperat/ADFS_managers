@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block content %}
 
@@ -15,14 +16,16 @@
     </style>
 
     <ul class="breadcrumb">
-      <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+      <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
       <li><a href="#"> Матчи </a> <span class="divider"></span></li>
     </ul>
 
 <div class="two-commands">
     <div class="command floatL">
         <div class="img-box">
-            <img src="{{ match.home.image.url }}" class = 'avatar1'>
+            {% thumbnail match.home.image "230x230" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar1">
+            {% endthumbnail %}
         </div>
         <div class="about-command">
             <h2 class="titleH2"><a href="{{ match.home.get_absolute_url }}" >{{ match.home }}</a>
@@ -45,7 +48,9 @@
 
     <div class="command floatR">
         <div class="img-box">
-            <img src="{{ match.away.image.url }}" class = 'avatar2'>
+          {% thumbnail match.away.image "230x230" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar2">
+          {% endthumbnail %}
         </div>
         <div class="about-command">
             <h2 class="titleH2"><a href="{{ match.away.get_absolute_url }}">{{ match.away }}</a></h2>
