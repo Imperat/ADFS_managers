@@ -23,6 +23,21 @@
     color: #7f8992;
 }
 
+.team-wrapper {
+    border-bottom-style: solid;
+    margin: 15px;
+    border-bottom-color: #ddd;
+    border-radius: 3px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-width: 1px;
+}
+
+.team-wrapper:hover {
+   transition: 0.5s;
+   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
 .score-block {
     height: 30px;
     margin: 10px 0 0;
