@@ -2,7 +2,7 @@
 
 {% block content %}
     <ul class="breadcrumb">
-      <li><a href="#"> АДФС </a> <span class="divider"></span></li>
+      <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
       <li><a href="{% url 'teams' %}"> Команды </a> <span class="divider"></span></li>
       <li><a href="{{ team.get_absolute_url }}"> {{ team.name }}  </a> <span class="divider"></span></li>
     </ul>
