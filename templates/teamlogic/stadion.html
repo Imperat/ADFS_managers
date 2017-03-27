@@ -14,6 +14,11 @@
         }
     </style>
 
+    <ul class="breadcrumb">
+        <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
+        <li><a href="{% url 'stadions' %}"> Стадионы и площадки </a> <span class="divider"></span></li>
+        <li><a href="#">{{ stadion.name }}</a> <span class="divider"></span></li>
+    </ul>
 
     <h1> <i class="icon-search"></i> {{ stadion.name }}  </h1>
 
