@@ -1,0 +1,24 @@
+{
+  "name": "adfs_managers",
+  "version": "0.0.1",
+  "description": "Web server for simply manage football statistic in assotication of street fotball in Saratov",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imperat/ADFS_managers.git"
+  },
+  "keywords": [
+    "football"
+  ],
+  "author": "Imperat",
+  "license": "SEE LICENSE IN license.md",
+  "bugs": {
+    "url": "https://github.com/Imperat/ADFS_managers/issues"
+  },
+  "homepage": "https://github.com/Imperat/ADFS_managers#readme"
+}
