@@ -1,5 +1,18 @@
+# Pythonic files
 *.pyc
-.idea
-settings_local.py
-media
 .venv
+.venv3
+
+# IDE and text editors
+.idea
+*.swp
+*.swo
+
+# Development settings
+settings_local.py
+
+# Project folders
+media
+
+# SQLite database
+*.sqlite3
