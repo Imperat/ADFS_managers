@@ -1,5 +1,12 @@
+var $ = require('jquery');
+window.jQuery = $;
+window.$ = $;
+
+console.log($('div'));
+
 $(document).ready(function(){
-  var $loginForm = $('#login-form');
+  const $loginForm = $('#login-form');
+  const [, b] = [2,3];
   $loginForm.on('submit', login);
   $loginForm.find('input').on('input', removeErrors);
 });
