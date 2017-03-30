@@ -16,3 +16,7 @@ media
 
 # SQLite database
 *.sqlite3
+
+# JavaScript is my love
+node_modules
+static/bundles
