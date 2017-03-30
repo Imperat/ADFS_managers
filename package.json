@@ -4,7 +4,10 @@
   "description": "Web server for simply manage football statistic in assotication of street fotball in Saratov",
   "main": "index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
