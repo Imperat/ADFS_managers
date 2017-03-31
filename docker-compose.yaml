@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-base
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URI: "postgresql://adfs:adfs@db:5432/adfs"
