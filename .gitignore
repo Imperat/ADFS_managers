@@ -13,7 +13,7 @@ settings_local.py
 
 # Project folders
 media
-
+ADFS/
 # SQLite database
 *.sqlite3
 
