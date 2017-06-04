@@ -27,8 +27,13 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          plugins: ['transform-runtime'],
-          presets: ['es2015'],
+          plugins: [
+            'transform-runtime',
+            'transform-react-remove-prop-types',
+            'transform-react-constant-elements',
+            'transform-react-inline-elements',
+          ],
+          presets: ['es2015', 'stage-0', 'react'],
         }
       }, // to transform JSX into JS
     ],
