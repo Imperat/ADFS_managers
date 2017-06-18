@@ -14,9 +14,17 @@ I recommend you use virtualenv:
 
 `virtualenv .venv --no-site-packages`
 
+`source .venv/bin/activate`
+
 `pip install -r requirements.txt`
 
+`python manage.py migrate`
+
 `python manage.py runserver 127.0.0.1:8000`
+
+Compile client-side application with:
+
+`npm i && ./node_modules/.bin/webpack`
 
 Also for testing there are additional dependencies:
 
