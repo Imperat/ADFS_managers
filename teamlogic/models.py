@@ -9,6 +9,7 @@ from utils.helpers import NULLABLE, cmp_to_key
 
 from .api.helpers import parse_time_to_string
 
+
 class Stadium(models.Model):
     """
     Simple model of stadium.
@@ -21,7 +22,7 @@ class Stadium(models.Model):
     physics = models.IntegerField()
     # Need to add relation to Date and Time free!!!
     home = models.ManyToManyField('Team', **NULLABLE)
-    image = models.ImageField(upload_to='media', default='/media/404/')
+    image = models.ImageField(upload_to='media', default='./404/stadion.jpg')
 
     def __str__(self):
         return self.name
@@ -53,7 +54,8 @@ class Player (models.Model):
     vk_link = models.CharField(max_length=30, null=True)
     # G - goalkeeper, H - defender, F - nap
     basePosition = models.CharField(max_length=1)
-    image = models.ImageField(upload_to="media", **NULLABLE)
+    image = models.ImageField(upload_to="media",
+                              default="./404/profile.jpg", **NULLABLE)
     history = models.ManyToManyField('Team', through='RecOfTeam')
 
     def __str__(self):
@@ -70,7 +72,9 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     foundation = models.IntegerField()
-    image = models.ImageField(upload_to="media", **NULLABLE)
+    image = models.ImageField(upload_to="media",
+                              default="./404/team.jpg", **NULLABLE)
+
     players = models.ManyToManyField('Player', through='RecOfTeam')
     vk_link = models.CharField(max_length=30, default="nulls", **NULLABLE)
     captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
@@ -135,8 +139,11 @@ class Match(models.Model):
     technical = models.BooleanField(default=False)
     place = models.ForeignKey(Stadium)
     date_time = models.DateTimeField(**NULLABLE)
-    home_goals = models.ManyToManyField('Goal', related_name='home', **NULLABLE)
-    away_goals = models.ManyToManyField('Goal', related_name='away', **NULLABLE)
+    home_goals = models.ManyToManyField('Goal',
+                                        related_name='home', **NULLABLE)
+
+    away_goals = models.ManyToManyField('Goal',
+                                        related_name='away', **NULLABLE)
 
     hasResult = models.BooleanField(default=False)
     status = models.CharField(max_length=30, **NULLABLE)
@@ -200,7 +207,7 @@ class Tournament(models.Model):
     name = models.CharField(max_length=30)
     begin_date = models.DateField()
     end_date = models.DateField()
-    image = models.ImageField()
+    image = models.ImageField(default="./404/tournament.jpg", **NULLABLE)
     #And so hard!
     members = models.ManyToManyField(Team, through='TeamInLeague')
     matchs = models.ManyToManyField('MatchInLeague')
@@ -368,8 +375,8 @@ class TeamInLeague(models.Model):
 
 class Manager(models.Model):
     tournaments = models.ManyToManyField(Tournament)
-    #pokals = models.ManyToManyField(Pokals)
-    #leagues = .....
+    # pokals = models.ManyToManyField(Pokals)
+    # leagues = .....
 
     def get_last_match(self, team):
         pass

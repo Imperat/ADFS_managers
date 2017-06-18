@@ -12,7 +12,8 @@
 settings_local.py
 
 # Project folders
-media
+media/*
+!media/404
 
 # SQLite database
 *.sqlite3
@@ -20,3 +21,4 @@ media
 # JavaScript is my love
 node_modules
 static/bundles
+webpack-stats.json
