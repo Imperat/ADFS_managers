@@ -72,7 +72,7 @@ class Team(models.Model):
     name = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     foundation = models.IntegerField()
-    image = models.ImageField(upload_to="media",
+    image = models.ImageField(upload_to="./teams",
                               default="./404/team.jpg", **NULLABLE)
 
     players = models.ManyToManyField('Player', through='RecOfTeam')
@@ -98,6 +98,7 @@ class RecOfTeam(models.Model):
     team = models.ForeignKey('Team')
     player = models.ForeignKey('Player')
     number = models.IntegerField(default=-1)
+    isActive = models.BooleanField(default=True)
 
     def __unicode__(self):
         return unicode("%s (%s)" % (self.player.__unicode__(),
