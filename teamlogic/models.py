@@ -133,12 +133,12 @@ class Match(models.Model):
     league = models.ForeignKey('Tournament', default=1, null=True)
     home = models.ForeignKey(Team, related_name='+')
     away = models.ForeignKey(Team, related_name='+')
-    home_goal = models.IntegerField()
-    away_goal = models.IntegerField()
-    home_goal_first = models.IntegerField()
-    away_goal_first = models.IntegerField()
+    home_goal = models.IntegerField(**NULLABLE)
+    away_goal = models.IntegerField(**NULLABLE)
+    home_goal_first = models.IntegerField(**NULLABLE)
+    away_goal_first = models.IntegerField(**NULLABLE)
     technical = models.BooleanField(default=False)
-    place = models.ForeignKey(Stadium)
+    place = models.ForeignKey(Stadium, **NULLABLE)
     date_time = models.DateTimeField(**NULLABLE)
     home_goals = models.ManyToManyField('Goal',
                                         related_name='home', **NULLABLE)
@@ -333,7 +333,7 @@ class MatchInLeague(Match):
     about tour of calendar of this league and
     probably other in future :)
     """
-    tour1 = models.IntegerField(default=0)
+    # tour1 = models.IntegerField(default=0)
 
     def all_team_matches(self, team):
         a = MatchInLeague.objects.all()
