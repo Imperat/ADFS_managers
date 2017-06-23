@@ -36,7 +36,7 @@ Contributing
 ------------
 ADFS Managers is opensource project and I develop it only for
 improve my coding skills and make freely help for ADF of Saratov.
-I promise that I willn't earn money using this project.
+I promise that I shan't earn money using this project.
 For this reason, if you are interesting, you are free in contributing
 for this project. You can create new issue, pull request or write me e-mail in
 leliykin@gmail.com or in Telegram "+79603412336".
