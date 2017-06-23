@@ -32,7 +32,7 @@ class MatchInLeagueAdmin(admin.ModelAdmin):
                     'home_goal_first', 'away_goal_first',
                     'league', 'tour', 'hasResult', 'register')
 
-    list_editable = ('hasResult',)
+    list_editable = ('hasResult', 'tour')
     list_filter = ('league', 'tour')
 
 
