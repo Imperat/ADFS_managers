@@ -222,10 +222,10 @@ class Tournament(models.Model):
         dictinary format with keys are number of tours
         anv values is sets of matches.
         """
-        tour_count = max([match.tour for match in self.matchs.all()])
-        list_of_matches = []
-        for tour in range(1, tour_count+1):
-            yield list_of_matchs.append((tour, a.filter(tour=i)))
+        matchs = MatchInLeague.objects.filter(league_id=self.id)
+        tour_count = max([match.tour for match in matchs])
+        for tour in range(1, tour_count + 1):
+            yield (tour, matchs.filter(tour=tour))
 
     def generate_calendar(self):
         """
