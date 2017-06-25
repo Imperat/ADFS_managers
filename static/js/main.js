@@ -1,3 +1,5 @@
+import { renderSurvey } from './survey';
+
 var $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
@@ -9,6 +11,7 @@ $(document).ready(function(){
   const [, b] = [2,3];
   $loginForm.on('submit', login);
   $loginForm.find('input').on('input', removeErrors);
+  if (window.location.pathname === '/survey') renderSurvey();
 });
 
 function removeErrors(event){

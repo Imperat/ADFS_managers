@@ -30,6 +30,7 @@ urlpatterns = patterns(
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'logic/', include(teamlogic_urls)),
     url(r'^login/', views.autorisation),
+    url(r'^survey', views.survey),
     url(r'^register_attention/', views.register_attention),
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
         name='attention'),

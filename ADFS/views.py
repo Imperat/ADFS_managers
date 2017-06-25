@@ -7,6 +7,10 @@ from .forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
+def survey(request):
+    template = loader.get_template('base_react.html')
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context))
 
 def regl(request):
     template = loader.get_template('reglam.html')
