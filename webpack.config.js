@@ -1,12 +1,12 @@
 var path = require("path")
 var webpack = require('webpack')
 var BundleTracker = require('webpack-bundle-tracker')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   context: __dirname,
 
-  entry: './static/js/main.js', // entry point of our app. assets/js/index.js should require other js modules and dependencies it needs
-
+  entry: {main: './static/js/main.js', style: './static/css/main.less'},
   output: {
       path: path.resolve('./static/bundles/'),
       filename: "[name].js",
@@ -17,7 +17,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
-    })
+    }),
+    new ExtractTextPlugin('styles.css'),
   ],
 
   module: {
@@ -31,6 +32,16 @@ module.exports = {
           presets: ['es2015'],
         }
       }, // to transform JSX into JS
+      {
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader"})
+},
+// Optionally extract less files
+// or any other compile-to-css language
+{
+    test: /\.less$/,
+    loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader!less-loader"})
+}
     ],
   },
 
