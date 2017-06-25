@@ -211,6 +211,9 @@ class Tournament(models.Model):
     image = models.ImageField(default="./404/tournament.jpg", **NULLABLE)
     #And so hard!
     members = models.ManyToManyField(Team, through='TeamInLeague')
+    members2 = models.ManyToManyField(Team,
+        related_name='members2', **NULLABLE)
+
     matchs = models.ManyToManyField('MatchInLeague')
 
     def get_calendar(self):

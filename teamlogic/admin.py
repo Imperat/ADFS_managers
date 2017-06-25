@@ -39,7 +39,7 @@ class MatchInLeagueAdmin(admin.ModelAdmin):
 @admin.register(models.Tournament)
 class LeagueAdmin(admin.ModelAdmin):
     list_display = ('name', 'begin_date', 'end_date')
-    fields = ('name', 'begin_date', 'end_date', 'image')
+    fields = ('name', 'begin_date', 'end_date', 'image', 'members2')
 
 
 admin.site.register(models.RecOfTeam)
