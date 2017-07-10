@@ -306,6 +306,9 @@ class Tournament(models.Model):
                 i.goal_p += d[1]['prop']
                 i.save()
 
+    def __unicode__(self):
+        return unicode("%s %s" % (self.name, self.get_season()))
+
     def get_absolute_url(self):
         return reverse("league", args=(self.id,))
 
