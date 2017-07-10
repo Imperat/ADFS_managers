@@ -53,6 +53,7 @@ INSTALLED_APPS += [
     'rest_framework',
     'corsheaders',
     'sorl.thumbnail',
+    'easy_select2',
 ]
 
 # My own applications
