@@ -1,13 +1,19 @@
+@import "colors.less";
 
-
-
-.calendar-tour-title {
+.calendar-tour {
+  &__title {
     margin-top:15px;
     border-bottom: 1px solid;
     border-bottom-color: #ddd;
     margin-bottom:10px;
     font-weight: bold;
     border-radius: 1px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  &__item {
+    padding-left: 20px;
+  }
 }
 
 .calendar-match-team2 {
@@ -228,4 +234,14 @@
 
 .server-error {
   color:red;
+}
+
+.match-item {
+  .match-winner {
+    font-weight: bold;
+  }
+}
+
+.match-technical {
+  background-color: @color-yellow;
 }
