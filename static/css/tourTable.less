@@ -1,0 +1,19 @@
+@gray-hover-color: #eeeeee;
+@gray-border-color: #dddddd;
+
+#tourTable {
+  .team-line:hover {
+    fill: @gray-hover-color;
+    cursor: pointer;
+    stroke: @gray-border-color;
+  }
+  .team-line {
+    stroke: darken(@gray-border-color, 20%);
+  }
+  .team-name {
+    font-weight: bold;
+  }
+  .team-points {
+    font-weight: bold;
+  }
+}
