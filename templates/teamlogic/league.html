@@ -46,6 +46,89 @@
         <div class="tab-pane active" id="home">
             <div class="tab-pane" id="profile">
             <br>
+
+            <svg id="tourTable" width="610" height="900"></svg>
+            <script>
+            $.get(
+              "/logic/api/v1/league/stat/{{league.id}}",
+              {},
+              function(data) {
+                 var svg = d3.select('#tourTable');
+                 var enter = svg.selectAll('*')
+                  .data(data)
+                  .enter();
+
+                var height = 32;
+                var width = 600;
+                enter.append('rect')
+                  .attr('x', 10)
+                  .attr('y', (d, i) => i * height + 10)
+                  .attr('stroke', 'black')
+                  .attr('fill', 'white')
+                  .attr('height', height)
+                  .attr('width', width)
+                  .attr('class', 'team-line')
+                  .on('click', function(event) {
+
+                  });
+
+                enter.append('text')
+                  .attr('x', 45)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-name')
+                  .text(d => d.name);
+
+                enter.append('text')
+                  .attr('x', 15)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => i + 1);
+
+                enter.append('text')
+                  .attr('x', 350)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.goals_positive);
+
+                enter.append('text')
+                  .attr('x',395)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.goals_negative);
+
+                enter.append('text')
+                  .attr('x', 440)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.matches);
+
+                enter.append('text')
+                  .attr('x', 470)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.wins);
+
+                enter.append('text')
+                  .attr('x', 500)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.drawns);
+
+                enter.append('text')
+                  .attr('x', 530)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-position')
+                  .text((d, i) => d.lesion);
+
+                enter.append('text')
+                  .attr('x', 565)
+                  .attr('y', (d, i) => i * (height) + 32)
+                  .attr('class', 'team-points')
+                  .text((d, i) => d.points);
+              }
+            );
+            </script>
+
              <table class="table" id="tournament">
                  <thead>
                  <tr>
