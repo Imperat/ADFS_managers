@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block content %}
   <ul class="breadcrumb">
@@ -7,8 +8,25 @@
   </ul>
   <h2> Все чемпионаты АДФС </h2>
     {% for league in leagues %}
-      <a href="{{ league.get_absolute_url }}"> {{ league.name }} - {{ league.get_season }} </a>
-      <br>
-      <br>
+      <div class="col-sm-12 league">
+        <div class="row">
+          <div class="league-avatar col-sm-1">
+            {% thumbnail league.image "80x48" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-polaroid">
+            {% endthumbnail %}
+          </div>
+          <div class="league-name col-sm-8">
+            <a href="{{ league.get_absolute_url }}">{{ league.name }}</a>
+          </div>
+        </div>
+        <div class="row league-meta">
+          <div class="col-sm-1 league-season">
+            <a href="#">{{ league.get_season }}</a>
+          </div>
+          <div class="col-sm-8">
+            {{ league.begin_date }}  - {{ league.end_date }}
+          </div>
+        </div>
+      </div>
     {% endfor %}
 {% endblock %}
