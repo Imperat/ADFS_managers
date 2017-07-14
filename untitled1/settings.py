@@ -95,8 +95,12 @@ ADMIN_TOOLS_INDEX_DASHBOARD = 'untitled1.dashboard.CustomIndexDashboard'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'adfs_managers',
+	'USER': 'test',
+        'PASSWORD': 'test',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

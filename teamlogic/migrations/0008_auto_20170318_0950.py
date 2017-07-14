@@ -12,14 +12,22 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='timeboard',
             name='time1',
-            field=models.IntegerField(),
         ),
-        migrations.AlterField(
+        migrations.AddField(
+            model_name='timeboard',
+            name='time1',
+            field=models.IntegerField()
+        ),
+        migrations.RemoveField(
+            model_name='timeboard',
+            name='time2'
+        ),
+        migrations.AddField(
             model_name='timeboard',
             name='time2',
-            field=models.IntegerField(),
-        ),
+            field=models.IntegerField()
+        )
     ]
