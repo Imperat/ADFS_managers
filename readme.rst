@@ -1,7 +1,12 @@
+=============
 ADFS Managers
 =============
-[![Build Status](https://travis-ci.org/Imperat/ADFS_managers.svg?branch=master)](https://travis-ci.org/Imperat/ADFS_managers)
-[![Code Health](https://landscape.io/github/Imperat/ADFS_managers/master/landscape.svg?style=flat)](https://landscape.io/github/Imperat/ADFS_managers/master)
+
+.. image:: https://travis-ci.org/Imperat/ADFS_managers.svg?branch=master
+    :target: https://travis-ci.org/Imperat/ADFS_managers
+
+.. image:: https://landscape.io/github/Imperat/ADFS_managers/master/landscape.svg?style=flat
+    :target: https://landscape.io/github/Imperat/ADFS_managers/master
 
 Introduction
 ------------
@@ -11,26 +16,24 @@ control Association of Street Football of Saratov.
 Installation
 ------------
 I recommend you use virtualenv:
+::
 
-`virtualenv .venv --no-site-packages`
-
-`source .venv/bin/activate`
-
-`pip install -r requirements.txt`
-
-`python manage.py migrate`
-
-`python manage.py runserver 127.0.0.1:8000`
+    virtualenv .venv --no-site-packages
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    python manage.py migrate
+    python manage.py runserver 127.0.0.1:8000
 
 Compile client-side application with:
+::
 
-`npm i && ./node_modules/.bin/webpack`
+    npm i && ./node_modules/.bin/webpack
 
 Also for testing there are additional dependencies:
+::
 
-`pip install -r test-requirements.txt`
-
-`python manage.py test`
+    pip install -r test-requirements.txt
+    python manage.py test
 
 Contributing
 ------------
