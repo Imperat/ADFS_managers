@@ -2,6 +2,7 @@ ADFS Managers
 =============
 [![Build Status](https://travis-ci.org/Imperat/ADFS_managers.svg?branch=master)](https://travis-ci.org/Imperat/ADFS_managers)
 [![Code Health](https://landscape.io/github/Imperat/ADFS_managers/master/landscape.svg?style=flat)](https://landscape.io/github/Imperat/ADFS_managers/master)
+[![Documentation Status](https://readthedocs.org/projects/adfs-managers/badge/?version=latest)](http://adfs-managers.readthedocs.io/en/latest/?badge=latest)
 
 Introduction
 ------------
