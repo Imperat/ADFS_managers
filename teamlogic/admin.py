@@ -48,6 +48,14 @@ class LeagueAdmin(admin.ModelAdmin):
                     'get_season')
     fields = ('name', 'begin_date', 'end_date', 'image', 'members2')
 
+@admin.register(models.Cup)
+class CupAdmin(admin.ModelAdmin):
+    form = select2_modelform(models.Cup, attrs={'width': '250px'})
+
+@admin.register(models.MatchPair)
+class MatchPair(admin.ModelAdmin):
+    form =  select2_modelform(models.MatchPair, attrs={'width': '250px'})
+
 
 admin.site.register(models.RecOfTeam)
 admin.site.register(models.Stadium)

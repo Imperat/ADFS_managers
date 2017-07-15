@@ -32,6 +32,12 @@ def player_list(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
+def cups_list(request):
+    pass
+
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
 def stadions(requst):
     stadions = models.Stadium.objects.values('id', 'name')
     return Response(stadions)
