@@ -29,3 +29,16 @@ can implement some mechanics to book stadion for match with good ui (for example
 If you are interesting - you can help to this project. Also I think that you can probably have same organisation in your city.
 May be it's Berlin, Rio-de-janeiro or Sydney. You can use this application for you organizations. In future I dream that we can
 make union of these organizations around whole world!
+
+For users
+---------
+You can find docs about using this application for you own organization here. Get feedback about all troubles and ideas
+to our developers team.
+
+
+For developers
+--------------
+Application provide simple rest api service, thats why you can write you own web and mobile client for this application and
+integrate part of this application to your services. Description of rest api endpoints you can find in chapter REST-API_.
+
+.. _REST-API: api.rst
