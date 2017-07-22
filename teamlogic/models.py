@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
@@ -23,6 +26,10 @@ class Stadium(models.Model):
     # Need to add relation to Date and Time free!!!
     home = models.ManyToManyField('Team', **NULLABLE)
     image = models.ImageField(upload_to='media', default='./404/stadion.jpg')
+
+    class Meta:
+        verbose_name = "Стадион"
+        verbose_name_plural = "Стадионы"
 
     def __str__(self):
         return self.name
@@ -58,6 +65,10 @@ class Player (models.Model):
                               default="./404/profile.jpg", **NULLABLE)
     history = models.ManyToManyField('Team', through='RecOfTeam')
 
+    class Meta:
+        verbose_name = "Игрок"
+        verbose_name_plural = "Игроки"
+
     def __str__(self):
         return "%s %s" % (self.firstName, self.lastName)
 
@@ -79,6 +90,10 @@ class Team(models.Model):
     vk_link = models.CharField(max_length=30, default="nulls", **NULLABLE)
     captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
     home = models.ForeignKey('Stadium', **NULLABLE)
+
+    class Meta:
+        verbose_name = "Команда"
+        verbose_name_plural = "Команды"
 
     def __str__(self):
         return self.name
@@ -122,6 +137,10 @@ class Goal(models.Model):
     type = models.CharField(max_length=2)
     min = models.IntegerField(null=True)
 
+    class Meta:
+        verbose_name = "Гол"
+        verbose_name_plural = "Голы"
+
     def __unicode__(self):
         return "Goal of %s" % self.author.__unicode__()
 
@@ -153,6 +172,10 @@ class Match(models.Model):
     tour = models.IntegerField(**NULLABLE)
 
     locked = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Матч"
+        verbose_name_plural = "Матчи"
 
     def this_team(self, team):
         """ Has team take competition in Match? """
@@ -193,11 +216,22 @@ class Match(models.Model):
     def get_absolute_url(self):
         return reverse("match", args=(self.id,))
 
+    def getWinner(self):
+        if self.is_home_winner():
+            return self.home
+        if self.is_away_winner():
+            return self.away
+
+        return None
+
     def __str__(self):
         if not self.hasResult:
             return "%s - %s" % (self.home.name, self.away.name)
         return "%s - %s (%i - %i)" % (self.home.name, self.away.name,
                                               self.home_goal, self.away_goal)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
 
 class Tournament(models.Model):
@@ -215,6 +249,10 @@ class Tournament(models.Model):
         related_name='members2', **NULLABLE)
 
     matchs = models.ManyToManyField('MatchInLeague')
+
+    class Meta:
+        verbose_name = "Чемпионат"
+        verbose_name_plural = "Чемпионаты"
 
     def get_calendar(self):
         """
@@ -349,6 +387,88 @@ class MatchInLeague(Match):
                 x.append(i)
         return x
 
+
+class Cup(models.Model):
+    """
+    Is just set of match pairs
+    """
+    name = models.CharField(max_length=30)
+    begin_date = models.DateField()
+    end_date = models.DateField()
+    image = models.ImageField(default="./404/tournament.jpg", **NULLABLE)
+
+    class Meta:
+        verbose_name = "Кубок"
+        verbose_name_plural = "Кубки"
+
+    def get_season(self):
+        a = self.begin_date.year
+        b = self.end_date.year
+        if a == b:
+            return str(a)
+        return '%s/%s' % (a, b)
+
+    def __unicode__(self):
+        return unicode("%s %s" % (self.name, self.get_season()))
+
+
+class MatchPair(models.Model):
+    """
+    In play-off tournament type (It has name "Cup")
+    in ADFS there are two match between two teams.
+    Winner of pair go follow, loser is gone away.
+    """
+    first_match = models.ForeignKey(
+        Match, related_name='first_match', **NULLABLE)
+
+    second_match = models.ForeignKey(
+        Match, related_name='second_match', **NULLABLE)
+
+    next_pair = models.ForeignKey('MatchPair', **NULLABLE)
+    cup = models.ForeignKey('Cup')
+
+    # If reglament has restriction for only one match between two teams
+    only_one_match = models.BooleanField(default=False)
+
+    # There is penalty seria or no. For case if summ of two
+    # matches is drawn.
+    is_penalty = models.BooleanField(default=False)
+
+    # For penalty only. Leave it empty in another case.
+    first_penalty = models.IntegerField(**NULLABLE)
+    second_penalty = models.IntegerField(**NULLABLE)
+
+    def __unicode__(self):
+        return unicode('%s - %s' % (self.first_match.home.name,
+                                    self.first_match.away.name))
+
+    def _getWinnerByPenalty(self):
+        if not (self.first_penalty == 0 and self.second_penalty == 0):
+            if self.first_penalty > self.second_penalty:
+                return self.first_match.home
+            return self.first_match.away
+
+        return None
+
+    def getWinner(self):
+        if self.only_one_match:
+            if not self.first_match.is_drawn():
+                return self.first_match.getWinner()
+            return self._getWinnerByPenalty()
+
+        team1 = self.first_match.home_goal + self.second_match.away_goal
+        team2 = self.first_match.away_goal + self.second_match.home_goal
+
+        if team1 > team2:
+            return self.first_match.home
+        if team2 > team1:
+            return self.first_match.away
+
+        return self._getWinnerByPenalty()
+
+    class Meta:
+        verbose_name = "Пара матчей"
+        verbose_name_plural = "Пары матчей"
 
 class TeamInLeague(models.Model):
     """
