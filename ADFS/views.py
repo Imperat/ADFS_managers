@@ -57,10 +57,9 @@ def autorisation(request):
         context = RequestContext(request, {'form': LoginForm()})
         return HttpResponse(template.render(context))
     else:
-        form = LoginForm(request.POST)
-        user = authenticate(username=form['login'].value(),
-                            password=form['password'].value())
-        print (request.POST)
+        user = authenticate(username=request.POST['login'],
+                            password=request.POST['password'])
+
         t = False
         if user is not None:
             # the password verified for the user

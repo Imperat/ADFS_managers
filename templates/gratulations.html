@@ -1,12 +1,14 @@
-<div id="cont">
-<h4> Вы зашли как: </h4>
-    {{ user.username }}
-<br>
-<button type="submit" class="btn" id="exit">Выйти</button>
-</div>
-<script>
-    $( "#exit" ).one( "click", function() {
-        $( "#cont").load('/login/');
-});
+{% extends "base.html" %}
+{% load staticfiles %}
 
-</script>
+{% block custom_css %}
+  <link href="{% static "css/server-error.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h2> Добро пожаловать на официальный портал АДФС, уважаемый {{ user.username }}!</h2>
+  {% else %}
+    <h2> Неверное имя пользователя или пароль. Попробуйте ещё раз! </h2>
+  {% endif %}
+{% endblock %}

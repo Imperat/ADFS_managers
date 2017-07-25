@@ -2,7 +2,17 @@
   <ul class="breadcrumb">
     <li><a href="#"> Авторизация </a> <span class="divider"></span></li>
   </ul>
-  <form class="form-horizontal" id="login-form">
+  {% if user.is_authenticated %}
+    Вы авторизованы как <strong>{{user.username}}</strong>
+
+    <div class="col-sm-12">
+      {% csrf_token %}
+      <button class="btn btn-default" style="margin-top:20px;" id="logOut">
+        Выйти
+      </button>
+    </div>
+  {% else %}
+  <form class="form-horizontal" id="login-form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
     {% csrf_token %}
     <div class="form-group">
       <label> Логин: </label>
@@ -16,4 +26,5 @@
         <button type="submit" class="btn btn-primary">Войти</button>
     </div>
   </form>
+  {% endif %}
 </div>
