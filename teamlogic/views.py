@@ -65,6 +65,16 @@ class MatchListView(ListView):
     context_object_name = 'matches'
 
 
+class EventListView(ListView):
+    model = models.Event
+    template_name = 'teamlogic/eventslist.html'
+
+
+class EventDetailView(DetailView):
+    model = models.Event
+    template_name = 'teamlogic/event_detail.html'
+
+
 def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(models.Match, pk=id)

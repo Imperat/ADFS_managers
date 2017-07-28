@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -499,6 +500,19 @@ class TeamInLeague(models.Model):
     def __unicode__(self):
         return unicode(self.team)
 
+class Event(models.Model):
+    '''
+    Events are objects with date time on the predefined places.
+    '''
+    name = models.CharField(max_length=30)
+    place = models.ForeignKey(Stadium)
+    date_time_start = models.DateTimeField()
+    date_time_end = models.DateTimeField()
+
+    participants = models.ManyToManyField(User)
+
+    def get_absolute_url(self):
+        return reverse("eventdetail", args=(self.id,))
 
 class Manager(models.Model):
     tournaments = models.ManyToManyField(Tournament)

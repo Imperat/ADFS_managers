@@ -46,6 +46,12 @@ urlpatterns += [
         views.bombardiers, name='bombardiers'),
 ]
 
+# events urls
+urlpatterns += [
+    url(r'^events/$', views.EventListView, name='eventlist'),
+    url(r'^events/(?P<pk>[0-9]+)/$', views.EventDetailView.as_view(), name='eventdetail'),
+]
+
 # api urls
 urlpatterns += api_urls.api_patterns
 

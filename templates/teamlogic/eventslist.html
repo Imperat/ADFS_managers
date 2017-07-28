@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="breadcrumb">
+      <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
+      <li><a href="#"> События </a> <span class="divider"></span></li>
+    </ul>
+
+    <h2> События </h2>
+
+    {% for event in object_list %}
+        <div class="col-sm-12">
+          <div class="col-sm-4">
+            {{ event.place }}
+          </div>
+          <div class="col-sm-4">
+            <a href="{% url 'event.get_absolute_url' %}">{{ event.name }}</a>
+          </div>
+          <div class="col-sm-3">
+            {{ event.date_time_start }} - {{ event.date_time_end }}
+          </div>
+          <div class="col-sm-1">
+            29
+          </div>
+        </div>
+    {% endfor %}
+{% endblock %}
