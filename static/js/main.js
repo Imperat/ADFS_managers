@@ -9,9 +9,19 @@ console.log($('div'));
 $(document).ready(function(){
   const $loginForm = $('#login-form');
   const [, b] = [2,3];
-  $loginForm.on('submit', login);
-  $loginForm.find('input').on('input', removeErrors);
   if (window.location.pathname === '/survey') renderSurvey();
+
+  $('#logOut').on('click', () => {
+    const token = $('#logOut').closest('input').val();
+    console.log(token);
+    $.get( "/logout", () => {
+      if (window.location.pathname !== '/login/') {
+        location.reload();
+      } else {
+        window.location = '/logic/';
+      }
+    });
+  });
 });
 
 function removeErrors(event){

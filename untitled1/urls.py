@@ -30,12 +30,14 @@ urlpatterns = patterns(
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'logic/', include(teamlogic_urls)),
     url(r'^login/', views.autorisation),
+    url(r'^register/', views.register),
     url(r'^survey', views.survey),
     url(r'^register_attention/', views.register_attention),
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
         name='attention'),
     url(r'^', include(carusele_urls)),
-    url(r'^api/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+    url('^', include('django.contrib.auth.urls')),
 )
 
 from django.conf.urls.static import static
