@@ -2,8 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User, UserManager
 from django.db import models
 
+from utils.helpers import NULLABLE
+
+class ADFSUser(User):
+    avatar = models.ImageField(upload_to="media",
+                               default="./404/profile.jpg", **NULLABLE)
+
+    objects = UserManager()
 
 class Attention(models.Model):
 

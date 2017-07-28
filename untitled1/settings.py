@@ -32,6 +32,12 @@ STATICFILES_DIRS = (
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = (
+    'ADFS.auth_backends.CustomUserModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+CUSTOM_USER_MODEL = 'ADFS.ADFSUser'
 
 # Base Django applications
 INSTALLED_APPS = [

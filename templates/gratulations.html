@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load thumbnail %}
 
 {% block custom_css %}
   <link href="{% static "css/server-error.css" %}" rel="stylesheet">
@@ -8,7 +9,24 @@
 {% block content %}
   {% if user.is_authenticated %}
     <h2> Добро пожаловать на официальный портал АДФС, уважаемый {{ user.username }}!</h2>
+    <div class="col-md-12">
+      <div class="row profile__container">
+        <div class="col-md-4 profile__container-avatar">
+          {% thumbnail user.avatar "256x256" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left">
+          {% endthumbnail %}
+        </div>
+        <div class="col-md-8">
+          УРАШКЧКИ!
+        </div>
+      </div>
+    </div>
   {% else %}
     <h2> Неверное имя пользователя или пароль. Попробуйте ещё раз! </h2>
+    <div class="profile__container">
+      <div class="col-md-12 wrong-login">
+        <image src="/media/404/wrong-login.jpg">
+      </div>
+    </div>
   {% endif %}
 {% endblock %}

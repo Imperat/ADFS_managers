@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 
-from .models import Attention
+from .models import Attention, ADFSUser
 from .forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -49,12 +50,31 @@ def register_attention(request):
             return HttpResponseRedirect('/attention/%i' % a.id)
     return render(request, 'attention.html', {'form': form})
 
+@csrf_exempt
+def register(request):
+    data = request.POST.dict()
 
+    try:
+        user = ADFSUser.objects.create_user(
+          username=data['login'],
+          email=data['email'],
+          password=data['password'])
+
+        user.save()
+    except Exception as e:
+        return HttpResponse('{"error": "%s"}' % e.message,
+                            content_type='application/json',
+                            status=400)
+    else:
+        return HttpResponse('{"info": "User created"}',
+                            content_type='application/json',
+                            status=201)
+
+@csrf_exempt
 def autorisation(request):
     if request.method == 'GET':
-        logout(request)
-        template = loader.get_template('autorisation.html')
-        context = RequestContext(request, {'form': LoginForm()})
+        context = RequestContext(request, {})
+        template = loader.get_template('gratulations.html')
         return HttpResponse(template.render(context))
     else:
         user = authenticate(username=request.POST['login'],
