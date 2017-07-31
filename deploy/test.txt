@@ -1,0 +1,3 @@
+#!/bin/bash
+#run and del container after 
+docker run -it --rm --link postgres:postgres postgres psql -h postgres -U asdf
