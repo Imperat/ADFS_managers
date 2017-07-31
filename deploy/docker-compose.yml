@@ -1,0 +1,11 @@
+db:
+  image: postgres
+  container_name: postgres
+  environment:
+   - POSTGRES_USER=adfs
+   - POSTGRES_PASSWORD=adfs
+   - POSTGRES_DB=adfs
+  ports:
+    - "5432:5432"
+  volumes:
+    - /home/adfs/postgresql/db/:/var/lib/postgresql/data/
