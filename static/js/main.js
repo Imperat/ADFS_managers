@@ -1,4 +1,5 @@
 import { renderSurvey } from './survey';
+import 'bootstrap/dist/js/bootstrap';
 
 var $ = require('jquery');
 window.jQuery = $;
