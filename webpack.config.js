@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -21,6 +22,7 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new ExtractTextPlugin('styles.css'),
+    new UglifyJSPlugin(),
   ],
 
   module: {
@@ -48,7 +50,13 @@ module.exports = {
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader!less-loader"})
-      }
+      },
+      {
+    // I want to uglify with mangling only app files, not thirdparty libs
+    test: /.*\/main\/.*\.js$/,
+    exclude: /.spec.js/, // excluding .spec files
+    loader: "uglify"
+},
     ],
   },
 
