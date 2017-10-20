@@ -59,6 +59,105 @@
   <div class="container-fluid">
       <div class="row-fluid">
           <div class="col-lg-10 black text-left react-container" id="root">АХАХАХХАХА!</div>
+          <div class="col-lg-10 black text-left survey-wrapper">
+            <h3>Регистрация заявки на участие в турнире</h3>
+            <hr/>
+            <div class="row survey">
+              <div class="col-lg-4 form">
+                <div class="form-group col-lg-12">
+                  <label for="name" class="col-lg-12">
+                    Представьтесь, пожалуйста
+                  </label>
+
+                  <div class="col-lg-12">
+                    <input type="text" id="name" placeholder="Джеймс Кук" class="form-control"/>
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="team" class="col-lg-12">
+                    Название вашей команды
+                  </label>
+                  <div class="col-lg-12">
+                    <input type="text" id="team" placeholder="Джандолуп" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="league" class="col-lg-12">
+                    Чемпионат
+                  </label>
+                  <div class="col-lg-12">
+                    <input type="text" id="league" placeholder="Зимний кубок АДФС" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="player" class="col-lg-12">
+                    Выберите игроков или создайте новых
+                  </label>
+                  <div class="col-lg-12">
+                    <input type="text" id="player" placeholder="Михаил Лелякин" class="form-control" />
+                  </div>
+                  <div class="col-lg-12 player-container">
+                    <div class="col-lg-12 player-container__inner">
+                      <div class="col-lg-4">
+                        <img src="http://positum.org.ru/wp-content/uploads/2014/09/%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%BA%D0%B0-%D0%BF%D1%83%D1%81%D1%82%D0%B0%D1%8F.jpg" width="80" height="80" />
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="col-lg-12">
+                          Михаил Лелякин
+                        </div>
+                        <div class="col-lg-12">
+                          1995 года рождения
+                        </div>
+                        <div class="col-lg-12">
+                          Играл в командах: Оникс
+                        </div>
+                        <div class="col-lg-12">
+                          <button type="button" class="btn btn-survey btn-primary"> + Добавить игрока </button>
+                          <button type="button" class="btn btn-survey btn-default"> - Отменить и создать своего </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="captain" class="col-lg-12">
+                    Капитан команды
+                  </label>
+                  <div class="col-lg-12">
+                    <input type="text" id="captain" placeholder="Владимир Путин" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="captain2" class="col-lg-12">
+                    Второй представитель команды
+                  </label>
+                  <div class="col-lg-12">
+                    <input type="text" id="captain2" placeholder="Ксения Собчак" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="photo" class="col-lg-12">
+                    Командное фото
+                  </label>
+                  <div class="col-lg-12">
+                    <a href="#" id="teamPhoto">Выбрать...</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-lg-offset-1 preview">
+                Preview!!!!!
+                <br>
+                Marmon!
+              </div>
+            </div>
+          </div>
           <div class="col-lg-2 grey text-center"> {% block autoris %}{% include "autorisation.html" %}{% endblock %} </div>
       </div>
   </div>
