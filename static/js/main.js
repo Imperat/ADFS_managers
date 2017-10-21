@@ -1,11 +1,12 @@
-import { renderSurvey } from './survey';
 import 'bootstrap/dist/js/bootstrap';
+
+import { renderSurvey } from './survey';
+import store from './store';
 
 var $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
-
-console.log($('div'));
+window.store = store;
 
 $(document).ready(function(){
   const $loginForm = $('#login-form');
