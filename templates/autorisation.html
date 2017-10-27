@@ -2,6 +2,7 @@
   <ul class="breadcrumb">
     <li><a href="#"> Авторизация </a> <span class="divider"></span></li>
   </ul>
+  <div id="login-app" {% if user.is_authenticated %}data-auth="true" data-username="{{user.username}}"{% endif %}>
   {% if user.is_authenticated %}
     Вы авторизованы как <strong><a href="{% url 'django.contrib.auth.views.login' %}">{{user.username}}</a></strong>
     <div class="col-sm-12">
@@ -134,4 +135,5 @@
   </div>
 </div>
   {% endif %}
+  </div>
 </div>

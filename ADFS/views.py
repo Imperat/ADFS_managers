@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Attention, ADFSUser
 from .forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
+
+import json
 # Create your views here.
 
 def survey(request):
@@ -91,6 +93,7 @@ def autorisation(request):
                 print("The password is valid, but the account is disabled!")
         else:
             print("The username and password were incorrect.")
+            return HttpResponse(json.dumps({ 'error': 'Incorrect login or password' }), status=403)
 
         if user is not None:
             context = RequestContext(request, {
@@ -100,7 +103,7 @@ def autorisation(request):
         else:
             context = RequestContext(request, {})
         template = loader.get_template('gratulations.html')
-        return HttpResponse(template.render(context))
+        return HttpResponse(json.dumps({ 'login': user.username, 'active': t }))
 
 
 def is_gast(request):

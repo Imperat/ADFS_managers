@@ -22,7 +22,7 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new ExtractTextPlugin('styles.css'),
-    new UglifyJSPlugin(),
+    //new UglifyJSPlugin(),
   ],
 
   module: {

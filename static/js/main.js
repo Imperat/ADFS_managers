@@ -1,6 +1,7 @@
 import 'bootstrap/dist/js/bootstrap';
 
 import { renderSurvey } from './survey';
+import { renderLoginForm } from './login';
 import store from './store';
 
 var $ = require('jquery');
@@ -12,6 +13,7 @@ $(document).ready(function(){
   const $loginForm = $('#login-form');
   const [, b] = [2,3];
   if (window.location.pathname === '/survey') renderSurvey();
+  renderLoginForm();
 
   $('#logOut').on('click', () => {
     const token = $('#logOut').closest('input').val();
