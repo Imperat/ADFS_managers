@@ -7,8 +7,24 @@ from .models import Attention, ADFSUser
 from .forms import ContactForm
 from django.contrib.auth import authenticate, login, logout
 
+from base64 import b64decode
+import base64
+from django.core.files.base import ContentFile
+
 import json
 # Create your views here.
+
+def decode_base64(data):
+    """Decode base64, padding being optional.
+
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    """
+    missing_padding = len(data) % 4
+    if missing_padding != 0:
+        data += b'='* (4 - missing_padding)
+    return base64.decodestring(data)
 
 def survey(request):
     template = loader.get_template('base_react.html')
@@ -56,14 +72,20 @@ def register_attention(request):
 def register(request):
     data = request.POST.dict()
 
+    # print (data)
+
     try:
         user = ADFSUser.objects.create_user(
           username=data['login'],
           email=data['email'],
           password=data['password'])
 
+        if data.get('avatar', None) != None:
+            user.avatar = ContentFile(b64decode(data['avatar']), 'rosimka.png')
+
         user.save()
     except Exception as e:
+        print(e)
         return HttpResponse('{"error": "%s"}' % e.message,
                             content_type='application/json',
                             status=400)

@@ -4,6 +4,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import { RegisterForm } from './components/registerForm';
+
 const FontAwesome = require('react-fontawesome');
 
 export const renderLoginForm = () => {
@@ -69,6 +71,8 @@ export const renderLoginForm = () => {
       let component = null;
       if (!this.state.loggedIn) {
         component = (
+          <div>
+          <RegisterForm />
           <form className="form-horizontal" id="login-form" method="post">
             <div className="form-group">
               <label> Логин: </label>
@@ -80,9 +84,10 @@ export const renderLoginForm = () => {
             </div>
             <div className="form-group">
                 <button type="button" className="btn btn-primary" onClick={this.handleLoginRequest}>Войти</button>
-                <button id="register" className="btn btn-default" data-toggle="modal" data-target="#modalRegister">Регистрация</button>
+                <button type="button" id="register" className="btn btn-default" data-toggle="modal" data-target="#modalRegister">Регистрация</button>
             </div>
           </form>
+          </div>
         )
       } else {
         component = (
