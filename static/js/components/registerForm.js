@@ -172,7 +172,7 @@ export class RegisterForm extends React.Component {
                         <input className="form-control" type="email" name="email" id="email" />
                       </label>
                     </div>
-                    <input type="file" name="avatar" id="avatarupl" onChange={this.uploadAvatar} style={{display: "none"}} />
+                    <input type="file" name="avatar" accept=".png" id="avatarupl" onChange={this.uploadAvatar} style={{display: "none"}} />
                   </div>
               </div>
               </form>
