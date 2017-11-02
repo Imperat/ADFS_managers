@@ -158,17 +158,17 @@ export class RegisterForm extends React.Component {
                       </label>
                     </div>
                     <div className="form-group col-sm-12">
-                      <label htmlFor="login">Пароль
+                      <label htmlFor="password">Пароль
                         <input className="form-control" type="password" name="password" id="password" />
                       </label>
                     </div>
                     <div className="form-group col-sm-12">
-                      <label htmlFor="login">Повторите пароль
+                      <label htmlFor="password2">Повторите пароль
                         <input className="form-control" type="password" name="password2" id="password2" />
                       </label>
                     </div>
                     <div className="form-group col-sm-12">
-                      <label htmlFor="login">Электронная почта
+                      <label htmlFor="email">Электронная почта
                         <input className="form-control" type="email" name="email" id="email" />
                       </label>
                     </div>
