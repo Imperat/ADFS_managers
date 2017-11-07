@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 import { ModalHeader } from './modals/modalHeader';
 import Alert from 'react-s-alert';
 
+import configs from '../config';
+const alertDefault = configs.alertConfigs.defaultEffect;
+
 export class RegisterForm extends React.Component {
   constructor (props) {
     super(props);
@@ -83,12 +86,12 @@ export class RegisterForm extends React.Component {
     const [password1, password2] = [data[1].value, data[2].value];
     const email = data[3].value;
     if (password1 !== password2) {
-      Alert.error('Введённые пароли не совпадают!', {  effect: 'scale' });
+      Alert.error('Введённые пароли не совпадают!', alertDefault);
       return;
     }
 
     if (!login || !password1 || !password2 || !email) {
-      Alert.error('Вы заполнили не все поля!', { effect: 'scale' });
+      Alert.error('Вы заполнили не все поля!', alertDefault);
       return;
     }
 
@@ -103,13 +106,13 @@ export class RegisterForm extends React.Component {
       },
 
       success: () => {
-        Alert.info('Поздравляем, вы зарегистировались на портале АДФС!\n Авторизуйтесь, пожалуйста!', { effect: 'scale' });
+        Alert.info('Поздравляем, вы зарегистировались на портале АДФС!\n Авторизуйтесь, пожалуйста!', alertDefault);
         $('#closeRegisterForm').trigger('click');
       },
       error: (data) => {
         data = JSON.parse(data.responseText);
         if (data.error === 'UNIQUE constraint failed: auth_user.username') {
-          Alert.error('Пользователь с таким логином уже существует!', { effect: 'scale' });
+          Alert.error('Пользователь с таким логином уже существует!', alertDefault);
           return;
         }
       },
