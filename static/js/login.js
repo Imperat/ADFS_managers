@@ -1,12 +1,13 @@
+import Alert from 'react-s-alert';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import { RegisterForm } from './components/registerForm';
+import configs from './config';
 
 const FontAwesome = require('react-fontawesome');
+
+const alertDefault = configs.alertConfigs.defaultEffect;
 
 export const renderLoginForm = () => {
   class App extends React.Component {
@@ -25,7 +26,7 @@ export const renderLoginForm = () => {
       event.persist();
       const data = $('#login-form').serializeArray();
       if (!data[0].value || !data[1].value) {
-        Alert.error('Логин либо пароль не могут быть пустыми!', { effect: 'scale' });
+        Alert.error('Логин либо пароль не могут быть пустыми!', alertDefault);
         return;
       }
 
@@ -38,7 +39,7 @@ export const renderLoginForm = () => {
         },
         success: (data) => {
           data = JSON.parse(data);
-          Alert.info(`Мы рады, что вы вернулись, ${data.login}.`, {  effect: 'scale' });
+          Alert.info(`Мы рады, что вы вернулись, ${data.login}.`, alertDefault);
           this.setState(prevState => Object.assign({}, prevState, {
             loggedIn: true,
             username: data.login,
@@ -46,11 +47,11 @@ export const renderLoginForm = () => {
         },
         error: (data) => {
           if (data.status === 500) {
-            Alert.error('Возникли небольшие трудности. Произошла ошибка сервера!', { effect: 'scale' });
+            Alert.error('Возникли небольшие трудности. Произошла ошибка сервера!', alertDefault);
           }
 
           if (data.status === 403) {
-            Alert.error('Неверные логин, либо пароль!', { effect: 'scale' });
+            Alert.error('Неверные логин, либо пароль!', alertDefault);
           }
         },
       });
