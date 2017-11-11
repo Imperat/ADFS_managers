@@ -94,6 +94,11 @@
                                 <li>
                                     <a href="#">Участники</a>
                                 </li>
+                                {% if user.is_authenticated %}
+                                  <li>
+                                      <a href="{% url 'getTime' %}">Занять площадку</a>
+                                  </li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>

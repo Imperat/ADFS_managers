@@ -1,4 +1,5 @@
 import 'bootstrap/dist/js/bootstrap';
+import 'antd/dist/antd.css';
 
 import { renderSurvey } from './survey';
 import { renderStadionForm } from './stadionReservation';

@@ -22,9 +22,8 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new ExtractTextPlugin('styles.css'),
-    //new UglifyJSPlugin(),
+      ["import", { libraryName: "antd", style: "css" }],
   ],
-
   module: {
     loaders: [
       {
