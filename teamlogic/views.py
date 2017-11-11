@@ -93,6 +93,11 @@ def match(request, id=None):
     return HttpResponse(template.render(context))
 
 
+def get_time(request, id=None):
+    template = loader.get_template('base_react.html')
+    return HttpResponse(template.render(RequestContext(request, {})))
+
+
 def all_league(request):
     if request.method == "GET":
         template = loader.get_template('teamlogic/all_leagues.html')

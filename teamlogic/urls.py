@@ -29,6 +29,7 @@ urlpatterns += [
     url(r'^stadion/(?P<pk>[0-9]+)/$',
         views.StadionDetailView.as_view(), name='stadion'),
     url(r'^stadion/$', views.StadionListView.as_view(), name='stadions'),
+    url(r'^stadion/get/$', views.get_time, name='getTime'),
 ]
 
 # matches urls
