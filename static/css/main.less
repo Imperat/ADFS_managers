@@ -31,6 +31,42 @@
   }
 }
 
+.timeBoardHeader {
+  background-color: lighten(@color-blue, 10%);
+  font-weight: bold;
+  margin-top: 20px;
+  border-bottom: 1px solid @color-border-wrapper;
+
+  &Item {
+    border-right: 1px solid @color-border-wrapper;
+    text-align: center;
+  }
+}
+
+.timeBoardItem {
+  width: 100%;
+  background-color: orange;
+  color: black;
+  text-align: right;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.timeBoardItem:hover {
+  background-color: lighten(orange, 10%);
+}
+
+.panelLabel {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.timeBoardBodyItem {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 .calendar-tour {
   &__title {
     margin-top:15px;

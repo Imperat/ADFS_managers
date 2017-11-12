@@ -22,7 +22,6 @@ module.exports = {
       jQuery: 'jquery',
     }),
     new ExtractTextPlugin('styles.css'),
-      ["import", { libraryName: "antd", style: "css" }],
   ],
   module: {
     loaders: [

@@ -19,6 +19,12 @@ class TeamSerializer(serializers.ModelSerializer):
 
 class StadiumSerializer(serializers.ModelSerializer):
     class Meta:
-        models = models.Stadium
+        model = models.Stadium
         fields = ('id', 'name', 'city', 'accr', 'description',
                   'estimate', 'physics', 'home', 'image')
+
+
+class TimeBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.TimeBoard
+        fields = ('id', 'date', 'stadion', 'time1', 'time2', 'match')

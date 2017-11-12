@@ -340,3 +340,10 @@ def set_status(request, id):
     if data['status'] == 'completed' and match.status == 'live':
         match.save()
         return Response({'status': 'completed'})
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def stadion_times(request, id):
+    entityes = models.TimeBoard.objects.filter(stadion_id=id)
+    serializer = serializers.TimeBoardSerializer(entityes, many=True)
+    return Response(serializer.data)
