@@ -51,6 +51,11 @@ def view_attention(request, id):
     return HttpResponse(template.render(context))
 
 
+def reglament(request):
+    template = loader.get_template('reglament.html')
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context))
+
 def register_attention(request):
     form = ContactForm()
     if request.method == 'POST':
