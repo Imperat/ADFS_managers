@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Select } from 'antd';
 import { LocaleProvider } from 'antd';
+import { Button } from 'antd';
+import { TimePicker } from 'antd';
+import { DatePicker } from 'antd';
 import ruRu from 'antd/lib/locale-provider/ru_RU';
 
 const FontAwesome = require('react-fontawesome');
 const moment = require('moment');
 const Option = Select.Option;
+
+const format = 'HH:mm';
 
 export const renderStadionForm = () => {
   class App extends React.Component {
@@ -30,14 +35,20 @@ export const renderStadionForm = () => {
         startDate,
         endDate,
         dates,
+        selectedDate: null,
+        selectedTimeStart: '12:08',
+        selectedTimeEnd: '12:08',
       };
 
       this.handleChangeStadion = this.handleChangeStadion.bind(this);
-
-      this.fetchUsers();
+      this.handleChangeNewDate = this.handleChangeNewDate.bind(this);
+      this.handleChangeTimeStart = this.handleChangeTimeStart.bind(this);
+      this.handleChangeTimeEnd = this.handleChangeTimeEnd.bind(this);
+      this.handleTakeTime = this.handleTakeTime.bind(this);
+      this.fetchStadions();
     }
 
-    fetchUsers() {
+    fetchStadions() {
       $.get('/logic/api/v1/stadion', (error, result) => {
         if (result === 'success') {
           this.setState(prevState => Object.assign({}, this.state, { stadions: error }));
@@ -46,17 +57,32 @@ export const renderStadionForm = () => {
     }
 
     handleChangeStadion(value, label) {
-      console.log(this);
-      $.get('/logic/api/v1/stadion/' + value + '/times', (error, result) => {
+      $.get(`/logic/api/v1/stadion/${value}/times`, (error, result) => {
         if (result === 'success') {
           const dates = this.state.dates;
           Object.keys(dates).forEach(key => dates[key] = []);
-          console.log('datess', dates);
-          console.log('server result', error);
           error.forEach(item => dates[item.date] && dates[item.date].push(item));
           this.setState(prevState => Object.assign({}, this.state, { dates }))
         }
       });
+    }
+
+    handleChangeNewDate(value, label) {
+      this.setState(prevState => Object.assign({}, this.state, { selectedDate: label }));
+    }
+
+    handleChangeTimeStart(value, label) {
+      this.setState(prevState => Object.assign({}, this.state, { selectedTimeStart: label }));
+    }
+
+    handleChangeTimeEnd(value, label) {
+      this.setState(prevState => Object.assign({}, this.state, { selectedTimeEnd: label }));
+    }
+
+    handleTakeTime() {
+      const selectedDate = this.state.selectedDate;
+      const selectedTimeStart = this.state.selectedTimeStart;
+      const selectedTimeEnd = this.state.selectedTimeEnd;
     }
 
     render () {
@@ -82,6 +108,15 @@ export const renderStadionForm = () => {
             <span className="panelLabel">Неделя: <a href="#">{this.state.startDate.format('MM-DD-YYYY')}</a> -
                           <a href="#">{this.state.endDate.format('MM-DD-YYYY')}</a>
             </span>
+            <div className="take-time-panel" style={{ float: 'right' }}>
+              Занять время:
+              <DatePicker onChange={this.handleChangeNewDate} />
+              <span>C:</span>
+              <TimePicker onChange={this.handleChangeTimeStart} defaultValue={moment('12:08', 'HH:mm')} format={format} />
+              <span>По:</span>
+              <TimePicker onChange={this.handleChangeTimeEnd} defaultValue={moment('12:08', 'HH:mm')} format={format} />
+              <Button onClick={this.handleTakeTime} >OK</Button>
+            </div>
           </div>
           <div className="col-lg-12">
             <div className="row timeBoardHeader">
