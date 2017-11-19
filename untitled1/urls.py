@@ -32,6 +32,7 @@ urlpatterns = patterns(
     url(r'^login/', views.autorisation),
     url(r'^register/', views.register),
     url(r'^survey', views.survey),
+    url(r'^reglament/', views.reglament),
     url(r'^register_attention/', views.register_attention),
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
         name='attention'),
