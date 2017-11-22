@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 import datetime
 
 from teamlogic import models
+from teamlogic import teamlogic_utils
 from utils.mixins import PaginatedViewMixin
 
 
@@ -41,6 +42,17 @@ class PlayersListView(ListView):
 class TeamDetailView(DetailView):
     model = models.Team
     template_name = 'teamlogic/team.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TeamDetailView, self).get_context_data(**kwargs)
+
+        context['last_match'] = teamlogic_utils.get_last_team_match(
+            context['team'])
+
+        context['next_match'] = teamlogic_utils.get_next_team_match(
+            context['team'])
+
+        return context
 
 
 class TeamListView(PaginatedViewMixin, ListView):

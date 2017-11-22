@@ -224,6 +224,16 @@ class Match(models.Model):
 
         return None
 
+    def thisTeamIsWinner(self, team):
+        winner = self.getWinner()
+        if winner is None:
+            return False
+
+        if winner == team.pk:
+            return True
+
+        return False
+
     def __str__(self):
         if not self.hasResult:
             return "%s - %s" % (self.home.name, self.away.name)

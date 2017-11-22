@@ -25,27 +25,29 @@
         <strong> Матчи: </strong> <a href="matches/"> все матчи </a>
 
         <div class="scores">
+            {% if last_match %}
             <div class="score-block">
                 <a href="http://www.sports.ru/stat/football/693/match/1028671.html">
                     <div class="score score-green">
-                        <span> 2 </span>
-                        <span> 1 </span>
+                        <span> {{ last_match.home_goal }} </span>
+                        <span> {{ last_match.away_goal }} </span>
                     </div>
                 </a>
 
                 <div class="score-descr">
                     <div class="commands">
-                        <i class="flag-s flag-1340" title="Чили" alt="Чили"></i>&nbsp;<a
-                            href="http://www.sports.ru/team-chile/">Пыльник</a>
+                        <i class="flag-s flag-1340" title="{{ last_match.home }}" alt="{{ last_match.home }}"></i>&nbsp;<a
+                            href="#">{{ last_match.home }}</a>
                         &nbsp;–&nbsp;
-                        <i class="flag-s flag-1357" title="Перу" alt="Перу"></i>&nbsp;<a
-                            href="http://www.sports.ru/tags/2793698/">Марсель</a>
+                        <i class="flag-s flag-1357" title="Перу" alt="{{ last_match.away }}"></i>&nbsp;<a
+                            href="#">{{ last_match.away }}</a>
                     </div>
-                    30 июня 02:30 <a href="http://www.sports.ru/copa-america/">Кубок АДФС</a> <span
+                    {{last_match.date_time}} <a href="#">Кубок АДФС</a> <span
                         class="sp">|</span>
                     Завершен
                 </div>
             </div>
+            {% endif %}
             <div class="score-block">
                 <a href="http://www.sports.ru/copa-america/team-chile-team-argentina/04-07-2015/">
                     <div class="score score-gray">
@@ -56,13 +58,13 @@
 
                 <div class="score-descr">
                     <div class="commands">
-                        <i class="flag-s flag-1340" title="Чили" alt="Чили"></i>&nbsp;<a
-                            href="http://www.sports.ru/team-chile/">Пыльник</a>
+                        <i class="flag-s flag-1340" title="{{ next_match.home }}" alt="{{ next_match.home }}"></i>&nbsp;<a
+                            href="#">{{ next_match.home }}</a>
                         &nbsp;–&nbsp;
-                        <i class="flag-s flag-1332" title="Аргентина" alt="Аргентина"></i>&nbsp;<a
-                            href="http://www.sports.ru/team-argentina/">Оникс</a>
+                        <i class="flag-s flag-1332" title="{{ next_match.away }}" alt="{{ next_match.away }}"></i>&nbsp;<a
+                            href="#">{{ next_match.away }}</a>
                     </div>
-                    04 июля 23:00 <a href="http://www.sports.ru/copa-america/">Первая лига АДФС</a> <span
+                    {{ next_match.date_time }} <a href="#">Первая лига АДФС</a> <span
                         class="sp">|</span>
                     Не начался
                 </div>
