@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import loader, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -130,7 +131,7 @@ def team_matches(request, id=1):
     t = get_object_or_404(models.Team, pk=id)
     context = RequestContext(request, {
         'all_team_matches': models.MatchInLeague.objects.all(
-        ).last().all_team_matches(t),
+        ).filter(Q(home=t.pk) | Q(away=t.pk)),
         'team': t,
         'user': request.user,
     })
