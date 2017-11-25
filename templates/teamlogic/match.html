@@ -21,75 +21,83 @@
     </ul>
 
 <div class="two-commands">
-    <div class="command floatL">
-        <div class="img-box">
-            {% thumbnail match.home.image "230x230" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar1">
-            {% endthumbnail %}
-        </div>
-        <div class="about-command">
-            <h2 class="titleH2"><a href="{{ match.home.get_absolute_url }}" >{{ match.home }}</a>
-            </h2>
-
-            <div class="town">{{ match.home.city }}</div>
-            <br>
-            <div class="form-now">
-                Текущая форма
-                <br>
-                <span class="matches-img"></span>
-            </div>
-            <div class="js-first-team"> </div>
-            У хозяев забивали: <br>
-            {% for i in match.home_goals.all %}
-              <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="command floatR">
-        <div class="img-box">
-          {% thumbnail match.away.image "230x230" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar2">
-          {% endthumbnail %}
-        </div>
-        <div class="about-command">
-            <h2 class="titleH2"><a href="{{ match.away.get_absolute_url }}">{{ match.away }}</a></h2>
-            <div class="town">{{ match.away.city }}</div>
-            <div class="form-now">
-                Текущая форма
-                <br>
-                <span class="matches-img"></span>
-            </div>
-            <div class="js-second-team"></div>
-        </div>
-        У гостей забивали:
+  <div class="col-xs-5 match-page__team-panel home">
+      {% thumbnail match.home.image "230x230" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="team-logo avatar1">
+      {% endthumbnail %}
+    <div class="about-command">
+      <h2 class="titleH2"><a href="{{ match.home.get_absolute_url }}" >{{ match.home }}</a></h2>
+      <div class="town">{{ match.home.city }}</div>
+      <br>
+      {% if form_away|length %}
+      <div class="form-now">
+        Текущая форма
         <br>
-        {% for i in match.away_goals.all %}
+        <div class="matches-img">
+          {% for m in form_home %}
+            <a class="match-img {{m.result_class}}" href="{{ m.get_absolute_url }}" title="{{ m.home }} - {{ m.away }} {{ m.home_goal }}:{{ m.away_goal }}"></a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      <div class="js-first-team"> </div>
+      {% if match.home_goals.all|length %}
+        У хозяев забивали: <br>
+        {% for i in match.home_goals.all %}
           <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
         {% endfor %}
+      {% endif %}
     </div>
-    <div class="game-info">
-        <div class="score js-match-score">
-          {% if match.is_starts == 1%}
-                  {{ match.home_goal }}:{{ match.away_goal }}
-              {% else %}
-                  —:—
-          {% endif %}
-        </div>
+  </div>
+
+  <div class="col-xs-2 game-info">
+    <div class="score js-match-score">
+      {% if match.is_starts == 1%}
+        {{ match.home_goal }}:{{ match.away_goal }}
+      {% else %}
+          —:—
+      {% endif %}
+    </div>
+    <br>
+    <div class="mB20 js-match-status">
+      {% if match.is_starts == 0 %} Начнётся через {{ match.ago }} мин. {% endif %}
+      {% if match.is_starts == -1 %} Не начался {% endif %}
+      {% if match.is_starts == 1 %} Матч окончен {% endif %}
+    </div>
+    <p><a href="{{  match.league.get_absolute_url }}"> {{ match.league }}</a></p>
+
+    <p>{{  match.date_time }}</p>
+    <p><span class="nowrap"><a href="{{ match.place.get_absolute_url }}">{{ match.place }}</a></span></p>
+  </div>
+
+  <div class="col-xs-5 match-page__team-panel away">
+    <div class="about-command">
+      <h2 class="titleH2"><a href="{{ match.away.get_absolute_url }}">{{ match.away }}</a></h2>
+      <div class="town">{{ match.away.city }}</div>
+      <br>
+      {% if form_away|length %}
+      <div class="form-now">
+        Текущая форма
         <br>
-        <div class="mB20 js-match-status">
-            {% if match.is_starts == 0 %} Начнётся через {{ match.ago }} мин. {% endif %}
-            {% if match.is_starts == -1 %} Не начался {% endif %}
-            {% if match.is_starts == 1 %} Матч окончен {% endif %}
+        <div class="matches-img">
+          {% for m in form_away %}
+            <a class="match-img {{m.result_class}}" href="{{ m.get_absolute_url }}" title="{{ m.home }} - {{ m.away }} {{ m.home_goal }}:{{ m.away_goal }}"></a>
+          {% endfor %}
         </div>
-        <p><a href="{{  match.league.get_absolute_url }}"> {{ match.league }}</a></p>
-
-        <p>{{  match.date_time }}</p>
-
-        <p>
-            <span class="nowrap"><a href="{{ match.place.get_absolute_url }}">{{ match.place }}</a></span>
-
-        </p>
+      </div>
+      {% endif %}
+      <div class="js-second-team"></div>
+    {% if match.away_goals.all|length %}
+      У гостей забивали:
+      <br>
+      {% for i in match.away_goals.all %}
+        <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
+      {% endfor %}
+    {% endif %}
     </div>
-</div>
+    {% thumbnail match.away.image "230x230" crop="center" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="team-logo avatar2">
+    {% endthumbnail %}
+    </div>
+  </div>
 {% endblock %}
