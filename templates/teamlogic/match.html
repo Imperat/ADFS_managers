@@ -23,12 +23,13 @@
 <div class="two-commands">
   <div class="col-xs-5 match-page__team-panel home">
       {% thumbnail match.home.image "230x230" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar1">
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="team-logo avatar1">
       {% endthumbnail %}
     <div class="about-command">
       <h2 class="titleH2"><a href="{{ match.home.get_absolute_url }}" >{{ match.home }}</a></h2>
       <div class="town">{{ match.home.city }}</div>
       <br>
+      {% if form_away|length %}
       <div class="form-now">
         Текущая форма
         <br>
@@ -38,11 +39,14 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
       <div class="js-first-team"> </div>
-      У хозяев забивали: <br>
-      {% for i in match.home_goals.all %}
-        <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
-      {% endfor %}
+      {% if match.home_goals.all|length %}
+        У хозяев забивали: <br>
+        {% for i in match.home_goals.all %}
+          <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 
@@ -71,6 +75,7 @@
       <h2 class="titleH2"><a href="{{ match.away.get_absolute_url }}">{{ match.away }}</a></h2>
       <div class="town">{{ match.away.city }}</div>
       <br>
+      {% if form_away|length %}
       <div class="form-now">
         Текущая форма
         <br>
@@ -80,15 +85,18 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
       <div class="js-second-team"></div>
-    У гостей забивали:
-    <br>
-    {% for i in match.away_goals.all %}
-      <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
-    {% endfor %}
+    {% if match.away_goals.all|length %}
+      У гостей забивали:
+      <br>
+      {% for i in match.away_goals.all %}
+        <a href='{{ i.author.get_absolute_url }}'>{{ i.author }}</a> {{ i.min }} мин. <br>
+      {% endfor %}
+    {% endif %}
     </div>
     {% thumbnail match.away.image "230x230" crop="center" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="avatar2">
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="team-logo avatar2">
     {% endthumbnail %}
     </div>
   </div>

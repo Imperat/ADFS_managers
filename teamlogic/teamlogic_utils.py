@@ -24,6 +24,9 @@ def get_next_team_match(team):
 
 
 def get_team_form(team, date):
+    if date is None:
+        return []
+
     last_matchs = models.Match.objects.filter(
         Q(home=team.pk) | Q(away=team.pk)).filter(
           date_time__lt=date).order_by(
