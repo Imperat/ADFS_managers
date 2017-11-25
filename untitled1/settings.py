@@ -60,6 +60,7 @@ INSTALLED_APPS += [
     'corsheaders',
     'sorl.thumbnail',
     'easy_select2',
+    'tinymce',
 ]
 
 # My own applications

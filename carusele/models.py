@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from tinymce import models as tinymce_models
 
 class News (models.Model):
     """
@@ -9,7 +10,7 @@ class News (models.Model):
     """
     title = models.CharField(max_length=400)
     description = models.TextField(default="")
-    content = models.TextField()
+    content = tinymce_models.HTMLField()
     pubdate = models.DateTimeField()
     image = models.ImageField(upload_to="media")
 
