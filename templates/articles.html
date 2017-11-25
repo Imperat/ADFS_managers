@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="articles">
+    {% for article in articles %}
+      <div class="articles-item">
+        <h3><a href="{{article.get_absolute_url}}">{{article.title}}</a></h3>
+        <span>{{article.pubdate}}</span>
+        <div class="articles-item__description">
+          {{article.description}}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

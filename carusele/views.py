@@ -21,3 +21,12 @@ def article(request, id):
         'number': id,
     })
     return HttpResponse(template.render(context))
+
+def articles(request):
+    template = loader.get_template('articles.html')
+    articles = News.objects.order_by('-pubdate').all()
+    context = RequestContext(request, {
+        'articles': articles,
+    })
+
+    return HttpResponse(template.render(context))
