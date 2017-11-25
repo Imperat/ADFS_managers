@@ -224,6 +224,14 @@ class Match(models.Model):
 
         return None
 
+    def get_result_of_team(self, team):
+        winner = self.getWinner()
+        if winner is None:
+            return 'drawn'
+        if winner.pk == team.pk:
+            return 'win'
+        return 'lose'
+
     def thisTeamIsWinner(self, team):
         winner = self.getWinner()
         if winner is None:

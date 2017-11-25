@@ -81,11 +81,15 @@ class MatchListView(ListView):
 def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(models.Match, pk=id)
+
     context = RequestContext(request, {
         'match': matchs,
         'nows': datetime.datetime.now(),
         'user': request.user,
+        'form_home': teamlogic_utils.get_team_form(matchs.home, matchs.date_time),
+        'form_away': teamlogic_utils.get_team_form(matchs.away, matchs.date_time),
     })
+
     return HttpResponse(template.render(context))
 
 

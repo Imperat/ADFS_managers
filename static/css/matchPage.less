@@ -1,0 +1,58 @@
+.two-commands {
+  .match-page__ {
+    &team-panel {
+      display: flex;
+      align-items: flex-start;
+
+      .about-command {
+        .form-now {
+          .matches-img {
+            display: flex;
+            justify-content: flex-start;
+            .match-img {
+              background-color: yellow;
+              width: 10px;
+              height: 10px;
+              margin: 3px;
+              border-radius: 10px;
+            }
+
+            .match-img.win {
+              background-color: @color-win;
+            }
+
+            .match-img.lose {
+              background-color: @color-lose;
+            }
+
+            .match-img.drawn {
+              background: @color-drawn;
+            }
+          }
+        }
+      }
+    }
+
+    &team-panel.away {
+      justify-content: flex-end;
+
+      .about-command {
+        text-align: right;
+
+        .form-now {
+          .matches-img {
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+
+    &team-panel.home {
+      justify-content: flex-start;
+    }
+  }
+
+  .game-info {
+    padding-top: 35px;
+  }
+}
