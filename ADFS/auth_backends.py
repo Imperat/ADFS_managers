@@ -4,10 +4,14 @@ from django.contrib.auth.backends import ModelBackend
 from django.core.exceptions import ImproperlyConfigured
 
 class CustomUserModelBackend(ModelBackend):
-    def authenticate(self, username=None, password=None):
+    def authenticate(self, username=None, password=None, api=None):
         try:
             print('I here', username, password)
             user = self.user_class.objects.get(username=username)
+
+            if api:
+                return user
+
             if user.check_password(password):
                 return user
         except self.user_class.DoesNotExist:

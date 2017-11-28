@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
 
 from .models import Attention, ADFSUser
 from .forms import ContactForm
@@ -11,6 +12,8 @@ from base64 import b64decode
 import base64
 from django.core.files.base import ContentFile
 
+import requests
+from urlparse import parse_qs
 import json
 # Create your views here.
 
@@ -132,6 +135,44 @@ def autorisation(request):
         template = loader.get_template('gratulations.html')
         return HttpResponse(json.dumps({ 'login': user.username, 'active': t }))
 
+
+@csrf_exempt
+def autorisation_github(request):
+    try:
+        code = request.GET['code']
+        r = requests.post("https://github.com/login/oauth/access_token",
+            data = {'client_id':'335f38f2aab459864d81', 'client_secret': '1aba874073116d193e0f324e1382df5c4a25b8d3', 'code': code, 'accept': 'application/json'})
+
+        params = parse_qs(r.text)
+        access_token = params['access_token']
+        response = requests.get("https://api.github.com/user/emails?access_token=%s" % access_token[0]).json()
+        response_user = requests.get("https://api.github.com/user?access_token=%s" % access_token[0]).json()
+        emails = []
+        for email in response:
+            if email['verified']:
+                emails.append(email['email'])
+
+        users = ADFSUser.objects.all()
+        for user in users:
+            if user.email in emails:
+                new_user = authenticate(username=user.username, api=True)
+                login(request, new_user)
+                context = RequestContext(request, {})
+                template = loader.get_template('gratulations.html')
+                return HttpResponse(template.render(context))
+
+        user = ADFSUser.objects.create_user(
+          username=response_user['login'],
+          email=response[0]['email'],
+          password='rasim')
+
+        new_user = authenticate(username=user.username, api=True)
+        login(request, new_user)
+        context = RequestContext(request, {})
+        template = loader.get_template('gratulations.html')
+        return HttpResponse(template.render(context))
+    except Exception:
+        return redirect('/')
 
 def is_gast(request):
     return not request.user.is_authenticated()

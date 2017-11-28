@@ -29,6 +29,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include(admin_tools.urls)),
     url(r'logic/', include(teamlogic_urls)),
+    url(r'^login/github', views.autorisation_github),
     url(r'^login/', views.autorisation),
     url(r'^register/', views.register),
     url(r'^survey', views.survey),
