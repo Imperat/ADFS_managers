@@ -9,3 +9,10 @@ install:
 
 script:
     - python manage.py test
+
+deploy:
+    provider: script
+    script: deploy/deploy-native.sh
+    on:
+        branch: develop
+
