@@ -83,11 +83,18 @@ export const renderLoginForm = () => {
               <label> Пароль: </label>
                 <input className="form-control" name="password" type="password" placeholder="Космонавтика" />
             </div>
-            <div className="form-group">
-                <button type="button" className="btn btn-primary" onClick={this.handleLoginRequest}>Войти</button>
-                <button type="button" id="register" className="btn btn-default" data-toggle="modal" data-target="#modalRegister">Регистрация</button>
-                <a className="btn btn-primary" href="https://github.com/login/oauth/authorize?scope=user:email&client_id=335f38f2aab459864d81"><span className="fa fa-github" aria-hidden="true"></span></a>
+            <div className="form-group" style={{ "margin-bottom": "10px" }}>
+              <button type="button" className="btn btn-primary" onClick={this.handleLoginRequest}>Войти</button>
             </div>
+            <div className="row">
+              <div className="col-xs-6">
+                <a href="#" id="register" data-toggle="modal" data-target="#modalRegister">Вспомнить пароль</a>
+              </div>
+              <div className="col-xs-6">
+                <a href="#" id="register" data-toggle="modal" data-target="#modalRegister" style={{"text-align": "right"}}>Регистрация</a>
+              </div>
+            </div>
+            <div className="social-label">Войти через социальные сети</div>
           </form>
           </div>
         )
