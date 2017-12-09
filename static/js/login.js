@@ -86,6 +86,7 @@ export const renderLoginForm = () => {
             <div className="form-group">
                 <button type="button" className="btn btn-primary" onClick={this.handleLoginRequest}>Войти</button>
                 <button type="button" id="register" className="btn btn-default" data-toggle="modal" data-target="#modalRegister">Регистрация</button>
+                <a className="btn btn-primary" href="https://github.com/login/oauth/authorize?scope=user:email&client_id=335f38f2aab459864d81"><span className="fa fa-github" aria-hidden="true"></span></a>
             </div>
           </form>
           </div>
