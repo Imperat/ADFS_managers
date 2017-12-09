@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import loader, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -80,11 +81,15 @@ class MatchListView(ListView):
 def match(request, id=None):
     template = loader.get_template('teamlogic/match.html')
     matchs = get_object_or_404(models.Match, pk=id)
+
     context = RequestContext(request, {
         'match': matchs,
         'nows': datetime.datetime.now(),
         'user': request.user,
+        'form_home': teamlogic_utils.get_team_form(matchs.home, matchs.date_time),
+        'form_away': teamlogic_utils.get_team_form(matchs.away, matchs.date_time),
     })
+
     return HttpResponse(template.render(context))
 
 
@@ -130,7 +135,7 @@ def team_matches(request, id=1):
     t = get_object_or_404(models.Team, pk=id)
     context = RequestContext(request, {
         'all_team_matches': models.MatchInLeague.objects.all(
-        ).last().all_team_matches(t),
+        ).filter(Q(home=t.pk) | Q(away=t.pk)),
         'team': t,
         'user': request.user,
     })

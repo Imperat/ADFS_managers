@@ -25,7 +25,7 @@ class Stadium(models.Model):
     physics = models.IntegerField()
     # Need to add relation to Date and Time free!!!
     home = models.ManyToManyField('Team', **NULLABLE)
-    image = models.ImageField(upload_to='media', default='./404/stadion.jpg')
+    image = models.ImageField(upload_to='./stadions', default='./404/stadion.jpg', **NULLABLE)
 
     class Meta:
         verbose_name = "Стадион"
@@ -61,7 +61,7 @@ class Player (models.Model):
     vk_link = models.CharField(max_length=30, null=True)
     # G - goalkeeper, H - defender, F - nap
     basePosition = models.CharField(max_length=1)
-    image = models.ImageField(upload_to="media",
+    image = models.ImageField(upload_to="./players",
                               default="./404/profile.jpg", **NULLABLE)
     history = models.ManyToManyField('Team', through='RecOfTeam')
 
@@ -223,6 +223,14 @@ class Match(models.Model):
             return self.away
 
         return None
+
+    def get_result_of_team(self, team):
+        winner = self.getWinner()
+        if winner is None:
+            return 'drawn'
+        if winner.pk == team.pk:
+            return 'win'
+        return 'lose'
 
     def thisTeamIsWinner(self, team):
         winner = self.getWinner()

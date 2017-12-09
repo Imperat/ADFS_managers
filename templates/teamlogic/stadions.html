@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load thumbnail %}
 {% block content %}
     <ul class="breadcrumb">
       <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
@@ -7,8 +7,20 @@
     </ul>
 
     <h2> Стадионы </h2>
-
+    <div class="list-objects">
     {% for stadion in object_list %}
-        <br> <strong> <a href="{{stadion.get_absolute_url}}"> {{ stadion }} </a> </strong>
+      <div class="col-md-12">
+        <div class="row team-wrapper">
+          <div class="col-md-1">
+            {% thumbnail stadion.image "64x64" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left">
+            {% endthumbnail %}
+          </div>
+          <div class="col-md-6">
+            <br> <strong> <a href="{{stadion.get_absolute_url}}"> {{ stadion }} </a> </strong>
+          </div>
+        </div>
+      </div>
     {% endfor %}
+    </div>
 {% endblock %}
