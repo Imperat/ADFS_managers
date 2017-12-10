@@ -9,18 +9,16 @@
     <h2> Стадионы </h2>
     <div class="list-objects">
     {% for stadion in object_list %}
-      <div class="col-md-12">
-        <div class="row team-wrapper">
-          <div class="col-md-1">
+        <div class="team-wrapper item-wrapper">
+          <div class="col-md-1" style="float: left;">
             {% thumbnail stadion.image "64x64" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left">
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left" style="display: block;">
             {% endthumbnail %}
           </div>
-          <div class="col-md-6">
-            <br> <strong> <a href="{{stadion.get_absolute_url}}"> {{ stadion }} </a> </strong>
+          <div style="float: right;">
+            <strong> <a href="{{stadion.get_absolute_url}}"> {{ stadion }} </a> </strong>
           </div>
         </div>
-      </div>
     {% endfor %}
     </div>
 {% endblock %}

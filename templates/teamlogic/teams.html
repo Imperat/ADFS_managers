@@ -11,20 +11,18 @@
   <h2> Команды </h2>
   <div class="list-objects">
     {% for team in object_list %}
-      <div class="col-md-12">
-          <div class="row team-wrapper">
-            <div class="col-md-1">
+          <div class="team-wrapper item-wrapper">
+            <div class="col-md-1" style="float: left;">
             {% thumbnail team.image "64x64" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left">
             {% endthumbnail %}
             </div>
-            <div class="col-md-6">
+            <div style="float: right;">
               <div class="media-body">
                 <h5 class="media-title"><strong> <a href="{{team.get_absolute_url}}"> {{team}} </a> </strong></h5>
               </div>
             </div>
           </div>
-      </div>
     {% endfor %}
   </div>
   {% pager %}
