@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import json
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -135,6 +137,16 @@ THUMBNAIL_DEBUG = True
 
 # pagination
 PAGINATE_BY = 10
+
+# oath configs for 3-rd party services (github, facebook, vk)
+OAUTH_PUBLIC_CONFIGS = None
+OAUTH_PRIVATE_CONFIGS = None
+
+with open("./config/oathConfigs.json") as f:
+    OAUTH_PUBLIC_CONFIGS = json.loads(f.read())
+
+with open("./config/oauthConfigsSecret.json") as f:
+    OAUTH_PRIVATE_CONFIGS = json.loads(f.read())
 
 try:
     from settings_local import *

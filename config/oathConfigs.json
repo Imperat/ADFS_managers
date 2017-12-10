@@ -1,0 +1,13 @@
+{
+  "github": {
+    "client_id": "335f38f2aab459864d81"
+  },
+  "facebook": {
+    "client_id": "524576674585233"
+  },
+  "vk": {
+    "client_id": "6292497",
+    "scope": "4259840",
+    "redirect_uri": "https://adf-saratov.ru/vk"
+  }
+}

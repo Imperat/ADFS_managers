@@ -3,19 +3,26 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
+from django.conf import settings
 
 from .models import Attention, ADFSUser
 from .forms import ContactForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 
 from base64 import b64decode
 import base64
 from django.core.files.base import ContentFile
 
 import requests
-from urlparse import parse_qs
 import json
-# Create your views here.
+
+try:
+    import urlparse
+    from urllib import urlencode
+except:
+    import urllib.parse as urlparse
+    from urllib.parse import urlencode
+
 
 def decode_base64(data):
     """Decode base64, padding being optional.
@@ -26,13 +33,15 @@ def decode_base64(data):
     """
     missing_padding = len(data) % 4
     if missing_padding != 0:
-        data += b'='* (4 - missing_padding)
+        data += b'=' * (4 - missing_padding)
     return base64.decodestring(data)
+
 
 def survey(request):
     template = loader.get_template('base_react.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
+
 
 def regl(request):
     template = loader.get_template('reglam.html')
@@ -59,6 +68,7 @@ def reglament(request):
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
+
 def register_attention(request):
     form = ContactForm()
     if request.method == 'POST':
@@ -76,6 +86,7 @@ def register_attention(request):
             return HttpResponseRedirect('/attention/%i' % a.id)
     return render(request, 'attention.html', {'form': form})
 
+
 @csrf_exempt
 def register(request):
     data = request.POST.dict()
@@ -84,11 +95,11 @@ def register(request):
 
     try:
         user = ADFSUser.objects.create_user(
-          username=data['login'],
-          email=data['email'],
-          password=data['password'])
+            username=data['login'],
+            email=data['email'],
+            password=data['password'])
 
-        if data.get('avatar', None) != None:
+        if data.get('avatar', None):
             user.avatar = ContentFile(b64decode(data['avatar']), 'rosimka.png')
 
         user.save()
@@ -101,6 +112,7 @@ def register(request):
         return HttpResponse('{"info": "User created"}',
                             content_type='application/json',
                             status=201)
+
 
 @csrf_exempt
 def autorisation(request):
@@ -123,7 +135,9 @@ def autorisation(request):
                 print("The password is valid, but the account is disabled!")
         else:
             print("The username and password were incorrect.")
-            return HttpResponse(json.dumps({ 'error': 'Incorrect login or password' }), status=403)
+            return HttpResponse(
+                json.dumps({'error': 'Incorrect login or password'}),
+                status=403)
 
         if user is not None:
             context = RequestContext(request, {
@@ -133,20 +147,50 @@ def autorisation(request):
         else:
             context = RequestContext(request, {})
         template = loader.get_template('gratulations.html')
-        return HttpResponse(json.dumps({ 'login': user.username, 'active': t }))
+        return HttpResponse(json.dumps({'login': user.username, 'active': t}))
+
+
+@csrf_exempt
+def autorisation_vk(request):
+    code = request.GET['code']
+    query_string = urllib.urlencode({
+        'client_id': settings.OAUTH_PUBLIC_CONFIGS['vk']['client_id'],
+        'code': code,
+        'client_secret': settings.OAUTH_PRIVATE_CONFIGS['vk']['client_secret'],
+        'redirect_uri': settings.OAUTH_PUBLIC_CONFIGS['vk']['redirect_uri'],
+    })
+
+    r = requests.get("https://oauth.vk.com/access_token?%s" % query_string)
+    params = json.loads(r.text)
+    access_token = params['access_token']
 
 
 @csrf_exempt
 def autorisation_github(request):
     try:
         code = request.GET['code']
-        r = requests.post("https://github.com/login/oauth/access_token",
-            data = {'client_id':'335f38f2aab459864d81', 'client_secret': '1aba874073116d193e0f324e1382df5c4a25b8d3', 'code': code, 'accept': 'application/json'})
+        client_id = settings.OAUTH_PUBLIC_CONFIGS['github']['client_id']
+        client_secret = \
+            settings.OAUTH_PRIVATE_CONFIGS['github']['client_secret']
 
-        params = parse_qs(r.text)
+        r = requests.post("https://github.com/login/oauth/access_token",
+                          data={
+                              'client_id': client_id,
+                              'client_secret': client_secret,
+                              'code': code,
+                              'accept': 'application/json',
+                          })
+
+        params = urlparse.parse_qs(r.text)
         access_token = params['access_token']
-        response = requests.get("https://api.github.com/user/emails?access_token=%s" % access_token[0]).json()
-        response_user = requests.get("https://api.github.com/user?access_token=%s" % access_token[0]).json()
+        response = requests.get(
+            "https://api.github.com/user/emails?access_token=%s" %
+            access_token[0]).json()
+
+        response_user = requests.get(
+            "https://api.github.com/user?access_token=%s" %
+            access_token[0]).json()
+
         emails = []
         for email in response:
             if email['verified']:
@@ -162,9 +206,9 @@ def autorisation_github(request):
                 return HttpResponse(template.render(context))
 
         user = ADFSUser.objects.create_user(
-          username=response_user['login'],
-          email=response[0]['email'],
-          password='rasim')
+            username=response_user['login'],
+            email=response[0]['email'],
+            password='rasim')
 
         new_user = authenticate(username=user.username, api=True)
         login(request, new_user)
@@ -173,6 +217,7 @@ def autorisation_github(request):
         return HttpResponse(template.render(context))
     except Exception:
         return redirect('/')
+
 
 def is_gast(request):
     return not request.user.is_authenticated()

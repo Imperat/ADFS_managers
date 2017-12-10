@@ -31,6 +31,7 @@ urlpatterns = patterns(
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'logic/', include(teamlogic_urls)),
     url(r'^login/github', views.autorisation_github),
+    url(r'^vk', views.autorisation_vk),
     url(r'^login/', views.autorisation),
     url(r'^register/', views.register),
     url(r'^survey', views.survey),

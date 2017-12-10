@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { RegisterForm } from './components/registerForm';
 import configs from './config';
+import oauthConfigs from '../../config/oathConfigs.json';
 
 const FontAwesome = require('react-fontawesome');
 
@@ -96,8 +97,9 @@ export const renderLoginForm = () => {
             </div>
             <div className="social-label">Войти через социальные сети</div>
             <div className="social-icons">
-              <a className="btn btn-default" href="https://github.com/login/oauth/authorize?scope=user:email&client_id=335f38f2aab459864d81"><span className="fa fa-github" aria-hidden="true"></span></a>
-              <a className="btn btn-default" href="https://www.facebook.com/v2.11/dialog/oauth?client_id=524576674585233&redirect_uri=https%3A%2F%2Fadf-saratov.ru%2Ffacebook"><span className="fa fa-facebook-square"></span></a>
+              <a className="btn btn-default" href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=${oauthConfigs.github.client_id}`}><span className="fa fa-github" aria-hidden="true"></span></a>
+              <a className="btn btn-default" href={`https://www.facebook.com/v2.11/dialog/oauth?client_id=${oauthConfigs.facebook.client_id}&redirect_uri=https%3A%2F%2Fadf-saratov.ru%2Ffacebook`}><span className="fa fa-facebook-square"></span></a>
+              <a className="btn btn-default" href={`https://oauth.vk.com/authorize?client_id=${oauthConfigs.vk.client_id}&redirect_uri=http%3A%2F%2Flocalhost:8080%2Fvk&response_type=code&scope=4259840`}><span className="fa fa-vk"></span></a>
             </div>
           </form>
           </div>
