@@ -1,4 +1,9 @@
-/* Common, default styles for the notification box */
+@color-info: #00A2D3;
+@color-success: #27AE60;
+@color-warning:  #F1C40F;
+@color-error: #E74C3C;
+
+@alert-offset: 30px;
 
 .s-alert-box,
 .s-alert-box * {
@@ -93,25 +98,25 @@
 .s-alert-bottom-left {
     top: auto;
     right: auto;
-    bottom: 30px;
-    left: 30px;
+    bottom: @alert-offset;
+    left: @alert-offset;
 }
 .s-alert-top-left {
-    top: 30px;
+    top: @alert-offset;
     right: auto;
     bottom: auto;
-    left: 30px;
+    left: @alert-offset;
 }
 .s-alert-top-right {
-    top: 30px;
-    right: 30px;
+    top: @alert-offset;
+    right: @alert-offset;
     bottom: auto;
     left: auto;
 }
-.s-alert-bottom-right { /*default*/
+.s-alert-bottom-right {
     top: auto;
-    right: 30px;
-    bottom: 30px;
+    right: @alert-offset;
+    bottom: @alert-offset;
     left: auto;
 }
 .s-alert-bottom {
@@ -131,22 +136,20 @@
     bottom: auto;
 }
 
-/* conditions */
-
 .s-alert-info {
-    background: #00A2D3;
+    background: @color-info;
     color: #fff;
 }
 .s-alert-success {
-    background: #27AE60;
+    background: @color-success;
     color: #fff;
 }
 .s-alert-warning {
-    background: #F1C40F;
+    background: @color-warning;
     color: #fff;
 }
 .s-alert-error {
-    background: #E74C3C;
+    background: @color-error;
     color: #fff;
 }
 
