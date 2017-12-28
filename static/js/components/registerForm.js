@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { ModalHeader } from './modals/modalHeader';
+import { InputItem } from './controls/inputItem';
 import Alert from 'react-s-alert';
 
 import configs from '../config';
@@ -54,7 +55,6 @@ export class RegisterForm extends React.Component {
     const vendorUrl = window.URL || window.webkitURL;
     navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
     navigator.getMedia({
-     //video: true,
      audio: false,
      video: { width: 1280, height: 720 },
    }, (stream) => {
@@ -62,8 +62,9 @@ export class RegisterForm extends React.Component {
        webcam: true,
        videostream: vendorUrl.createObjectURL(stream),
       }));
-    }, function(error) {
-      alert('Ошибка! Что-то пошло не так, попробуйте позже.');
+    }, (error) => {
+      Alert.error('Что-то пошло не так!', alertDefault);
+      console.error(error);
     });
   }
 
@@ -155,26 +156,10 @@ export class RegisterForm extends React.Component {
                     </div>
                   </div>
                   <div className="col-sm-6" style={{borderLeft: "solid 1px", borderColor: "#999999"}}>
-                    <div className="form-group col-sm-12">
-                      <label htmlFor="login">Логин
-                        <input className="form-control" type="text" name="login" id="login" />
-                      </label>
-                    </div>
-                    <div className="form-group col-sm-12">
-                      <label htmlFor="login">Пароль
-                        <input className="form-control" type="password" name="password" id="password" />
-                      </label>
-                    </div>
-                    <div className="form-group col-sm-12">
-                      <label htmlFor="login">Повторите пароль
-                        <input className="form-control" type="password" name="password2" id="password2" />
-                      </label>
-                    </div>
-                    <div className="form-group col-sm-12">
-                      <label htmlFor="login">Электронная почта
-                        <input className="form-control" type="email" name="email" id="email" />
-                      </label>
-                    </div>
+                    <InputItem id="login" title="Логин" type="text" />
+                    <InputItem id="password" title="Пароль" type="password" />
+                    <InputItem id="password2" title="Повторите пароль" type="password" />
+                    <InputItem id="email" title="Электронная почта" type="email" />
                     <input type="file" name="avatar" accept=".png" id="avatarupl" onChange={this.uploadAvatar} style={{display: "none"}} />
                   </div>
               </div>

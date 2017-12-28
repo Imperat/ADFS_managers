@@ -15,7 +15,6 @@ export const renderSurvey = () => {
       step: 1,
     };
 
-    // This binding is necessary to make `this` work in the callback
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
     this.handleChangeTeamName = this.handleChangeTeamName.bind(this);
     this.handleChangeLeagueName = this.handleChangeLeagueName.bind(this);
