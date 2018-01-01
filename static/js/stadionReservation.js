@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Select, LocaleProvider, Button, TimePicker, DatePicker } from 'antd';
 import ruRu from 'antd/lib/locale-provider/ru_RU';
+import api from './api/root';
 
 const moment = require('moment');
 const Option = Select.Option;
@@ -51,7 +51,7 @@ export const renderStadionForm = () => {
         endDate: this.state.endDate.clone().subtract(1, 'week'),
       }));
 
-      this.fillDates();
+      setTimeout(() => this.fillDates(), 0);
     }
 
     handleNextWeek() {
@@ -60,30 +60,33 @@ export const renderStadionForm = () => {
         endDate: this.state.endDate.clone().add(1, 'week'),
       }));
 
-      this.fillDates();
+      setTimeout(() => this.fillDates(), 0);
     }
 
     fetchStadions() {
-      $.get('/logic/api/v1/stadion', (error, result) => {
-        if (result === 'success') {
-          this.setState(prevState => Object.assign({}, this.state, { stadions: error }));
-        }
+      api.getStadions((stadions) => {
+        this.setState(prevState => Object.assign({}, this.state, { stadions }));
       });
     }
 
-    handleChangeStadion(value, label) {
-      $.get(`/logic/api/v1/stadion/${value}/times`, (error, result) => {
-        if (result === 'success') {
-          const dates = this.state.dates;
-          Object.keys(dates).forEach(key => dates[key] = []);
-          error.forEach(item => dates[item.date] && dates[item.date].push(item));
-          this.setState(prevState => Object.assign({}, this.state, { dates }))
-        }
+    handleChangeStadion(value) {
+      api.getStadionTimes(value, (data) => {
+        const dates = this.state.dates;
+        Object.keys(dates).forEach(key => dates[key] = []);
+        console.log('DATAAA:', data);
+        data.forEach(item => dates[item.date] && dates[item.date].push(item));
+        this.setState(prevState => Object.assign({}, this.state, { dates, currentStadion: value }))
       });
     }
 
     handleChangeNewDate(value, label) {
-      this.setState(prevState => Object.assign({}, this.state, { selectedDate: label }));
+      this.setState(prevState => Object.assign({}, this.state, {
+        startDate: moment(label, 'YYYY-MM-DD').startOf('week'),
+        endDate: moment(label, 'YYYY-MM-DD').endOf('week'),
+        selectedDate: label,
+      }));
+
+      setTimeout(() => this.fillDates(), 0);
     }
 
     handleChangeTimeStart(value, label) {
@@ -98,6 +101,11 @@ export const renderStadionForm = () => {
       const selectedDate = this.state.selectedDate;
       const selectedTimeStart = this.state.selectedTimeStart;
       const selectedTimeEnd = this.state.selectedTimeEnd;
+      api.createStadionTime(
+        this.state.currentStadion,
+        { selectedDate, selectedTimeStart, selectedTimeEnd },
+        () => setTimeout(() => this.fillDates(), 0),
+      );
     }
 
     stadionOptions() {
@@ -108,7 +116,7 @@ export const renderStadionForm = () => {
 
     timeBoardHeaders() {
       return Object.keys(this.state.dates).map((date) => {
-        return <div className="col-lg-2 timeBoardHeaderItem">{date}</div>
+        return <div className="timeBoardHeaderItem">{date}</div>
       });
     }
 
@@ -117,12 +125,12 @@ export const renderStadionForm = () => {
       const startDate = this.state.startDate;
       const endDate = this.state.endDate;
 
-      for (let iterator = startDate.clone(); iterator.isSameOrBefore(endDate);) {
+      for (let iterator = startDate.clone(); iterator.isSameOrBefore(endDate); iterator.add(1, 'day')) {
         dates[iterator.format('YYYY-MM-DD')] = [];
-        iterator.add(1, 'day');
       }
 
       this.setState(prevState => Object.assign({}, prevState, { dates }));
+      setTimeout(() => this.handleChangeStadion(this.state.currentStadion), 0);
     }
 
     render () {
@@ -141,7 +149,7 @@ export const renderStadionForm = () => {
               optionFilterProp="children"
               filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
             >
-            {this.stadionOptions()}
+              {this.stadionOptions()}
             </Select>
             <span className="panelLabel">Неделя:
               <a href="#">{this.state.startDate.format('DD-MM-YYYY')}</a> -
@@ -159,16 +167,16 @@ export const renderStadionForm = () => {
               <Button onClick={this.handleTakeTime} >OK</Button>
             </div>
           </div>
-          <div className="col-lg-12">
+          <div style={{display: 'flex', flexDirection: 'column'}}>
             <div className="timeBoardHeader">
               {this.timeBoardHeaders()}
             </div>
-            <div className="row timeBoardBody">
+            <div className="timeBoardBody">
               { Object.keys(this.state.dates).map((i) => {
                 return (
-                  <div className="col-lg-2 timeBoardBodyItem">
+                  <div className="timeBoardBodyItem" style={{ width: '100%' }}>
                     {this.state.dates[i].map(function(j){
-                      return <div className="timeBoardItem" style={{transform: `translateY(${j.time1 / 4}px)`, position: 'absolute', height: `${(j.time2 - j.time1)/4}px`}}>
+                      return <div className="timeBoardItem" style={{transform: `translateY(${j.time1 / 4}px)`, height: `${(j.time2 - j.time1)/4}px`}}>
                       {moment(i,'YYYY-MM-DD').add(j.time1, 'minute').format('hh:mm')} - {moment(i,'YYYY-MM-DD').add(j.time2, 'minute').format('hh:mm')}</div>
                     }) }
                   </div>)

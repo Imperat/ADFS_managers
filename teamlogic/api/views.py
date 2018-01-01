@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from teamlogic import models
 from .helpers import cmp_to_key, parse_time
 
+from django.views.decorators.csrf import csrf_exempt
 
 import datetime
 import json
@@ -344,6 +345,13 @@ def set_status(request, id):
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def stadion_times(request, id):
-    entityes = models.TimeBoard.objects.filter(stadion_id=id)
-    serializer = serializers.TimeBoardSerializer(entityes, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        entityes = models.TimeBoard.objects.filter(stadion_id=id)
+        serializer = serializers.TimeBoardSerializer(entityes, many=True)
+        return Response(serializer.data)
+    new_time = models.TimeBoard(stadion_id=id, time1=request.data['time1'],
+        time2=request.data['time2'],
+        date=datetime.datetime.strptime(request.data['date'], '%Y-%m-%d'));
+
+    new_time.save()
+    return Response({'status': 'ok'}, status=status.HTTP_201_CREATED)
