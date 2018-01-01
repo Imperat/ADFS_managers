@@ -40,6 +40,15 @@
       {% for team in stadion.home.all %}
           <a href="{{ team.get_absolute_url }}"> {{ team }} </a>
       {% endfor %}
+      <br>
+      {% if user.is_authenticated %}
+      <a href="{% url 'getTime' %}" class="btn btn-primary btn-xs">
+        <span class="glyphicon glyphicon-plus"></span>
+        Провести матч
+      </a>
+      {% else %}
+        <span class="btn-warning">Авторизуйтесь, чтобы занять время!</span>
+      {% endif %}
     </div>
     <h3> Описание </h3>
     {{ stadion.description }}

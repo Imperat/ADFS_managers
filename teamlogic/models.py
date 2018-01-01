@@ -42,7 +42,7 @@ class TimeBoard(models.Model):
     date = models.DateField()
     time1 = models.IntegerField()
     time2 = models.IntegerField()
-    match = models.ForeignKey('Match')
+    match = models.ForeignKey('Match', **NULLABLE)
     stadion = models.ForeignKey('Stadium')
 
     def __str__(self):

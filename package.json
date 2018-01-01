@@ -4,8 +4,10 @@
   "description": "Web server for simply manage football statistic in assotication of street fotball in Saratov",
   "main": "index.js",
   "dependencies": {
+    "antd": "^2.13.9",
     "babel-runtime": "^6.23.0",
     "bootstrap": "^3.3.7",
+    "moment": "^2.19.2",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^15.6.1",
