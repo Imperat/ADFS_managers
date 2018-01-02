@@ -8,6 +8,7 @@ import { renderLoginForm } from './login';
 import store from './store';
 import Alert from 'react-s-alert';
 import configs from './config';
+import toggleMenuTheme from './personalisation.js';
 
 var $ = require('jquery');
 window.jQuery = $;
@@ -20,7 +21,11 @@ window.socket.onmessage = (event) => {
   Alert.info(event.data, configs.alertConfigs.defaultEffect);
 };
 
-$(document).ready(function(){
+$(document).ready(() => {
+  //View and styles
+  toggleMenuTheme(localStorage.getItem('light-theme'));
+
+  //Routes
   const $loginForm = $('#login-form');
   if (window.location.pathname === '/survey') renderSurvey();
   if (window.location.pathname === '/logic/stadion/get/') renderStadionForm();
