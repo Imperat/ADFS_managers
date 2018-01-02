@@ -11,12 +11,12 @@
     <h2> Добро пожаловать на официальный портал АДФС, уважаемый {{ user.username }}!</h2>
     <div class="col-md-12">
       <div class="row profile__container">
-        <div class="col-md-4 profile__container-avatar">
+        <div class="profile__container-avatar">
           {% thumbnail user.avatar "256x256" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="media-object" float="left">
           {% endthumbnail %}
         </div>
-        <div class="col-md-8">
+        <div class="profile__container-form" id="profileForm">
           УРАШКЧКИ!
         </div>
       </div>

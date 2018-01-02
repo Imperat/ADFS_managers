@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 
 import { renderSurvey } from './survey';
 import { renderStadionForm } from './components/pages/stadionReservation';
+import { renderProfileForm } from './components/pages/profile';
 import { renderLoginForm } from './login';
 import store from './store';
 import Alert from 'react-s-alert';
@@ -23,6 +24,7 @@ $(document).ready(function(){
   const $loginForm = $('#login-form');
   if (window.location.pathname === '/survey') renderSurvey();
   if (window.location.pathname === '/logic/stadion/get/') renderStadionForm();
+  if (window.location.pathname === '/login/') renderProfileForm();
   renderLoginForm();
 });
 
