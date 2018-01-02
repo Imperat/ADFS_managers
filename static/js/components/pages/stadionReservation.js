@@ -73,7 +73,6 @@ export const renderStadionForm = () => {
       api.getStadionTimes(value, (data) => {
         const dates = this.state.dates;
         Object.keys(dates).forEach(key => dates[key] = []);
-        console.log('DATAAA:', data);
         data.forEach(item => dates[item.date] && dates[item.date].push(item));
         this.setState(prevState => Object.assign({}, this.state, { dates, currentStadion: value }))
       });
@@ -177,7 +176,7 @@ export const renderStadionForm = () => {
                   <div className="timeBoardBodyItem" style={{ width: '100%' }}>
                     {this.state.dates[i].map(function(j){
                       return <div className="timeBoardItem" style={{transform: `translateY(${j.time1 / 4}px)`, height: `${(j.time2 - j.time1)/4}px`}}>
-                      {moment(i,'YYYY-MM-DD').add(j.time1, 'minute').format('hh:mm')} - {moment(i,'YYYY-MM-DD').add(j.time2, 'minute').format('hh:mm')}</div>
+                      {moment(i,'YYYY-MM-DD').add(j.time1, 'minute').format('HH:mm')} - {moment(i,'YYYY-MM-DD').add(j.time2, 'minute').format('HH:mm')}</div>
                     }) }
                   </div>)
               }) }
