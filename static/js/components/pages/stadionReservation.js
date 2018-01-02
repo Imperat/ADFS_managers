@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Select, LocaleProvider, Button, TimePicker, DatePicker } from 'antd';
 import ruRu from 'antd/lib/locale-provider/ru_RU';
-import api from './api/root';
+import api from '../../api/root';
 
 const moment = require('moment');
 const Option = Select.Option;

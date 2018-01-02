@@ -2,7 +2,7 @@ import Alert from 'react-s-alert';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { RegisterForm } from './components/registerForm';
+import { RegisterForm } from './components/pages/registerForm';
 import configs from './config';
 
 const FontAwesome = require('react-fontawesome');

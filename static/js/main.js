@@ -2,7 +2,7 @@ import 'bootstrap/dist/js/bootstrap';
 import 'antd/dist/antd.css';
 
 import { renderSurvey } from './survey';
-import { renderStadionForm } from './stadionReservation';
+import { renderStadionForm } from './components/pages/stadionReservation';
 import { renderLoginForm } from './login';
 import store from './store';
 import Alert from 'react-s-alert';

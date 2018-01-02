@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { ModalHeader } from './modals/modalHeader';
-import { InputItem } from './controls/inputItem';
+import { ModalHeader } from '../modals/modalHeader';
+import { InputItem } from '../controls/inputItem';
 import Alert from 'react-s-alert';
 
-import configs from '../config';
+import configs from '../../config';
 const alertDefault = configs.alertConfigs.defaultEffect;
 
 export class RegisterForm extends React.Component {
