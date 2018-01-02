@@ -13,7 +13,10 @@ import base64
 from django.core.files.base import ContentFile
 
 import requests
-from urlparse import parse_qs
+try:
+    from urlparse import parse_qs
+except:
+    from urllib.parse import parse_qs
 import json
 # Create your views here.
 
@@ -171,7 +174,8 @@ def autorisation_github(request):
         context = RequestContext(request, {})
         template = loader.get_template('gratulations.html')
         return HttpResponse(template.render(context))
-    except Exception:
+    except Exception as e:
+        print(e)
         return redirect('/')
 
 def is_gast(request):
