@@ -10,7 +10,7 @@ export class ModalHeader extends React.Component {
     return (
       <div className="modal-header">
         <button type="button" className="close" data-dismiss="modal">&times;</button>
-        <h4 className="modal-title">Регистрация нового пользователя</h4>
+        <h4 className="modal-title">{this.props.title}</h4>
       </div>
     )
   }

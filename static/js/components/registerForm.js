@@ -127,7 +127,7 @@ export class RegisterForm extends React.Component {
           <div className="modal-content">
             <div className="modal-body">
               <form className="form-horizontal" id="register-form">
-                <ModalHeader />
+                <ModalHeader title="Регистрация нового пользователя"/>
                 <div className="row">
                   <div className="col-sm-6">
                     <h3>Выберите аватар</h3>
