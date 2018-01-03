@@ -153,16 +153,16 @@ export const renderStadionForm = () => {
             <span className="panelLabel">Неделя:
               <a href="#">{this.state.startDate.format('DD-MM-YYYY')}</a> -
               <a href="#">{this.state.endDate.format('DD-MM-YYYY')}</a>
-              <Button onClick={this.handlePreviousWeek}> - </Button>
-              <Button onClick={this.handleNextWeek}> + </Button>
+              <Button onClick={this.handlePreviousWeek}>◀</Button>
+              <Button onClick={this.handleNextWeek}>▶</Button>
             </span>
             <div className="take-time-panel" style={{ float: 'right' }}>
               Занять время:
               <DatePicker onChange={this.handleChangeNewDate} />
               <span>C:</span>
-              <TimePicker onChange={this.handleChangeTimeStart} defaultValue={moment('12:10', 'HH:mm')} format={format} />
+              <TimePicker onChange={this.handleChangeTimeStart} defaultValue={moment(this.state.selectedTimeStart, 'HH:mm')} format={format} />
               <span>По:</span>
-              <TimePicker onChange={this.handleChangeTimeEnd} defaultValue={moment('13:10', 'HH:mm')} format={format} />
+              <TimePicker onChange={this.handleChangeTimeEnd} defaultValue={moment(this.state.selectedTimeEnd, 'HH:mm')} format={format} />
               <Button onClick={this.handleTakeTime} >OK</Button>
             </div>
           </div>
@@ -170,12 +170,12 @@ export const renderStadionForm = () => {
             <div className="timeBoardHeader">
               {this.timeBoardHeaders()}
             </div>
-            <div className="timeBoardBody">
+            <div className="timeBoardBody" style={{height: '360px'}}>
               { Object.keys(this.state.dates).map((i) => {
                 return (
-                  <div className="timeBoardBodyItem" style={{ width: '100%' }}>
+                  <div className="timeBoardBodyItem" style={{ width: '100%', position: 'relative' }}>
                     {this.state.dates[i].map(function(j){
-                      return <div className="timeBoardItem" style={{transform: `translateY(${j.time1 / 4}px)`, height: `${(j.time2 - j.time1)/4}px`}}>
+                      return <div className="timeBoardItem" style={{transform: `translateY(${j.time1 / 4}px)`, height: `${(j.time2 - j.time1)/4}px`, left: '0px', right: '0px', top: '0px', position: 'absolute'}}>
                       {moment(i,'YYYY-MM-DD').add(j.time1, 'minute').format('HH:mm')} - {moment(i,'YYYY-MM-DD').add(j.time2, 'minute').format('HH:mm')}</div>
                     }) }
                   </div>)
