@@ -16,16 +16,18 @@ export const renderLoginForm = () => {
       this.state = {
         loggedIn: document.getElementById('login-app').dataset.auth,
         username: document.getElementById('login-app').dataset.username,
+        login: '',
+        password: '',
       };
 
       this.handleLoginRequest = this.handleLoginRequest.bind(this);
       this.handleLogoutRequest = this.handleLogoutRequest.bind(this);
+      this.handleChangeInput = this.handleChangeInput.bind(this);
     }
 
     handleLoginRequest(event) {
       event.persist();
-      const data = $('#login-form').serializeArray();
-      if (!data[0].value || !data[1].value) {
+      if (!this.state.login || !this.state.password) {
         Alert.error('Логин либо пароль не могут быть пустыми!', alertDefault);
         return;
       }
@@ -34,8 +36,8 @@ export const renderLoginForm = () => {
         type: 'POST',
         url: '/login/',
         data: {
-          login: data[0].value,
-          password: data[1].value,
+          login: this.state.login,
+          password: this.state.password,
         },
         success: (data) => {
           data = JSON.parse(data);
@@ -68,20 +70,27 @@ export const renderLoginForm = () => {
       });
     }
 
+    handleChangeInput(event) {
+      const name = event.target.name;
+      this.setState(prevState => Object.assign({}, prevState, {
+        [name]: event.target.value,
+      }));
+    }
+
     render () {
       let component = null;
       if (!this.state.loggedIn) {
         component = (
           <div>
           <RegisterForm />
-          <form className="form-horizontal" id="login-form" method="post">
+          <form className="form-horizontal" id="login-form">
             <div className="form-group">
               <label> Логин: </label>
-              <input className="form-control" name="login" type="text" placeholder="Император" />
+              <input className="form-control" name="login" type="text" onChange={this.handleChangeInput} placeholder="Император" />
             </div>
             <div className="form-group">
               <label> Пароль: </label>
-                <input className="form-control" name="password" type="password" placeholder="Космонавтика" />
+                <input className="form-control" name="password" type="password" onChange={this.handleChangeInput} placeholder="Космонавтика" />
             </div>
             <div className="form-group" style={{ "margin-bottom": "10px" }}>
               <button type="button" className="btn btn-primary" onClick={this.handleLoginRequest} style={{'width': '100%'}}>Войти</button>
