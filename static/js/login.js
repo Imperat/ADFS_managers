@@ -71,6 +71,7 @@ export const renderLoginForm = () => {
     }
 
     handleChangeInput(event) {
+      event.persist();
       const name = event.target.name;
       this.setState(prevState => Object.assign({}, prevState, {
         [name]: event.target.value,
