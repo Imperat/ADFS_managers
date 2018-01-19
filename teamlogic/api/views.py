@@ -108,9 +108,6 @@ def current_matchs(request):
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def calendar(request, id=None):
-    if id is None:
-        return
-
     matches = models.Match.objects.filter(league_id=id)
     calendar = {}
 
@@ -136,6 +133,7 @@ def calendar(request, id=None):
             'date': match.date_time.date().isoformat(),
             'time': match.date_time.time().isoformat()
         }
+
         current_tour = calendar.get(match.tour, [])
         current_tour.append(entity)
         calendar[match.tour] = current_tour
@@ -143,11 +141,10 @@ def calendar(request, id=None):
     return Response(calendar)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def stat(request, id=None):
-    if id is None:
-        return
+    teams = {}
 
     def get_points(goal1, goal2, status='home'):
         if goal1 == goal2:
@@ -158,14 +155,19 @@ def stat(request, id=None):
             return 3
         return 0
 
-    def is_drawn(goal1, goal2):
-        return goal1 == goal2
-
-    def is_home_winner(goal1, goal2):
-        return goal1 > goal2
-
-    def is_away_winner(goal1, goal2):
-        return goal2 > goal1
+    def check_team(team_id, team_name):
+        if teams.get(team_id) is None:
+            teams[team_id] = {
+              'id': team_id,
+              'name': team_name,
+              'matches': 0,
+              'points': 0,
+              'goals_positive': 0,
+              'goals_negative': 0,
+              'wins': 0,
+              'drawns': 0,
+              'lesion': 0,
+            }
 
     def cmp(record1, record2):
         if record1['points'] > record2['points']:
@@ -182,62 +184,36 @@ def stat(request, id=None):
             return -1
         return 0
 
-    entityes = {}
     matches = models.Match.objects.filter(league_id=id)
     for match in matches:
-        if match.home_id not in entityes.keys():
-            result = {
-                'id': match.home_id,
-                'name': match.home.name,
-                'matches': 1 if match.status != 'planned' else 0,
-                'points': get_points(match.home_goal, match.away_goal, 'home') if match.status != 'planned' else 0,
-                'goals_positive': match.home_goal if match.status != 'planned' else 0,
-                'goals_negative': match.away_goal if match.status != 'planned' else 0,
-                'wins': is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
-                'drawns': is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
-                'lesion': is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            }
-            entityes[match.home_id] = result
-        else:
-            result = entityes[match.home_id]
-            result['matches'] += 1  if match.status != 'planned' else 0
-            result['points'] += get_points(match.home_goal, match.away_goal, 'home') if match.status != 'planned' else 0
-            result['goals_positive'] += match.home_goal if match.status != 'planned' else 0
-            result['goals_negative'] += match.away_goal if match.status != 'planned' else 0
-            result['wins'] += is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            result['drawns'] += is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            result['lesion'] += is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
+        check_team(match.home_id, match.home.name)
+        check_team(match.away_id, match.away.name)
 
-            entityes[match.home_id] = result
+        if match.status == 'planned':
+            continue
 
+        current_team = teams[match.home_id]
+        current_team['matches'] += 1
+        current_team['points'] += get_points(match.home_goal, match.away_goal, 'home')
+        current_team['goals_positive'] += match.home_goal
+        current_team['goals_negative'] += match.away_goal
+        current_team['wins'] += 1 if match.home_goal > match.away_goal else 0
+        current_team['drawns'] += 1 if match.home_goal == match.away_goal else 0
+        current_team['lesion'] += 1 if match.away_goal > match.home_goal else 0
+        teams[match.home_id] = current_team
 
-        if match.away_id not in entityes.keys():
-            result = {
-                'id': match.away_id,
-                'name': match.away.name,
-                'matches': 1 if match.status != 'planned' else 0,
-                'points': get_points(match.home_goal, match.away_goal, 'away') if match.status != 'planned' else 0,
-                'goals_positive': match.away_goal if match.status != 'planned' else 0,
-                'goals_negative': match.home_goal if match.status != 'planned' else 0,
-                'wins': is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
-                'drawns': is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0,
-                'lesion': is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            }
-            entityes[match.away_id] = result
-        else:
-            result = entityes[match.away_id]
-            result['matches'] += 1 if match.status != 'planned' else 0
-            result['points'] += get_points(match.home_goal, match.away_goal, 'away') if match.status != 'planned' else 0
-            result['goals_positive'] += match.away_goal if match.status != 'planned' else 0
-            result['goals_negative'] += match.home_goal if match.status != 'planned' else 0
-            result['wins'] += is_away_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            result['drawns'] += is_drawn(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            result['lesion'] += is_home_winner(match.home_goal, match.away_goal) if match.status != 'planned' else 0
-            entityes[match.away_id] = result
-    res = list(entityes.values())
+        current_team = teams[match.away_id]
+        current_team['matches'] += 1
+        current_team['points'] += get_points(match.home_goal, match.away_goal, 'away')
+        current_team['goals_positive'] += match.away_goal
+        current_team['goals_negative'] += match.home_goal
+        current_team['wins'] += 1 if match.home_goal < match.away_goal else 0
+        current_team['drawns'] += 1 if match.home_goal == match.away_goal else 0
+        current_team['lesion'] += 1 if match.away_goal < match.home_goal else 0
+        teams[match.away_id] = current_team
 
+    res = list(teams.values())
     res.sort(key=cmp_to_key(cmp), reverse=True)
-    print(res)
     return Response(res)
 
 
