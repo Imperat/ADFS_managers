@@ -429,6 +429,9 @@ class Cup(models.Model):
     def __unicode__(self):
         return unicode("%s %s" % (self.name, self.get_season()))
 
+    def get_absolute_url(self):
+        return reverse("cup", args=(self.id,))
+
 
 class MatchPair(models.Model):
     """

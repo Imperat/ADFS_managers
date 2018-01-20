@@ -156,3 +156,15 @@ def bombardiers(request, id=1):
         'user': request.user,
     })
     return HttpResponse(template.render(context))
+
+
+class CupsListView(ListView):
+    model = models.Cup
+    template_name = 'teamlogic/cup_set.html'
+    context_object_name = 'cups'
+
+
+class CupDetailView(DetailView):
+    model = models.Cup
+    template_name = 'teamlogic/cup.html'
+    context_object_name = 'cup'
