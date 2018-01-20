@@ -47,6 +47,12 @@ urlpatterns += [
         views.bombardiers, name='bombardiers'),
 ]
 
+# cups urls
+urlpatterns += [
+    url(r'^cup/$', views.CupsListView.as_view(), name='allcups'),
+    url(r'^cup/(?P<pk>[0-9]+)/$', views.CupDetailView.as_view(), name='cup'),
+]
+
 # api urls
 urlpatterns += api_urls.api_patterns
 
