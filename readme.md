@@ -21,6 +21,13 @@ I recommend you use virtualenv:
 
 `python manage.py migrate`
 
+Before running the project you need to compile some little C
+dependencies:
+
+`mkdir bin`
+
+`gcc --shared cpp_extensions/get_points.c -o bin/get_points.so`
+
 `python manage.py runserver 127.0.0.1:8000`
 
 Compile client-side application with:

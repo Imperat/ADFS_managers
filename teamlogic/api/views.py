@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 import datetime
 import json
+import ctypes
 
 from django.db.models import Q
 
@@ -146,14 +147,7 @@ def calendar(request, id=None):
 def stat(request, id=None):
     teams = {}
 
-    def get_points(goal1, goal2, status='home'):
-        if goal1 == goal2:
-            return 1
-        if status == 'away':
-            goal1, goal2 = goal2, goal1
-        if goal1 > goal2:
-            return 3
-        return 0
+    get_points = ctypes.CDLL('./bin/get_points.so').getpoints
 
     def check_team(team_id, team_name):
         if teams.get(team_id) is None:
@@ -194,7 +188,7 @@ def stat(request, id=None):
 
         current_team = teams[match.home_id]
         current_team['matches'] += 1
-        current_team['points'] += get_points(match.home_goal, match.away_goal, 'home')
+        current_team['points'] += get_points(match.home_goal, match.away_goal, True)
         current_team['goals_positive'] += match.home_goal
         current_team['goals_negative'] += match.away_goal
         current_team['wins'] += 1 if match.home_goal > match.away_goal else 0
@@ -204,7 +198,7 @@ def stat(request, id=None):
 
         current_team = teams[match.away_id]
         current_team['matches'] += 1
-        current_team['points'] += get_points(match.home_goal, match.away_goal, 'away')
+        current_team['points'] += get_points(match.home_goal, match.away_goal, False)
         current_team['goals_positive'] += match.away_goal
         current_team['goals_negative'] += match.home_goal
         current_team['wins'] += 1 if match.home_goal < match.away_goal else 0
