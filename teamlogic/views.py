@@ -29,6 +29,11 @@ def get_calendar(league):
 class TeamLogicMainView(TemplateView):
     template_name = "teamlogic/main.html"
 
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ["teamlogic/main_ajax.html"]
+        return ["teamlogic/main.html"]
+
 
 class PlayerDetailView(DetailView):
     model = models.Player
@@ -59,6 +64,11 @@ class TeamDetailView(DetailView):
 class TeamListView(PaginatedViewMixin, ListView):
     model = models.Team
     template_name = 'teamlogic/teams.html'
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ["teamlogic/teams_ajax.html"]
+        return ["teamlogic/teams.html"]
 
 
 class StadionDetailView(DetailView):
