@@ -37,6 +37,6 @@ export const renderProfileForm = () => {
 
   ReactDOM.render(
     <App />,
-    document.getElementById('profileForm'),
+    document.getElementById('root2'),
   );
 };

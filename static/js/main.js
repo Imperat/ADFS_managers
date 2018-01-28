@@ -9,6 +9,7 @@ import store from './store';
 import Alert from 'react-s-alert';
 import configs from './config';
 import toggleMenuTheme from './personalisation.js';
+const page = require('page');
 
 var $ = require('jquery');
 window.jQuery = $;
@@ -22,14 +23,29 @@ window.socket.onmessage = (event) => {
 };
 
 $(document).ready(() => {
+  page.start({ click: true });
+  page('/logic/stadion/get', renderStadionForm);
+  page('/survey', renderSurvey);
+  page('/login', renderProfileForm);
+  page('/logic/team', (ctx) => {
+    $.get(ctx.canonicalPath, (data) => {
+      $('#root2').html(data);
+      document.querySelector('body').scrollTop = 0;
+    });
+  });
+
+  page('/logic', () => {
+    $.get('/logic', (data) => {
+      $('#root2').html(data);
+    });
+  });
+
   //View and styles
   toggleMenuTheme(localStorage.getItem('light-theme'));
 
   //Routes
   const $loginForm = $('#login-form');
-  if (window.location.pathname === '/survey') renderSurvey();
-  if (window.location.pathname === '/logic/stadion/get/') renderStadionForm();
-  if (window.location.pathname === '/login/') renderProfileForm();
+
   renderLoginForm();
 });
 
