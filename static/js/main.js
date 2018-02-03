@@ -42,6 +42,7 @@ $(document).ready(() => {
   page('/logic/stadion/get', renderStadionForm);
   page('/survey', renderSurvey);
   page('/login', renderProfileForm);
+  page('/logic/team/:id', urlHandler);
   page('/logic/team', urlHandler);
   page('/logic', urlHandler);
 
