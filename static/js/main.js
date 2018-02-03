@@ -22,23 +22,29 @@ window.socket.onmessage = (event) => {
   Alert.info(event.data, configs.alertConfigs.defaultEffect);
 };
 
+const urlHandler = (ctx) => {
+  const loader = document.querySelector('.loader-line');
+  const minAnimationLength = 2000;
+  const startAnimationFrame = (new Date()).valueOf();
+  loader.style.width = '0%';
+  loader.style.display = 'inline';
+  setTimeout(() => (loader.style.width = '100%'), 10);
+  $.get(ctx.canonicalPath, (data) => {
+    const endAnimationFrame = (new Date()).valueOf();
+    $('#root2').html(data);
+    document.querySelector('body').scrollTop = 0;
+    setTimeout(() => (loader.style.display = 'none'), Math.max(2000 - (endAnimationFrame - startAnimationFrame), 0));
+  });
+};
+
 $(document).ready(() => {
   page.start({ click: true });
   page('/logic/stadion/get', renderStadionForm);
   page('/survey', renderSurvey);
   page('/login', renderProfileForm);
-  page('/logic/team', (ctx) => {
-    $.get(ctx.canonicalPath, (data) => {
-      $('#root2').html(data);
-      document.querySelector('body').scrollTop = 0;
-    });
-  });
-
-  page('/logic', () => {
-    $.get('/logic', (data) => {
-      $('#root2').html(data);
-    });
-  });
+  page('/logic/team/:id', urlHandler);
+  page('/logic/team', urlHandler);
+  page('/logic', urlHandler);
 
   //View and styles
   toggleMenuTheme(localStorage.getItem('light-theme'));

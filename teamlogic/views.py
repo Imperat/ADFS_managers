@@ -49,6 +49,11 @@ class TeamDetailView(DetailView):
     model = models.Team
     template_name = 'teamlogic/team.html'
 
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ["teamlogic/team_ajax.html"]
+        return ["teamlogic/team.html"]
+
     def get_context_data(self, **kwargs):
         context = super(TeamDetailView, self).get_context_data(**kwargs)
 
