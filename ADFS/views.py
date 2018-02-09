@@ -18,7 +18,7 @@ try:
 except:
     from urllib.parse import parse_qs
 import json
-# Create your views here.
+
 
 def decode_base64(data):
     """Decode base64, padding being optional.
@@ -82,8 +82,6 @@ def register_attention(request):
 @csrf_exempt
 def register(request):
     data = request.POST.dict()
-
-    # print (data)
 
     try:
         user = ADFSUser.objects.create_user(
