@@ -149,7 +149,7 @@ class Match(models.Model):
     """
     Simple model of match.
     """
-    league = models.ForeignKey('Tournament', default=1, null=True)
+    league = models.ForeignKey('Tournament', default=1, **NULLABLE)
     home = models.ForeignKey(Team, related_name='+')
     away = models.ForeignKey(Team, related_name='+')
     home_goal = models.IntegerField(default=0)
@@ -429,6 +429,9 @@ class Cup(models.Model):
     def __unicode__(self):
         return unicode("%s %s" % (self.name, self.get_season()))
 
+    def __str__(self):
+        return "%s %s" % (self.name, self.get_season())
+
     def get_absolute_url(self):
         return reverse("cup", args=(self.id,))
 
@@ -462,6 +465,10 @@ class MatchPair(models.Model):
     def __unicode__(self):
         return unicode('%s - %s' % (self.first_match.home.name,
                                     self.first_match.away.name))
+
+    def __str__(self):
+        return '%s - %s' % (self.first_match.home.name,
+                            self.first_match.away.name)
 
     def _getWinnerByPenalty(self):
         if not (self.first_penalty == 0 and self.second_penalty == 0):

@@ -325,3 +325,11 @@ def stadion_times(request, id):
 
     new_time.save()
     return Response({'status': 'ok'}, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def cup_detail(request, id):
+    entities = models.MatchPair.objects.filter(cup_id=id)
+    serializer = serializers.CupDetailSerialiser(entities, many=True)
+    return Response(serializer.data)

@@ -19,6 +19,16 @@ const api = {
     });
   },
 
+  getCupMatches(cupId, callback) {
+    $.get(`/logic/api/v1/cup/${cupId}/`, (data, result) => {
+      if (result === 'success') {
+        callback(data);
+      } else {
+        console.log('ERROR: fetch cup matches');
+      }
+    });
+  },
+
   createStadionTime(stadionId, params, callback) {
     let selectedTimeStart = params.selectedTimeStart.split(':');
     let selectedTimeEnd = params.selectedTimeEnd.split(':');
