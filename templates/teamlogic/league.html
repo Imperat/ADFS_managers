@@ -166,19 +166,19 @@
       <div class="tab-pane" id="messages">
 	      {% for tour, matches in calendar.items %}
         <div class="calendar-tour__item">
-          <div class="row"><div class="col-md-12 calendar-tour__title"> Тур {{tour}} </div></div>
+          <div class="row"><div class="col-xs-12 calendar-tour__title"> Тур {{tour}} </div></div>
 	       {% for match in matches %}
            <div class="row match-item {% if match.technical %} match-technical {% endif %}">
-             <div class="col-md-3">
+             <div class="col-xs-3">
                 <a href="{{match.home.get_absolute_url}}" {% if match.is_home_winner %}class="match-winner"{% endif %}>{{match.home}}</a>
               </div>
-              <div class="col-md-2 calendar-match-score">
+              <div class="col-xs-2 calendar-match-score">
                 <a href="{{match.get_absolute_url}}">{{match.home_goal}}:{{match.away_goal}}</a>
               </div>
-              <div class="col-md-3 calendar-match-team2">
+              <div class="col-xs-3 calendar-match-team2">
                 <a href="{{match.away.get_absolute_url}}" {% if match.is_away_winner %}class="match-winner"{% endif %}>{{match.away}}</a>
               </div>
-              <div class="col-md-2 calendar-match-date">
+              <div class="col-xs-4 calendar-match-date">
                 {{match.date_time}}
               </div>
             </div>
