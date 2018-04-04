@@ -72,6 +72,9 @@ class Player (models.Model):
     def __str__(self):
         return "%s %s" % (self.firstName, self.lastName)
 
+    def __unicode__(self):
+        return unicode(self.__str__())
+
     def get_absolute_url(self):
         return reverse("player", args=(self.id,))
 
@@ -98,6 +101,9 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return unicode(self.__str__())
+
     def get_absolute_url(self):
         return reverse("team", args=(self.id,))
 
@@ -114,6 +120,10 @@ class RecOfTeam(models.Model):
     player = models.ForeignKey('Player')
     number = models.IntegerField(default=-1)
     isActive = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Игрок в команде"
+        verbose_name_plural = "Игроки в командах"
 
     def __unicode__(self):
         return unicode("%s (%s)" % (self.player.__unicode__(),
