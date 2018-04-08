@@ -94,6 +94,9 @@ class Team(models.Model):
     captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
     home = models.ForeignKey('Stadium', **NULLABLE)
 
+    def get_current_players(self):
+        return RecOfTeam.objects.filter(team=self, endDate__gte=timezone.now())
+
     class Meta:
         verbose_name = "Команда"
         verbose_name_plural = "Команды"
@@ -500,6 +503,7 @@ class MatchPair(models.Model):
     class Meta:
         verbose_name = "Пара матчей"
         verbose_name_plural = "Пары матчей"
+
 
 class TeamInLeague(models.Model):
     """
