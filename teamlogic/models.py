@@ -72,6 +72,9 @@ class Player (models.Model):
     def __str__(self):
         return "%s %s" % (self.firstName, self.lastName)
 
+    def __unicode__(self):
+        return unicode(self.__str__())
+
     def get_absolute_url(self):
         return reverse("player", args=(self.id,))
 
@@ -91,12 +94,18 @@ class Team(models.Model):
     captain = models.ForeignKey('Player', related_name='+', **NULLABLE)
     home = models.ForeignKey('Stadium', **NULLABLE)
 
+    def get_current_players(self):
+        return RecOfTeam.objects.filter(team=self, endDate__gte=timezone.now())
+
     class Meta:
         verbose_name = "Команда"
         verbose_name_plural = "Команды"
 
     def __str__(self):
         return self.name
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def get_absolute_url(self):
         return reverse("team", args=(self.id,))
@@ -114,6 +123,10 @@ class RecOfTeam(models.Model):
     player = models.ForeignKey('Player')
     number = models.IntegerField(default=-1)
     isActive = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Игрок в команде"
+        verbose_name_plural = "Игроки в командах"
 
     def __unicode__(self):
         return unicode("%s (%s)" % (self.player.__unicode__(),
@@ -490,6 +503,7 @@ class MatchPair(models.Model):
     class Meta:
         verbose_name = "Пара матчей"
         verbose_name_plural = "Пары матчей"
+
 
 class TeamInLeague(models.Model):
     """

@@ -78,6 +78,7 @@
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#home" data-toggle="tab">Актуальный состав</a></li>
     <li><a href="#messages" data-toggle="tab">Выступления в турнирах</a></li>
+    <li><a href="#bombom" data-toggle="tab">Таблица бомбардиров</a></li>
     <li><a href="#settings" data-toggle="tab">Архив составов</a></li>
 </ul>
 
@@ -95,31 +96,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for foo in team.recofteam_set.all %}
-                    {% if  foo.endDate.year >= nows.year %}
-                        {% if foo.endDate.mounth >= nows.mounth %}
-                            {% if foo.endDate.day >= nows.day %}
-                                <tr>
-                                    <td><a href="{{ foo.player.get_absolute_url }}">{{ foo.player }}</a></td>
-                                    <td> {{ foo.number }}</td>
-                                    <td>
-                                        {% if foo.player.basePosition == 'G' %}
-                                            <span class="badge badge-warning">GK</span>  вратарь
-                                        {% endif %}
-
-                                        {% if foo.player.basePosition == 'H' %}
-                                            <span class="badge badge-warning">DF</span> защитник
-                                        {% endif %}
-                                        {% if foo.player.basePosition == 'F' %}
-                                            <span class="badge badge-warning">FRW</span> нападающий
-                                        {% endif %}
-                                    </td>
-                                    <td> {{ foo.beginDate }}</td>
-                                </tr>
-                            {% endif %}
+                  {% for item in team.get_current_players %}
+                    <tr>
+                      <td><a href="{{ item.player.get_absolute_url }}">{{ item.player }}</a></td>
+                      <td> {{ item.number }}</td>
+                      <td>
+                        {% if item.player.basePosition == 'G' %}
+                          <span class="badge badge-warning">GK</span>  вратарь
                         {% endif %}
-                    {% endif %}
-                {% endfor %}
+
+                        {% if item.player.basePosition == 'H' %}
+                          <span class="badge badge-warning">DF</span> защитник
+                        {% endif %}
+                        {% if item.player.basePosition == 'F' %}
+                          <span class="badge badge-warning">FRW</span> нападающий
+                        {% endif %}
+                      </td>
+                      <td> {{ item.beginDate }}</td>
+                    </tr>
+                  {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -127,6 +122,7 @@
     </div>
 
     <div class="tab-pane" id="messages"> Сообщалики</div>
+    <div class="tab-pane" id="bombom">Таблица бомбардиров</div>
     <div class="tab-pane" id="settings">
 
     <label class="radio-inline">
