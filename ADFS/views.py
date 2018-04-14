@@ -62,6 +62,11 @@ def reglament(request):
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
+def sw(request):
+    template = loader.get_template('sw.js')
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context), content_type='application/javascript')
+
 def register_attention(request):
     form = ContactForm()
     if request.method == 'POST':
