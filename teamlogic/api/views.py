@@ -32,6 +32,17 @@ def player_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Views for REST-API
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def playerLog(request):
+    serializer = serializers.RecOfTeamSerializer(data=request.data)
+    if (serializer.is_valid()):
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def cups_list(request):
