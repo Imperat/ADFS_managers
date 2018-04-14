@@ -71,6 +71,9 @@ class Player (models.Model):
 
     def __str__(self):
         return "%s %s" % (self.firstName, self.lastName)
+    
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def get_absolute_url(self):
         return reverse("player", args=(self.id,))
@@ -97,6 +100,9 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def __unicode__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse("team", args=(self.id,))
@@ -118,6 +124,9 @@ class RecOfTeam(models.Model):
     def __unicode__(self):
         return unicode("%s (%s)" % (self.player.__unicode__(),
                                     self.team.__unicode__()))
+    
+    def __str__(self):
+        return "%s (%s)" % (self.player, self.team)
 
     def get_end_date(self):
         if self.endDate.year > datetime.now().year:
