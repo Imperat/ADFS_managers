@@ -28,3 +28,9 @@ class TimeBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.TimeBoard
         fields = ('id', 'date', 'stadion', 'time1', 'time2', 'match')
+
+
+class RecOfTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.RecOfTeam
+        fields = ('id', 'beginDate', 'endDate', 'team', 'player', 'number')

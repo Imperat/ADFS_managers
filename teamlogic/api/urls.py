@@ -15,4 +15,5 @@ api_patterns = [
     url(r'^api/v1/match/(?P<id>[0-9]+)', views.set_date, name='api_set_date'),
     url(r'^api/v1/stadion/(?P<id>[0-9]+)/times', views.stadion_times, name='api_stadion_times'),
     url(r'^api/v1/stadion', views.stadions, name='api_stadion'),
+    url(r'^api/v1/player_log/', views.playerLog, name='player_log'),
 ]

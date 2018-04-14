@@ -61,6 +61,7 @@ class MatchPair(admin.ModelAdmin):
 class RecOfTeamAdmin(admin.ModelAdmin):
     form = select2_modelform(models.RecOfTeam, attrs={'width': '250px'})
     fields=('beginDate', 'endDate', 'team', 'player', 'number', 'isActive')
+    list_filter = ('team',)
 
 
 admin.site.register(models.Stadium)
