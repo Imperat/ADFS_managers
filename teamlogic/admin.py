@@ -54,10 +54,15 @@ class CupAdmin(admin.ModelAdmin):
 
 @admin.register(models.MatchPair)
 class MatchPair(admin.ModelAdmin):
-    form =  select2_modelform(models.MatchPair, attrs={'width': '250px'})
+    form = select2_modelform(models.MatchPair, attrs={'width': '250px'})
 
 
-admin.site.register(models.RecOfTeam)
+@admin.register(models.RecOfTeam)
+class RecOfTeamAdmin(admin.ModelAdmin):
+    form = select2_modelform(models.RecOfTeam, attrs={'width': '250px'})
+    fields=('beginDate', 'endDate', 'team', 'player', 'number', 'isActive')
+
+
 admin.site.register(models.Stadium)
 admin.site.register(models.Match)
 admin.site.register(models.Goal)
