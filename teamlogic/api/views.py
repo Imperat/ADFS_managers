@@ -38,6 +38,16 @@ def cups_list(request):
     pass
 
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def search_list(request):
+    query = request.GET['q']
+    regex = r'\s*%s\s*' % query
+    teams = models.Team.objects.filter(name__iregex=regex)
+    teams_data = serializers.TeamSerializer(teams, many=True).data
+    return Response(teams_data)
+
+
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def stadions(requst):

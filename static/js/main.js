@@ -55,6 +55,34 @@ $(document).ready(() => {
   renderLoginForm();
 });
 
+function fixSearchBar() {
+  const handler = (event) => {
+    if (!event.target.value.trim()) {
+        const container = document.querySelector('.search-results');
+      container.style.display = 'none';
+      return;
+    }
+
+    fetch('http://127.0.0.1:8080/logic/api/v1/search?q=' + event.target.value.trim()).then(async (response) => {
+      const result = await response.json();
+      const innerHTML = result.map((item) => {
+        const str = `<li><a href="/logic/team/${item.id}/">${item.name}</a></li>`;
+        return str;
+      });
+
+      const container = document.querySelector('.search-results');
+      container.innerHTML = innerHTML.join('');
+      container.style.display = 'block';
+      container.style.left = `${event.target.offsetLeft}px`;
+      container.style.top = `${event.target.offsetTop + event.target.offsetHeight}px`;
+      container.style.width = `${event.target.offsetWidth}px`;
+    });
+  };
+
+  document.querySelector('#searchBar').addEventListener('change', handler);
+  document.querySelector('#searchBar').addEventListener('input', handler);
+};
+
 function initApp() {
   function getCookie(name) {
       let cookieValue = null;
@@ -86,6 +114,9 @@ function initApp() {
           }
       }
   });
+
+  $(document).ready(fixSearchBar);
+  //fixSearchBar();
 }
 
 initApp();
