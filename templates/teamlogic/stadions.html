@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load teamlogic_tags %}
 {% block content %}
     <ul class="breadcrumb">
       <li><a href="{% url 'teamlogic_main' %}"> АДФС </a> <span class="divider"></span></li>
@@ -23,4 +24,5 @@
       </div>
     {% endfor %}
     </div>
+    {% pager %}
 {% endblock %}

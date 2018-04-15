@@ -82,7 +82,7 @@ class StadionDetailView(DetailView):
     context_object_name = 'stadion'
 
 
-class StadionListView(ListView):
+class StadionListView(PaginatedViewMixin, ListView):
     model = models.Stadium
     template_name = 'teamlogic/stadions.html'
 
