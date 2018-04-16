@@ -9,17 +9,17 @@
 <h1> {{ team.name }} </h1>
 
 {% thumbnail team.image "230x230" crop="center" as im %}
-   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-polaroid" float="left" id="avatar">
+   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-polaroid team-detail__image" float="left">
 {% endthumbnail %}
 
-<div id="info">
-    <strong> Год основания: </strong> {{ team.foundation }}
+<div id="info" class="team-detail__description">
+    <strong> Год основания: </strong>{{ team.foundation }}
     <br>
-    <strong> Страница команды в вк: </strong> <a href="vk.com/{{ team.vkLink }}"> {{ team.vkLink }} </a>
+    <strong> Страница в вк: </strong> <a href="vk.com/{{ team.vkLink }}">{{ team.vkLink }}</a>
     <br>
     <strong> Капитан:</strong> <a href="{{ team.captain.get_absolute_url }}">{{ team.captain }}</a>
     <br>
-    <strong> Домашнее поле: </strong> <a href="{{ team.home.get_absolute_url }}"> {{team.home}} </a>
+    <strong> Домашнее поле: </strong> <a href="{{ team.home.get_absolute_url }}">{{team.home}}</a>
     <br>
     <strong> Матчи: </strong> <a href="matches/"> все матчи </a>
 
@@ -85,7 +85,7 @@
 <div class="tab-content">
     <div class="tab-pane active" id="home">
         <div class="tab-pane" id="profile">
-            <table class="table table-striped">
+            <table class="table table-striped team-detail__players">
                 <caption><strong> Состав команды: </strong></caption>
                 <thead>
                 <tr>
@@ -132,15 +132,15 @@
 <input type="radio" name="inlineRadioOptions" id="radio2" value="option2"> Состав команды в сезоне:
 </label>
 
-        <table class="table table-striped">
+        <table class="table table-striped team-detail__players">
             <caption><strong> Состав команды: </strong></caption>
             <thead>
             <tr>
                 <th>Игрок</th>
                 <th>№</th>
                 <th>Амплуа</th>
-                <th>Дата подписания:</th>
-                <th>Дата отзаявки:</th>
+                <th>Подписание</th>
+                <th>Отзаявка</th>
             </tr>
             </thead>
             <tbody>
