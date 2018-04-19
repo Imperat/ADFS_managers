@@ -23,6 +23,22 @@ def get_next_team_match(team):
     return next_match
 
 
+def get_last_stadion_match(stadion):
+    last_match = models.Match.objects.order_by(
+        'date_time').filter(date_time__lt=datetime.now()).filter(
+            place_id=stadion.pk).first()
+
+    return last_match
+
+
+def get_next_stadion_match(stadion):
+    next_match = models.Match.objects.order_by(
+        'date_time').filter(date_time__gt=datetime.now()).filter(
+            place_id=stadion.pk).first()
+
+    return next_match
+
+
 def get_team_form(team, date):
     if date is None:
         return []
