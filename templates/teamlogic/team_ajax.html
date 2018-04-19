@@ -26,48 +26,50 @@
     <div class="scores">
         {% if last_match %}
           <div class="score-block">
-              <a href="http://www.sports.ru/stat/football/693/match/1028671.html">
-                  <div class="score score-green">
-                      <span> {{ last_match.home_goal }} </span>
-                      <span> {{ last_match.away_goal }} </span>
-                  </div>
-              </a>
-
-              <div class="score-descr">
-                  <div class="commands">
-                      <i class="flag-s flag-1340" title="{{ last_match.home }}" alt="{{ last_match.home }}"></i>&nbsp;<a
-                          href="{{ last_match.home.get_absolute_url }}">{{ last_match.home }}</a>
-                      &nbsp;–&nbsp;
-                      <i class="flag-s flag-1357" title="Перу" alt="{{ last_match.away }}"></i>&nbsp;<a
-                          href="{{ last_match.away.get_absolute_url }}">{{ last_match.away }}</a>
-                  </div>
-                  {{last_match.date_time}} <a href="{{ last_match.league.get_absolute_url }}"> {{ last_match.league }} </a> <span
-                      class="sp">|</span>
-                  Завершен
+            <a href="#">
+              <div class="score score-green">
+                <span> {{ last_match.home_goal }} </span>
+                <span> {{ last_match.away_goal }} </span>
               </div>
+            </a>
+
+            <div class="score-descr">
+              <div class="commands">
+                <i class="flag-s flag-1340" title="{{ last_match.home }}" alt="{{ last_match.home }}"></i>&nbsp;
+                <a href="{{ last_match.home.get_absolute_url }}">{{ last_match.home }}</a>
+                  &nbsp;–&nbsp;
+                <i class="flag-s flag-1357" title="Перу" alt="{{ last_match.away }}"></i>&nbsp;
+                <a href="{{ last_match.away.get_absolute_url }}">{{ last_match.away }}</a>
+              </div>
+              {{last_match.date_time}}
+              <a href="{{ last_match.league.get_absolute_url }}">{{ last_match.league }}</a>
+              <span class="sp">|</span>
+                Завершен
+            </div>
           </div>
         {% endif %}
         {% if next_match %}
           <div class="score-block">
-              <a href="http://www.sports.ru/copa-america/team-chile-team-argentina/04-07-2015/">
-                  <div class="score score-gray">
-                      <span>–</span>
-                      <span>–</span>
-                  </div>
-              </a>
-
-              <div class="score-descr">
-                  <div class="commands">
-                      <i class="flag-s flag-1340" title="{{ next_match.home }}" alt="{{ next_match.home }}"></i>&nbsp;<a
-                          href="{{ next_match.home.get_absolute_url }}">{{ next_match.home }}</a>
-                      &nbsp;–&nbsp;
-                      <i class="flag-s flag-1332" title="{{ next_match.away }}" alt="{{ next_match.away }}"></i>&nbsp;<a
-                          href="{{ next_match.away.get_absolute_url }}">{{ next_match.away }}</a>
-                  </div>
-                  {{ next_match.date_time }} <a href="{{ next_match.league.get_absolute_url }}">{{ next_match.league }}</a> <span
-                      class="sp">|</span>
-                  Не начался
+            <a href="#">
+              <div class="score score-gray">
+                <span>–</span>
+                <span>–</span>
               </div>
+            </a>
+
+            <div class="score-descr">
+              <div class="commands">
+                <i class="flag-s flag-1340" title="{{ next_match.home }}" alt="{{ next_match.home }}"></i>&nbsp;
+                <a href="{{ next_match.home.get_absolute_url }}">{{ next_match.home }}</a>
+                &nbsp;–&nbsp;
+                <i class="flag-s flag-1332" title="{{ next_match.away }}" alt="{{ next_match.away }}"></i>&nbsp;
+                <a href="{{ next_match.away.get_absolute_url }}">{{ next_match.away }}</a>
+              </div>
+              {{ next_match.date_time }}
+              <a href="{{ next_match.league.get_absolute_url }}">{{ next_match.league }}</a>
+              <span class="sp">|</span>
+              Не начался
+            </div>
           </div>
         {% endif %}
     </div>

@@ -81,6 +81,17 @@ class StadionDetailView(DetailView):
     template_name = 'teamlogic/stadion.html'
     context_object_name = 'stadion'
 
+    def get_context_data(self, **kwargs):
+        context = super(StadionDetailView, self).get_context_data(**kwargs)
+
+        context['last_match'] = teamlogic_utils.get_last_stadion_match(
+            context['stadion'])
+
+        context['next_match'] = teamlogic_utils.get_next_stadion_match(
+            context['stadion'])
+
+        return context
+
 
 class StadionListView(ListView):
     model = models.Stadium
