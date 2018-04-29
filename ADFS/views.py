@@ -32,6 +32,13 @@ def decode_base64(data):
         data += b'='* (4 - missing_padding)
     return base64.decodestring(data)
 
+
+def user_permissions(request):
+    template = loader.get_template('base_react.html')
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context))
+
+
 def survey(request):
     template = loader.get_template('base_react.html')
     context = RequestContext(request, {})

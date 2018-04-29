@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 AUTHENTICATION_BACKENDS = (
     'ADFS.auth_backends.CustomUserModelBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
 )
 
 CUSTOM_USER_MODEL = 'ADFS.ADFSUser'
@@ -61,6 +62,7 @@ INSTALLED_APPS += [
     'sorl.thumbnail',
     'easy_select2',
     'tinymce',
+    'guardian',
 ]
 
 # My own applications
@@ -74,8 +76,10 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
 }
 
 MIDDLEWARE_CLASSES = (

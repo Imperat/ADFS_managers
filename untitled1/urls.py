@@ -8,6 +8,7 @@ from rest_framework import routers, serializers, viewsets
 
 from carusele import urls as carusele_urls
 from teamlogic import urls as teamlogic_urls
+from ADFS.api import urls as common_api_urls
 from ADFS import views
 
 
@@ -28,6 +29,7 @@ urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include(admin_tools.urls)),
+    url(r'^permissions/', views.user_permissions),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'logic/', include(teamlogic_urls)),
     url(r'^login/github', views.autorisation_github),
@@ -39,6 +41,7 @@ urlpatterns = patterns(
     url(r'^attention/(?P<id>[0-9]+)/', views.view_attention,
         name='attention'),
     url(r'^', include(carusele_urls)),
+    url(r'^common/', include(common_api_urls.api_patterns)),
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
     url('^', include('django.contrib.auth.urls')),
 )

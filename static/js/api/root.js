@@ -36,6 +36,17 @@ const api = {
       callback();
     });
   },
+
+  getUsers(limit, offset, filters, callback) {
+    console.log('FILTERS:', filters);
+    $.get(`common/api/users/?limit=${limit}&offset=${offset}&email=${filters.email}`, (data, result) => {
+      if (result === 'success') {
+        callback(data);
+      } else {
+        console.log('ERROR: fetch users!');
+      }
+    });
+  },
 };
 
 export default api;

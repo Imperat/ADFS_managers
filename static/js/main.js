@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { renderSurvey } from './survey';
 import { renderStadionForm } from './components/pages/stadionReservation';
 import { renderProfileForm } from './components/pages/profile';
+import { renderPermissions } from './components/pages/permissions';
 import { renderLoginForm } from './login';
 import store from './store';
 import Alert from 'react-s-alert';
@@ -42,6 +43,7 @@ $(document).ready(() => {
   page('/logic/stadion/get', renderStadionForm);
   page('/survey', renderSurvey);
   page('/login', renderProfileForm);
+  page('/permissions', renderPermissions);
   page('/logic/team/:id', urlHandler);
   page('/logic/team', urlHandler);
   page('/logic', urlHandler);
