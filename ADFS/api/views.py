@@ -14,7 +14,7 @@ class UserList(mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = serializers.ADFSUserSerializer
 
     def get_queryset(self):
-        email = self.kwargs['email']
+        email = self.request.GET.get('email')
         if (email):
             return ADFSUser.objects.filter(email=email)
 

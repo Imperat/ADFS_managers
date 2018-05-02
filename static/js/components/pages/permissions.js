@@ -13,6 +13,7 @@ export const renderPermissions = () => {
         users: [],
         filter: '',
         page: 0,
+        loading: true,
         filters: {
           email: '',
         },
@@ -25,16 +26,18 @@ export const renderPermissions = () => {
       return this.state.users;
     }
 
-    changeFilterEmail(event) {
-      this.setState((prevState) => Object.assign({}, prevState, { filters: { email: event.target.value } }));
+    changeFilterEmail(email) {
+      const newStatePart = { filters: { email } };
+      this.setState(prevState => Object.assign({}, prevState, newStatePart));
       setTimeout(() => {
         this.fetchUsers();
       }, 1000);
     }
 
     fetchUsers() {
+      this.setState(prevState => Object.assign({}, prevState, { loading: true }));
       api.getUsers(15, this.state.page * 15, this.state.filters, (users) => {
-        this.setState((prevState) => Object.assign({}, prevState, { users: users.results }));
+        this.setState(prevState => Object.assign({}, prevState, { users: users.results || [], loading: false }));
       });
     }
 
@@ -47,10 +50,18 @@ export const renderPermissions = () => {
     }
 
     usersContent() {
-      if (this.isEmpty()) {
+      if (this.state.loading) {
         return (
           <div className="spinner">
             <Spin size="large" />
+          </div>
+        )
+      }
+
+      if (this.isEmpty()) {
+        return (
+          <div className="nothing">
+            Ничего не найдено
           </div>
         )
       }

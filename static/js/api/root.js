@@ -1,3 +1,7 @@
+import config from '../config';
+
+const backendUrl = config.apiConfigs.backend;
+
 const api = {
   getStadions(callback) {
     $.get('/logic/api/v1/stadion', (stadions, result) => {
@@ -38,14 +42,19 @@ const api = {
   },
 
   getUsers(limit, offset, filters, callback) {
-    console.log('FILTERS:', filters);
-    $.get(`common/api/users/?limit=${limit}&offset=${offset}&email=${filters.email}`, (data, result) => {
-      if (result === 'success') {
-        callback(data);
-      } else {
-        console.log('ERROR: fetch users!');
+    const endpoint = new URL(`${backendUrl}common/api/users/`);
+    const params = { limit, offset };
+    Object.keys(filters).forEach((key) => {
+      if (filters[key]) {
+        params[key] = filters[key];
       }
     });
+
+    endpoint.search = new URLSearchParams(params);
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(res => callback(res));
   },
 };
 
