@@ -4,6 +4,7 @@ import { Spin } from 'antd';
 
 
 import api from '../../api/root';
+import UserItem from './userItem';
 
 export const renderPermissions = () => {
   class App extends React.Component {
@@ -68,16 +69,7 @@ export const renderPermissions = () => {
 
       return this.state.users.map((user) => {
         return (
-          <div className="user-item">
-            <img src={user.avatar} height="64" width="64" />
-            <div className="user-description">
-              <div className="name">{user.get_username}</div>
-              <div className="email">{user.email}</div>
-              <div className="actions">
-                <a className="btn" onClick={() => this.editUser(user)} >Edit</a>
-              </div>
-            </div>
-          </div>
+          <UserItem user={user} />
         )
       });
     }
